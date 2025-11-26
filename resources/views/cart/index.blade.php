@@ -1,6 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+/* Disable card hover jump effect on cart page */
+.card:hover {
+    transform: none !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08) !important;
+}
+</style>
 <div class="container">
     <h2 class="mb-4">🛒 Your Cart</h2>
 

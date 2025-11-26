@@ -41,6 +41,33 @@ class Order extends Model
         return $this->hasMany(OrderItem::class);
     }
 
+    public function returns(): HasMany
+    {
+        return $this->hasMany(OrderReturn::class);
+    }
+
+    public function canBeReturned(): bool
+    {
+        // Can only return if order is delivered and within 7 days
+        if ($this->status !== 'delivered') {
+            return false;
+        }
+
+        if (!$this->delivered_at) {
+            return false;
+        }
+
+        $daysSinceDelivery = now()->diffInDays($this->delivered_at);
+        return $daysSinceDelivery <= 7;
+    }
+
+    public function hasActiveReturn(): bool
+    {
+        return $this->returns()
+            ->whereIn('status', ['requested', 'approved', 'picked_up', 'received'])
+            ->exists();
+    }
+
     public function getStatusColorAttribute()
     {
         return match($this->status) {

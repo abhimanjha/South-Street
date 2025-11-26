@@ -14,39 +14,53 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $totalOrders = Order::count();
-        $totalRevenue = Order::where('payment_status', 'completed')->sum('total');
-        $totalProducts = Product::count();
-        $totalCustomers = User::where('role', 'customer')->count();
+        try {
+            $totalOrders = Order::count();
+            $totalRevenue = Order::where('payment_status', 'paid')->sum('total_amount');
+            $totalProducts = Product::count();
+            $totalCustomers = User::count();
 
-        $recentOrders = Order::with(['user', 'items'])
-            ->latest()
-            ->limit(10)
-            ->get();
+            $recentOrders = Order::with(['user'])
+                ->latest()
+                ->limit(10)
+                ->get();
 
-        $pendingDesigns = CustomDesign::where(function($query) {
-            $query->where('status', 'submitted')
-                  ->orWhere('status', 'under_review');
-        })->count();
+            $pendingDesigns = CustomDesign::where(function($query) {
+                $query->where('status', 'submitted')
+                      ->orWhere('status', 'under_review');
+            })->count();
 
-        $pendingTailoringRequests = CustomTailoringRequest::where('status', 'pending')->count();
+            $pendingTailoringRequests = CustomTailoringRequest::where('status', 'pending')->count();
 
-        // Monthly revenue chart data
-        $monthlyRevenue = Order::where('payment_status', 'completed')
-            ->where('created_at', '>=', Carbon::now()->subMonths(6))
-            ->selectRaw('MONTH(created_at) as month, SUM(total) as revenue')
-            ->groupBy('month')
-            ->pluck('revenue', 'month');
+            // Monthly revenue chart data
+            $monthlyRevenue = Order::where('payment_status', 'paid')
+                ->where('created_at', '>=', Carbon::now()->subMonths(6))
+                ->selectRaw('MONTH(created_at) as month, SUM(total_amount) as revenue')
+                ->groupBy('month')
+                ->pluck('revenue', 'month');
 
-        return view('admin.dashboard', compact(
-            'totalOrders',
-            'totalRevenue',
-            'totalProducts',
-            'totalCustomers',
-            'recentOrders',
-            'pendingDesigns',
-            'pendingTailoringRequests',
-            'monthlyRevenue'
-        ));
+            return view('admin.dashboard', compact(
+                'totalOrders',
+                'totalRevenue',
+                'totalProducts',
+                'totalCustomers',
+                'recentOrders',
+                'pendingDesigns',
+                'pendingTailoringRequests',
+                'monthlyRevenue'
+            ));
+        } catch (\Exception $e) {
+            \Log::error('Admin Dashboard Error: ' . $e->getMessage());
+            return view('admin.dashboard', [
+                'totalOrders' => 0,
+                'totalRevenue' => 0,
+                'totalProducts' => 0,
+                'totalCustomers' => 0,
+                'recentOrders' => collect(),
+                'pendingDesigns' => 0,
+                'pendingTailoringRequests' => 0,
+                'monthlyRevenue' => collect(),
+            ]);
+        }
     }
 }

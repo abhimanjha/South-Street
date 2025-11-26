@@ -101,6 +101,14 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{blogPost}', [BlogController::class, 'show'])->name('blog.show');
 
+// Returns & Refunds
+Route::middleware(['auth'])->group(function () {
+    Route::get('/returns', [App\Http\Controllers\ReturnController::class, 'index'])->name('returns.index');
+    Route::get('/orders/{order}/return', [App\Http\Controllers\ReturnController::class, 'create'])->name('returns.create');
+    Route::post('/orders/{order}/return', [App\Http\Controllers\ReturnController::class, 'store'])->name('returns.store');
+    Route::get('/returns/{return}', [App\Http\Controllers\ReturnController::class, 'show'])->name('returns.show');
+});
+
 // User Account
 Route::middleware(['auth'])->prefix('account')->name('account.')->group(function () {
     Route::get('/dashboard', [AccountController::class, 'dashboard'])->name('dashboard');
@@ -198,6 +206,10 @@ Route::middleware(['admin'])->prefix('admin')->name('admin.')->group(function ()
     Route::get('/notifications/create-discount', [App\Http\Controllers\Admin\NotificationController::class, 'createDiscount'])->name('notifications.create-discount');
     Route::post('/notifications/send-discount', [App\Http\Controllers\Admin\NotificationController::class, 'sendDiscount'])->name('notifications.send-discount');
 
+    // Returns & Refunds Management
+    Route::get('/returns', [Admin\ReturnController::class, 'index'])->name('returns.index');
+    Route::get('/returns/{return}', [Admin\ReturnController::class, 'show'])->name('returns.show');
+    Route::put('/returns/{return}/status', [Admin\ReturnController::class, 'updateStatus'])->name('returns.update-status');
 });
 // Admin Login Routes (before admin routes - no auth required)
 Route::middleware('guest')->group(function () {

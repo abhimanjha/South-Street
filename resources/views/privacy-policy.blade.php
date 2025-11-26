@@ -3,6 +3,13 @@
 @section('title', 'Privacy Policy - SouthStreet')
 
 @section('content')
+<style>
+/* Disable card hover jump effect on privacy policy page */
+.card:hover {
+    transform: none !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08) !important;
+}
+</style>
 <div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-lg-8">

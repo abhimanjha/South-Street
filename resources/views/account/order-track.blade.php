@@ -1,6 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+/* Disable card hover jump effect on order tracking page */
+.card:hover {
+    transform: none !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08) !important;
+}
+</style>
 <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>Track Order #{{ $order->id }}</h2>

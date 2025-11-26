@@ -3,324 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Login | Secure Access</title>
+    <title>Login | SouthStreet</title>
 
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <style>
-        :root {
-            --primary-glow: #00ddeb;
-            --secondary-glow: #ff00aa;
-            --bg-gradient: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            --glass: rgba(255, 255, 255, 0.1);
-            --border-glass: rgba(255, 255, 255, 0.2);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Roboto', sans-serif;
-            background: var(--bg-gradient);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            position: relative;
-            color: white;
-        }
-
-        /* Animated Background Particles */
-        .particles {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 0;
-        }
-
-        .particle {
-            position: absolute;
-            background: var(--primary-glow);
-            border-radius: 50%;
-            opacity: 0.6;
-            animation: float 15s infinite linear;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.6; }
-            90% { opacity: 0.6; }
-            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
-        }
-
-        /* Login Card */
-        .login-card {
-            background: var(--glass);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--border-glass);
-            border-radius: 20px;
-            padding: 40px 30px;
-            width: 100%;
-            max-width: 420px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
-            position: relative;
-            z-index: 1;
-            transition: all 0.3s ease;
-        }
-
-        .login-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 221, 235, 0.2);
-        }
-
-        .logo {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 20px;
-            background: conic-gradient(from 0deg, #00ddeb, #ff00aa, #00ddeb);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 32px;
-            color: white;
-            animation: pulse 2s infinite;
-            box-shadow: 0 0 20px rgba(0, 221, 235, 0.6);
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        h2 {
-            font-family: 'Orbitron', sans-serif;
-            text-align: center;
-            margin-bottom: 10px;
-            background: linear-gradient(90deg, #00ddeb, #ff00aa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 700;
-        }
-
-        p.subtitle {
-            text-align: center;
-            font-size: 0.9rem;
-            opacity: 0.8;
-            margin-bottom: 30px;
-        }
-
-        .form-control {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            border-radius: 12px;
-            padding: 12px 16px;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 0 rgba(0, 221, 235, 0);
-        }
-
-        .form-control:focus {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: var(--primary-glow);
-            box-shadow: 0 0 15px rgba(0, 221, 235, 0.5);
-            color: white;
-            outline: none;
-        }
-
-        .form-control::placeholder {
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .input-group-text {
-            background: transparent;
-            border: none;
-            color: var(--primary-glow);
-        }
-
-        .btn-login {
-            background: linear-gradient(45deg, #00ddeb, #ff00aa);
-            border: none;
-            border-radius: 12px;
-            padding: 12px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-login:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(255, 0, 170, 0.4);
-        }
-
-        .btn-login::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: 0.5s;
-        }
-
-        .btn-login:hover::before {
-            left: 100%;
-        }
-
-        .form-check-label {
-            font-size: 0.85rem;
-            cursor: pointer;
-        }
-
-        .extra-links {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.85rem;
-            margin-top: 20px;
-        }
-
-        .extra-links a {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .extra-links a:hover {
-            color: var(--primary-glow);
-        }
-
-        /* 3D Tilt Effect */
-        .tilt-container {
-            perspective: 1000px;
-        }
-
-        .tilt-card {
-            transition: transform 0.1s;
-        }
-    </style>
+    <!-- Custom CSS -->
+    <link href="{{ asset('css/auth.css') }}" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Floating Particles -->
-    <div class="particles" id="particles"></div>
+    <div class="auth-wrapper login-active">
+        <!-- LEFT PANEL -->
+        <div class="auth-left login-content">
+            <img src="{{ asset('imgs/logo.png') }}" alt="SouthStreet Logo" class="auth-logo">
+            <h1 class="auth-title">Welcome Back</h1>
+            <p class="auth-text">Sign in to your account to continue shopping and managing your orders.</p>
+        </div>
+        <div class="auth-left register-content" style="display: none;">
+            <img src="{{ asset('imgs/logo.png') }}" alt="SouthStreet Logo" class="auth-logo">
+            <h1 class="auth-title">Join SouthStreet</h1>
+            <p class="auth-text">Create your account to start shopping and enjoy personalized experiences.</p>
+        </div>
 
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-12 col-md-8 col-lg-6">
-                <div class="tilt-container">
-                    <div class="login-card tilt-card" id="tiltCard">
-                        <div class="logo">∞</div>
-                        <h2>Portal Access</h2>
-                        <p class="subtitle">Enter the digital realm</p>
+        <!-- RIGHT PANEL -->
+        <div class="auth-right">
+            <!-- LOGIN FORM -->
+            <div class="form-panel login-panel">
+                <h2 class="text-center mb-4">Sign In</h2>
 
-                        <form method="POST" action="{{ route('login') }}">
-                            @csrf
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
 
-                            @if(session('success'))
-                                <div class="alert alert-success">{{ session('success') }}</div>
-                            @endif
+                    @if(session('success'))
+                        <div class="alert alert-success">{{ session('success') }}</div>
+                    @endif
 
-                            <div class="mb-3">
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="bi bi-person-circle"></i></span>
-                                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                                           placeholder="Email Address" value="{{ old('email') }}" required autofocus>
-                                </div>
-                                @error('email')
-                                    <div class="text-danger small mt-1">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="mb-3">
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="bi bi-shield-lock"></i></span>
-                                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
-                                           placeholder="Password" required>
-                                </div>
-                                @error('password')
-                                    <div class="text-danger small mt-1">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember">
-                                    <label class="form-check-label" for="remember">Remember</label>
-                                </div>
-                                <a href="{{ route('password.request') }}" class="text-decoration-none">Forgot?</a>
-                            </div>
-
-                            <button type="submit" class="btn btn-login w-100 text-white">
-                                Enter Portal
-                            </button>
-
-                            <div class="extra-links">
-                                <a href="{{ route('register') }}">Create Account</a>
-                                <a href="#">Help?</a>
-                            </div>
-                        </form>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
+                               value="{{ old('email') }}" required autofocus>
+                        @error('email')
+                            <div class="text-danger small mt-1">{{ $message }}</div>
+                        @enderror
                     </div>
-                </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
+                               required>
+                        @error('password')
+                            <div class="text-danger small mt-1">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="remember" id="remember">
+                            <label class="form-check-label" for="remember">Remember me</label>
+                        </div>
+                        <a href="{{ route('password.request') }}" class="text-decoration-none">Forgot password?</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 mb-3">
+                        Sign In
+                    </button>
+
+                    <p class="switch-text text-center mb-0">
+                        Don't have an account? <a href="#" onclick="switchToRegister(event)">Sign up</a>
+                    </p>
+                </form>
+            </div>
+
+            <!-- REGISTER FORM -->
+            <div class="form-panel register-panel">
+                <h2 class="text-center mb-4">Sign Up</h2>
+
+                <form method="POST" action="{{ route('register') }}">
+                    @csrf
+
+                    @if(session('success'))
+                        <div class="alert alert-success">{{ session('success') }}</div>
+                    @endif
+
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Full Name</label>
+                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
+                               value="{{ old('name') }}" required autofocus>
+                        @error('name')
+                            <div class="text-danger small mt-1">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
+                               value="{{ old('email') }}" required>
+                        @error('email')
+                            <div class="text-danger small mt-1">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
+                               required>
+                        @error('password')
+                            <div class="text-danger small mt-1">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password_confirmation" class="form-label">Confirm Password</label>
+                        <input type="password" name="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror"
+                               required>
+                        @error('password_confirmation')
+                            <div class="text-danger small mt-1">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 mb-3">
+                        Sign Up
+                    </button>
+
+                    <p class="switch-text text-center mb-0">
+                        Already have an account? <a href="#" onclick="switchToLogin(event)">Sign in</a>
+                    </p>
+                </form>
             </div>
         </div>
     </div>
 
-    <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // Floating Particles
-        const particlesContainer = document.getElementById('particles');
-        const particleCount = 50;
+        function switchToRegister(event) {
+            event.preventDefault();
+            const wrapper = document.querySelector('.auth-wrapper');
+            const loginContent = document.querySelector('.login-content');
+            const registerContent = document.querySelector('.register-content');
+            const loginPanel = document.querySelector('.login-panel');
+            const registerPanel = document.querySelector('.register-panel');
 
-        for (let i = 0; i < particleCount; i++) {
-            const particle = document.createElement('div');
-            particle.classList.add('particle');
-            const size = Math.random() * 6 + 2;
-            particle.style.width = `${size}px`;
-            particle.style.height = `${size}px`;
-            particle.style.left = `${Math.random() * 100}%`;
-            particle.style.animationDelay = `${Math.random() * 15}s`;
-            particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
-            particlesContainer.appendChild(particle);
+            // Fade out login form to the right
+            loginPanel.style.left = '120%';
+            loginPanel.style.opacity = '0';
+            setTimeout(() => {
+                loginPanel.style.display = 'none';
+            }, 300);
+
+            // Fade in register form from the right
+            setTimeout(() => {
+                registerPanel.style.display = 'block';
+                registerPanel.style.left = '50%';
+                registerPanel.style.opacity = '1';
+            }, 300);
+
+            // Change left panel content instantly (no fade)
+            loginContent.style.display = 'none';
+            registerContent.style.display = 'block';
+
+            // Update wrapper class
+            wrapper.classList.remove('login-active');
+            wrapper.classList.add('register-active');
         }
 
-        // 3D Tilt Effect
-        const tiltCard = document.getElementById('tiltCard');
-        const tiltContainer = document.querySelector('.tilt-container');
+        function switchToLogin(event) {
+            event.preventDefault();
+            const wrapper = document.querySelector('.auth-wrapper');
+            const loginContent = document.querySelector('.login-content');
+            const registerContent = document.querySelector('.register-content');
+            const loginPanel = document.querySelector('.login-panel');
+            const registerPanel = document.querySelector('.register-panel');
 
-        tiltContainer.addEventListener('mousemove', (e) => {
-            const rect = tiltContainer.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
+            // Fade out register form to the right
+            registerPanel.style.left = '120%';
+            registerPanel.style.opacity = '0';
+            setTimeout(() => {
+                registerPanel.style.display = 'none';
+            }, 300);
 
-            const rotateY = (x - centerX) / centerX * 15;
-            const rotateX = (centerY - y) / centerY * 15;
+            // Fade in login form from the right
+            setTimeout(() => {
+                loginPanel.style.display = 'block';
+                loginPanel.style.left = '50%';
+                loginPanel.style.opacity = '1';
+            }, 300);
 
-            tiltCard.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(20px)`;
-        });
+            // Change left panel content instantly (no fade)
+            registerContent.style.display = 'none';
+            loginContent.style.display = 'block';
 
-        tiltContainer.addEventListener('mouseleave', () => {
-            tiltCard.style.transform = 'rotateX(0) rotateY(0) translateZ(0)';
-        });
+            // Update wrapper class
+            wrapper.classList.remove('register-active');
+            wrapper.classList.add('login-active');
+        }
     </script>
 </body>
 </html>

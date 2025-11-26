@@ -164,11 +164,22 @@
                                 <tbody>
                                     @foreach($recentOrders as $order)
                                         <tr>
-                                            <td><strong>{{ $order->order_number }}</strong></td>
-                                            <td>{{ $order->user->name }}</td>
-                                            <td>₹{{ number_format($order->total, 2) }}</td>
+                                            <td><strong>#{{ $order->id }}</strong></td>
+                                            <td>{{ $order->user->name ?? 'Guest' }}</td>
+                                            <td>₹{{ number_format($order->total_amount, 2) }}</td>
                                             <td>
-                                                <span class="badge bg-{{ $order->status_color }}">
+                                                @php
+                                                    $statusColors = [
+                                                        'pending' => 'warning',
+                                                        'confirmed' => 'info',
+                                                        'processing' => 'primary',
+                                                        'shipped' => 'primary',
+                                                        'delivered' => 'success',
+                                                        'cancelled' => 'danger',
+                                                    ];
+                                                    $color = $statusColors[$order->status] ?? 'secondary';
+                                                @endphp
+                                                <span class="badge bg-{{ $color }}">
                                                     {{ ucfirst(str_replace('_', ' ', $order->status)) }}
                                                 </span>
                                             </td>

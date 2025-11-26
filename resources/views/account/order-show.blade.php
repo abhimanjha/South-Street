@@ -1,13 +1,42 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+/* Disable card hover jump effect on order details page */
+.card:hover {
+    transform: none !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08) !important;
+}
+</style>
 <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>Order #{{ $order->id }}</h2>
-        <a href="{{ route('account.orders') }}" class="btn btn-outline-secondary">
-            <i class="fas fa-arrow-left me-2"></i>Back to Orders
-        </a>
+        <div>
+            @if($order->canBeReturned() && !$order->hasActiveReturn())
+                <a href="{{ route('returns.create', $order) }}" class="btn btn-warning me-2">
+                    <i class="fas fa-undo me-2"></i>Return Order
+                </a>
+            @endif
+            <a href="{{ route('account.orders') }}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Back to Orders
+            </a>
+        </div>
     </div>
+
+    @if($order->canBeReturned())
+        <div class="alert alert-info">
+            <i class="fas fa-info-circle me-2"></i>
+            This order can be returned within {{ 7 - now()->diffInDays($order->delivered_at) }} days.
+        </div>
+    @endif
+
+    @if($order->hasActiveReturn())
+        <div class="alert alert-warning">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            A return request is already in progress for this order.
+            <a href="{{ route('returns.show', $order->returns()->latest()->first()) }}" class="alert-link">View Return Status</a>
+        </div>
+    @endif
 
     <div class="row">
         <div class="col-md-8">
@@ -115,7 +144,7 @@
                     <hr>
                     <div class="d-flex justify-content-between fw-bold">
                         <span>Total:</span>
-                        <span>₹{{ number_format($order->total_amount, 2) }}</span>
+                        <span>₹{{ number_format($order->total, 2) }}</span>
                     </div>
                 </div>
             </div>

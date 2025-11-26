@@ -457,6 +457,16 @@
                 <span>Orders</span>
                 <span class="badge bg-warning menu-badge">{{ $pendingOrders ?? 0 }}</span>
             </a>
+            <a href="{{ route('admin.returns.index') }}" class="menu-item">
+                <i class="bi bi-arrow-return-left"></i>
+                <span>Returns & Refunds</span>
+                @php
+                    $pendingReturns = \App\Models\OrderReturn::where('status', 'requested')->count();
+                @endphp
+                @if($pendingReturns > 0)
+                    <span class="badge bg-danger menu-badge">{{ $pendingReturns }}</span>
+                @endif
+            </a>
             <a href="{{ route('admin.customers.index') }}" class="menu-item">
                 <i class="bi bi-people"></i>
                 <span>Customers</span>

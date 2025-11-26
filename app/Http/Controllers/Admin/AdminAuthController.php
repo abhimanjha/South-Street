@@ -27,16 +27,39 @@ class AdminAuthController extends Controller
 
         $credentials = $request->only('email', 'password');
 
+        // Check if admin exists
+        $admin = \App\Models\Admin::where('email', $credentials['email'])->first();
+        
+        if (!$admin) {
+            \Log::info('Admin login failed: Email not found - ' . $credentials['email']);
+            return back()->withErrors([
+                'email' => 'No admin account found with this email address.',
+            ])->withInput($request->only('email'));
+        }
+
+        // Check password manually
+        if (!\Hash::check($credentials['password'], $admin->password)) {
+            \Log::info('Admin login failed: Wrong password for - ' . $credentials['email']);
+            return back()->withErrors([
+                'email' => 'The password is incorrect.',
+            ])->withInput($request->only('email'));
+        }
+
+        // Try authentication
+        \Log::info('Attempting admin login for: ' . $credentials['email']);
+        
         if (Auth::guard('admin')->attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
+            \Log::info('Admin login successful: ' . $credentials['email']);
             
             // Redirect to intended URL or admin dashboard
             $intended = session()->pull('url.intended', route('admin.dashboard'));
             return redirect($intended)->with('success', 'Welcome to Admin Panel!');
         }
 
+        \Log::error('Admin login failed: Auth attempt failed for - ' . $credentials['email']);
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'email' => 'Authentication failed. Please contact support.',
         ])->withInput($request->only('email'));
     }
 
