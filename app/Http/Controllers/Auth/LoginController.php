@@ -27,6 +27,16 @@ class LoginController extends Controller
 
         if (Auth::attempt($request->only('email', 'password'), $request->boolean('remember'))) {
             $request->session()->regenerate();
+            
+            $user = auth()->user();
+            
+            // Update last login time
+            $user->update(['last_login_at' => now()]);
+            
+            // Send login notifications
+            $notificationService = new \App\Services\NotificationService();
+            $notificationService->sendLoginNotifications($user);
+            
             return redirect()->intended('/');
         }
 

@@ -109,6 +109,36 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/returns/{return}', [App\Http\Controllers\ReturnController::class, 'show'])->name('returns.show');
 });
 
+// Notification API Routes
+Route::middleware(['auth'])->prefix('api')->group(function () {
+    Route::get('/notifications/unread', function() {
+        // Get unread notifications from last 24 hours
+        $notifications = auth()->user()->unreadNotifications()
+            ->where('created_at', '>=', now()->subHours(24))
+            ->get()
+            ->map(function($notification) {
+                return [
+                    'id' => $notification->id,
+                    'type' => $notification->data['type'] ?? 'info',
+                    'title' => $notification->data['title'] ?? 'Notification',
+                    'message' => $notification->data['message'] ?? '',
+                    'discount_code' => $notification->data['discount_code'] ?? null,
+                    'discount_percentage' => $notification->data['discount_percentage'] ?? null,
+                ];
+            });
+        
+        return response()->json(['notifications' => $notifications]);
+    });
+    
+    Route::post('/notifications/{id}/read', function($id) {
+        $notification = auth()->user()->notifications()->find($id);
+        if ($notification) {
+            $notification->markAsRead();
+        }
+        return response()->json(['success' => true]);
+    });
+});
+
 // User Account
 Route::middleware(['auth'])->prefix('account')->name('account.')->group(function () {
     Route::get('/dashboard', [AccountController::class, 'dashboard'])->name('dashboard');
