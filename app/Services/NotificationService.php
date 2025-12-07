@@ -26,20 +26,25 @@ class NotificationService
      */
     public function sendActiveOffersNotification(User $user)
     {
-        // Check if there are any active coupons
-        $activeCoupon = \App\Models\Coupon::where('is_active', true)
-            ->where('valid_from', '<=', now())
-            ->where('valid_until', '>=', now())
-            ->first();
+        try {
+            // Check if there are any active coupons
+            $activeCoupon = \App\Models\Coupon::where('is_active', true)
+                ->where('valid_from', '<=', now())
+                ->where('valid_until', '>=', now())
+                ->first();
 
-        if ($activeCoupon) {
-            $user->notify(new SystemNotification([
-                'type' => 'discount',
-                'title' => '🎉 Special Offer Available!',
-                'message' => "Get {$activeCoupon->discount_percentage}% OFF on your next purchase!",
-                'discount_code' => $activeCoupon->code,
-                'discount_percentage' => $activeCoupon->discount_percentage,
-            ]));
+            if ($activeCoupon && $activeCoupon->discount_percentage) {
+                $user->notify(new SystemNotification([
+                    'type' => 'discount',
+                    'title' => '🎉 Special Offer Available!',
+                    'message' => "Get {$activeCoupon->discount_percentage}% OFF on your next purchase!",
+                    'discount_code' => $activeCoupon->code,
+                    'discount_percentage' => $activeCoupon->discount_percentage,
+                ]));
+            }
+        } catch (\Exception $e) {
+            // Silently fail if there's an issue with coupons
+            \Log::error('Failed to send active offers notification: ' . $e->getMessage());
         }
     }
 
@@ -105,17 +110,39 @@ class NotificationService
      */
     public function sendLoginNotifications(User $user)
     {
-        // Send welcome notification immediately
-        $this->sendWelcomeNotification($user);
+        try {
+            // Send welcome notification immediately
+            $this->sendWelcomeNotification($user);
+        } catch (\Exception $e) {
+            \Log::error('Failed to send welcome notification: ' . $e->getMessage());
+        }
 
-        // Send other notifications with slight delays
-        $this->sendActiveOffersNotification($user);
-        $this->sendNewArrivalsNotification($user);
-        $this->sendLowStockNotification($user);
+        try {
+            // Send other notifications with slight delays
+            $this->sendActiveOffersNotification($user);
+        } catch (\Exception $e) {
+            \Log::error('Failed to send active offers notification: ' . $e->getMessage());
+        }
+
+        try {
+            $this->sendNewArrivalsNotification($user);
+        } catch (\Exception $e) {
+            \Log::error('Failed to send new arrivals notification: ' . $e->getMessage());
+        }
+
+        try {
+            $this->sendLowStockNotification($user);
+        } catch (\Exception $e) {
+            \Log::error('Failed to send low stock notification: ' . $e->getMessage());
+        }
         
-        // Only send cart reminder if user hasn't logged in for more than 1 day
-        if ($user->last_login_at && $user->last_login_at->lt(now()->subDay())) {
-            $this->sendCartReminderNotification($user);
+        try {
+            // Only send cart reminder if user hasn't logged in for more than 1 day
+            if ($user->last_login_at && $user->last_login_at->lt(now()->subDay())) {
+                $this->sendCartReminderNotification($user);
+            }
+        } catch (\Exception $e) {
+            \Log::error('Failed to send cart reminder notification: ' . $e->getMessage());
         }
     }
 

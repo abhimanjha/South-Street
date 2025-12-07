@@ -33,9 +33,14 @@ class LoginController extends Controller
             // Update last login time
             $user->update(['last_login_at' => now()]);
             
-            // Send login notifications
-            $notificationService = new \App\Services\NotificationService();
-            $notificationService->sendLoginNotifications($user);
+            // Send login notifications (wrapped in try-catch to prevent login failures)
+            try {
+                $notificationService = new \App\Services\NotificationService();
+                $notificationService->sendLoginNotifications($user);
+            } catch (\Exception $e) {
+                // Log the error but don't prevent login
+                \Log::error('Failed to send login notifications: ' . $e->getMessage());
+            }
             
             return redirect()->intended('/');
         }

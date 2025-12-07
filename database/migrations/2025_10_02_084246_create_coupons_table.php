@@ -13,6 +13,18 @@ return new class extends Migration
     {
         Schema::create('coupons', function (Blueprint $table) {
             $table->id();
+            $table->string('code')->unique();
+            $table->string('discount_type')->default('percentage'); // percentage or fixed
+            $table->decimal('discount_value', 10, 2)->default(0);
+            $table->decimal('discount_percentage', 5, 2)->nullable();
+            $table->decimal('min_purchase_amount', 10, 2)->nullable();
+            $table->decimal('max_discount_amount', 10, 2)->nullable();
+            $table->integer('usage_limit')->nullable();
+            $table->integer('used_count')->default(0);
+            $table->timestamp('valid_from')->nullable();
+            $table->timestamp('valid_until')->nullable();
+            $table->boolean('is_active')->default(true);
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
