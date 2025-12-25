@@ -145,6 +145,7 @@ Route::middleware(['auth'])->prefix('account')->name('account.')->group(function
     Route::get('/orders', [AccountController::class, 'orders'])->name('orders');
     Route::get('/orders/{order}', [AccountController::class, 'orderShow'])->name('orders.show');
     Route::get('/orders/{order}/track', [AccountController::class, 'orderTrack'])->name('orders.track');
+    Route::get('/order-track', [AccountController::class, 'orderTrackSearch'])->name('order-track');
     Route::post('/orders/{order}/cancel', [AccountController::class, 'orderCancel'])->name('orders.cancel');
 
     Route::get('/profile', [AccountController::class, 'profile'])->name('profile');

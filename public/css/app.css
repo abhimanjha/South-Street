@@ -289,6 +289,26 @@ section.bg-primary img:hover {
     }
 }
 
+/* Order Success Page - Disable all hover effects */
+.order-success-page .card:hover {
+    transform: none !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+.order-success-page .card:hover .card-img-top,
+.order-success-page .card:hover .bg-light {
+    transform: none !important;
+}
+
+.order-success-page .card:hover::before {
+    opacity: 0 !important;
+}
+
+.order-success-page .card:hover .fw-bold {
+    color: inherit !important;
+    transform: none !important;
+}
+
 .card:hover {
     transform: translateY(-15px) rotateX(5deg) rotateY(5deg);
     box-shadow: var(--shadow-lg);

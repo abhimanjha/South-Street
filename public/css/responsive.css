@@ -1,0 +1,57 @@
+/* Responsive CSS for Bootstrap-based application */
+
+/* Mobile First Responsive Design */
+@media (max-width: 576px) {
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    .hero-title {
+        font-size: 2rem !important;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem !important;
+    }
+    
+    .section-title {
+        font-size: 1.8rem !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+    
+    .btn {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .container {
+        max-width: 100%;
+    }
+}
+
+/* Ensure Bootstrap components work properly */
+.navbar-toggler {
+    border: none;
+    padding: 0.25rem 0.5rem;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+/* Custom responsive utilities */
+.text-responsive {
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+.title-responsive {
+    font-size: clamp(1.5rem, 4vw, 3rem);
+}

@@ -43,6 +43,20 @@ class AccountController extends Controller
         return view('account.order-track', compact('order'));
     }
 
+    public function orderTrackSearch(Request $request)
+    {
+        $order = null;
+        
+        if ($request->has('order_id') && $request->order_id) {
+            $order = Order::where('id', $request->order_id)
+                         ->where('user_id', Auth::id())
+                         ->with(['items.product.primaryImage', 'address'])
+                         ->first();
+        }
+        
+        return view('account.order-track', compact('order'));
+    }
+
     public function orderCancel(Order $order)
     {
         if ($order->user_id !== Auth::id()) {

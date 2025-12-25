@@ -1,0 +1,387 @@
+/* Order Track Page Styles - High Specificity */
+html body.order-track-page,
+html body .order-track-page {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+    min-height: 100vh !important;
+}
+
+html body .order-track-page {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+    min-height: 100vh !important;
+    padding: 2rem 0 !important;
+}
+
+html body .order-track-page .track-container {
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+}
+
+/* Disable all card hover effects on track page */
+html body .order-track-page .card:hover,
+html body .order-track-page .modern-card:hover {
+    transform: none !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+html body .order-track-page .card:hover .card-img-top,
+html body .order-track-page .card:hover .bg-light {
+    transform: none !important;
+}
+
+html body .order-track-page .card:hover::before {
+    opacity: 0 !important;
+}
+
+/* Track Header */
+html body .order-track-page .track-header {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%) !important;
+    border-radius: 20px !important;
+    padding: 2rem !important;
+    color: white !important;
+    margin-bottom: 2rem !important;
+    box-shadow: 0 10px 30px rgba(0, 123, 255, 0.3) !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    gap: 1rem !important;
+}
+
+html body .order-track-page .track-title {
+    font-size: 2rem !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+    color: white !important;
+}
+
+html body .order-track-page .track-subtitle {
+    font-size: 1rem !important;
+    opacity: 0.9 !important;
+    margin: 0 !important;
+    color: white !important;
+}
+
+html body .order-track-page .back-button {
+    background: rgba(255, 255, 255, 0.2) !important;
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    color: white !important;
+    padding: 0.5rem 1.5rem !important;
+    border-radius: 25px !important;
+    text-decoration: none !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+}
+
+html body .order-track-page .back-button:hover {
+    background: rgba(255, 255, 255, 0.3) !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+    color: white !important;
+    transform: translateY(-2px) !important;
+    text-decoration: none !important;
+}
+
+/* Modern Cards */
+html body .order-track-page .modern-card {
+    background: white !important;
+    border-radius: 16px !important;
+    border: none !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+    margin-bottom: 1.5rem !important;
+    overflow: hidden !important;
+    transition: none !important;
+}
+
+html body .order-track-page .modern-card-header {
+    background: linear-gradient(135deg, #495057 0%, #6c757d 100%) !important;
+    color: white !important;
+    padding: 1.25rem 1.5rem !important;
+    border: none !important;
+    font-weight: 600 !important;
+    font-size: 1.1rem !important;
+}
+
+html body .order-track-page .modern-card-body {
+    padding: 1.5rem !important;
+}
+
+/* Progress Bar */
+.order-track-page .progress-container {
+    margin-bottom: 2rem;
+}
+
+.order-track-page .modern-progress {
+    height: 12px !important;
+    border-radius: 25px !important;
+    background: #e9ecef !important;
+    overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.order-track-page .modern-progress-bar {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%) !important;
+    height: 100% !important;
+    border-radius: 25px !important;
+    transition: width 0.8s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.order-track-page .modern-progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.order-track-page .progress-text {
+    margin-top: 0.5rem;
+    font-weight: 600 !important;
+    color: #495057 !important;
+}
+
+/* Timeline */
+.order-track-page .timeline-container {
+    position: relative;
+    padding: 2rem 0;
+}
+
+.order-track-page .timeline-step {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.order-track-page .timeline-step:last-child {
+    margin-bottom: 0;
+}
+
+.order-track-page .timeline-step::before {
+    content: '';
+    position: absolute;
+    left: 30px;
+    top: 60px;
+    bottom: -2rem;
+    width: 3px;
+    background: #e9ecef;
+    z-index: 1;
+}
+
+.order-track-page .timeline-step:last-child::before {
+    display: none;
+}
+
+.order-track-page .timeline-step.completed::before {
+    background: linear-gradient(to bottom, #28a745 0%, #20c997 100%) !important;
+}
+
+.order-track-page .timeline-icon {
+    width: 60px !important;
+    height: 60px !important;
+    border-radius: 50% !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1.5rem;
+    font-size: 1.2rem !important;
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+.order-track-page .timeline-icon.completed {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%) !important;
+    color: white !important;
+    border: 4px solid #fff !important;
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3) !important;
+    animation: pulse 2s infinite;
+}
+
+.order-track-page .timeline-icon.active {
+    background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%) !important;
+    color: white !important;
+    border: 4px solid #fff !important;
+    box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3) !important;
+    animation: pulse 2s infinite;
+}
+
+.order-track-page .timeline-icon:not(.completed):not(.active) {
+    background: #f8f9fa !important;
+    color: #6c757d !important;
+    border: 4px solid #e9ecef !important;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3); }
+    50% { box-shadow: 0 4px 20px rgba(40, 167, 69, 0.5); }
+    100% { box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3); }
+}
+
+.order-track-page .timeline-content {
+    flex: 1;
+    padding-top: 0.5rem;
+}
+
+.order-track-page .timeline-content h6 {
+    font-weight: 700 !important;
+    color: #212529 !important;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem !important;
+}
+
+.order-track-page .timeline-content p {
+    color: #6c757d !important;
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+}
+
+/* Status Badges */
+.order-track-page .status-badge {
+    padding: 0.4rem 0.8rem !important;
+    border-radius: 20px !important;
+    font-size: 0.8rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: inline-block;
+}
+
+.order-track-page .status-completed {
+    background: linear-gradient(135deg, #28a745, #20c997) !important;
+    color: white !important;
+}
+
+.order-track-page .status-pending {
+    background: linear-gradient(135deg, #ffc107, #fd7e14) !important;
+    color: white !important;
+}
+
+.order-track-page .status-primary {
+    background: linear-gradient(135deg, #007bff, #0056b3) !important;
+    color: white !important;
+}
+
+.order-track-page .status-info {
+    background: linear-gradient(135deg, #17a2b8, #138496) !important;
+    color: white !important;
+}
+
+.order-track-page .status-warning {
+    background: linear-gradient(135deg, #ffc107, #e0a800) !important;
+    color: white !important;
+}
+
+.order-track-page .status-secondary {
+    background: linear-gradient(135deg, #6c757d, #545b62) !important;
+    color: white !important;
+}
+
+/* Order Info Cards */
+.order-track-page .info-grid {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.order-track-page .info-item {
+    background: #f8f9fa !important;
+    padding: 1rem;
+    border-radius: 12px !important;
+    border-left: 4px solid #007bff !important;
+    margin-bottom: 1rem;
+}
+
+.order-track-page .info-item:last-child {
+    margin-bottom: 0;
+}
+
+.order-track-page .info-label {
+    font-size: 0.85rem !important;
+    color: #6c757d !important;
+    font-weight: 600 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+}
+
+.order-track-page .info-value {
+    font-size: 1rem !important;
+    color: #212529 !important;
+    font-weight: 500 !important;
+}
+
+.order-track-page .info-value.amount {
+    font-size: 1.2rem !important;
+    font-weight: 700 !important;
+    color: #28a745 !important;
+}
+
+/* Address Card */
+.order-track-page .address-card {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+    border-radius: 12px !important;
+    padding: 1.5rem;
+    border-left: 4px solid #17a2b8 !important;
+}
+
+.order-track-page .address-name {
+    font-weight: 700 !important;
+    color: #212529 !important;
+    margin-bottom: 0.5rem;
+}
+
+.order-track-page .address-details {
+    color: #495057 !important;
+    line-height: 1.6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .order-track-page .track-header {
+        padding: 1.5rem !important;
+        text-align: center;
+        flex-direction: column;
+    }
+    
+    .order-track-page .track-title {
+        font-size: 1.5rem !important;
+    }
+    
+    .order-track-page .timeline-step {
+        margin-bottom: 1.5rem;
+    }
+    
+    .order-track-page .timeline-icon {
+        width: 50px !important;
+        height: 50px !important;
+        font-size: 1rem !important;
+    }
+    
+    .order-track-page .timeline-step::before {
+        left: 25px;
+        top: 50px;
+    }
+}
+
+@media (max-width: 576px) {
+    .order-track-page {
+        padding: 1rem 0 !important;
+    }
+    
+    .order-track-page .track-header {
+        margin: 1rem;
+        border-radius: 16px !important;
+    }
+}
