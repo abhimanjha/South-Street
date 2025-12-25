@@ -29,6 +29,11 @@
         font-size: 0.9rem;
         padding: 0.5rem 1rem;
     }
+    
+    /* Smaller logo on mobile */
+    .logo-name {
+        font-size: 1.1rem !important;
+    }
 }
 
 @media (max-width: 992px) {
@@ -54,4 +59,171 @@
 
 .title-responsive {
     font-size: clamp(1.5rem, 4vw, 3rem);
+}
+
+/* Mobile Header Styles */
+@media (max-width: 576px) {
+    .southstreet-header .container-fluid {
+        padding: 0.5rem 1rem;
+    }
+
+    .logo-name {
+        font-size: 0.95rem !important;
+    }
+
+    /* Mobile Search - Use same classes as desktop but with adjustments */
+    .d-sm-none .search-bar {
+        max-width: 220px;
+        margin: 0;
+        flex: 1;
+    }
+
+    .d-sm-none .search-input {
+        font-size: 0.875rem;
+        padding: 0.5rem 0.75rem;
+        min-width: 140px;
+    }
+
+    .d-sm-none .search-btn {
+        padding: 0.5rem 0.75rem;
+        min-width: 44px;
+    }
+
+    .burger-btn {
+        background: none;
+        border: none;
+        color: #212121;
+        font-size: 1.3rem;
+        padding: 0.5rem;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+    }
+
+    .burger-btn:hover {
+        color: #007bff;
+        background-color: rgba(0, 123, 255, 0.1);
+    }
+}
+
+/* Modal Styles - Medium Size Instead of Fullscreen */
+.modal-dialog-centered {
+    max-width: 500px;
+    margin: 1.75rem auto;
+}
+
+@media (max-width: 576px) {
+    .modal-dialog-centered {
+        max-width: 90%;
+        margin: 1rem auto;
+    }
+}
+
+.modal-content {
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    border-bottom: 1px solid #f0f0f0;
+    padding: 1.5rem;
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.modal-title {
+    font-weight: 600;
+    color: #212529;
+}
+
+/* List Group Styles in Modal */
+.list-group-item {
+    border: none;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #f8f9fa;
+}
+
+.list-group-item:last-child {
+    border-bottom: none;
+}
+
+.list-group-item a {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0;
+    color: #212529;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    font-size: 0.95rem;
+}
+
+.list-group-item a:hover {
+    color: #007bff;
+}
+
+.list-group-item i {
+    width: 20px;
+    text-align: center;
+    color: #6c757d;
+    font-size: 1rem;
+}
+
+/* Search Modal Styles */
+.quick-categories .btn {
+    font-size: 0.9rem;
+    padding: 0.75rem;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.quick-categories .btn:hover {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+    transform: translateY(-1px);
+}
+
+/* Cart badge positioning */
+.cart-badge {
+    font-size: 0.7rem;
+    min-width: 18px;
+    height: 18px;
+    line-height: 18px;
+    padding: 0;
+}
+
+/* Burger Menu and Modal Styles for Mobile */
+@media (max-width: 768px) {
+    .burger-btn {
+        background: none;
+        border: none;
+        color: #212121;
+        font-size: 1.2rem;
+        padding: 0.5rem;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+    }
+
+    .burger-btn:hover {
+        color: #007bff;
+        background-color: rgba(0, 123, 255, 0.1);
+    }
+
+    .mobile-search-btn {
+        background: none;
+        border: none;
+        color: #212121;
+        font-size: 1.1rem;
+        padding: 0.5rem;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+    }
+
+    .mobile-search-btn:hover {
+        color: #007bff;
+        background-color: rgba(0, 123, 255, 0.1);
+    }
 }

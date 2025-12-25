@@ -3,96 +3,144 @@
 @section('title', 'Home - FashionHub')
 
 @section('content')
-<!-- Hero Section - Full Width Image Banner -->
+<!-- Hero Banner Carousel -->
 <section class="hero-banner">
-    <div class="hero-slide">
-        <img src="{{ asset('imgs/men3.jpg') }}" alt="Men's Collection" class="grid-image">
-        <div class="hero-overlay">
-            <div class="hero-content">
-                <h1 class="hero-title">NEW COLLECTION</h1>
-                <p class="hero-subtitle">Discover Your Style</p>
-                <a href="{{ route('products.index') }}" class="hero-cta">SHOP NOW</a>
+    <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{{ asset('imgs/cr1.jpg') }}" alt="Men's Collection" class="d-block w-100 carousel-image">
+                <div class="carousel-caption">
+                    <h1 class="hero-title">NEW COLLECTION</h1>
+                    <p class="hero-subtitle">Discover Your Style</p>
+                    <div class="hero-buttons">
+                        <a href="{{ route('products.index') }}" class="hero-cta btn-primary">SHOP NOW</a>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="{{ asset('imgs/cr2.jpg') }}" alt="Women's Collection" class="d-block w-100 carousel-image">
+                <div class="carousel-caption">
+                    <h1 class="hero-title">WOMEN'S FASHION</h1>
+                    <p class="hero-subtitle">Elegant and Stylish</p>
+                    <div class="hero-buttons">
+                        <a href="{{ route('products.category', 'women') }}" class="hero-cta btn-primary">SHOP NOW</a>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="{{ asset('imgs/kid1.jpg') }}" alt="Kid's Collection" class="d-block w-100 carousel-image">
+                <div class="carousel-caption">
+                    <h1 class="hero-title">KIDS' COLLECTION</h1>
+                    <p class="hero-subtitle">Fun and Comfortable</p>
+                    <div class="hero-buttons">
+                        <a href="{{ route('products.category', 'kids') }}" class="hero-cta btn-primary">SHOP NOW</a>
+                    </div>
+                </div>
             </div>
         </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
 </section>
 
-<!-- Featured Categories Grid -->
-<section class="featured-grid">
-    <div class="grid-container">
-        <div class="grid-item grid-large">
-            <a href="{{ route('products.category', 'women') }}" class="grid-link">
-                <img src="{{ asset('imgs/women1.jpg') }}" alt="Women's Collection" class="grid-image">
-                <div class="grid-overlay">
-                    <h2 class="grid-title">WOMEN</h2>
-                </div>
-            </a>
-        </div>
-        <div class="grid-item">
-            <a href="{{ route('products.category', 'men') }}" class="grid-link">
-                <img src="{{ asset('imgs/men1.jpg') }}" alt="Men's Collection" class="grid-image">
-                <div class="grid-overlay">
-                    <h2 class="grid-title">MEN</h2>
-                </div>
-            </a>
-        </div>
-        <div class="grid-item">
-            <a href="{{ route('products.category', 'kids') }}" class="grid-link">
-                <img src="{{ asset('imgs/kid1.jpg') }}" alt="Kid's Collection" class="grid-image">
-                <div class="grid-overlay">
-                    <h2 class="grid-title">KIDS</h2>
-                </div>
-            </a>
-        </div>
-    </div>
-</section>
 
-<!-- Featured Products - Minimal Grid -->
-<section class="products-section">
+<!-- Trending Products (Horizontal Carousel) -->
+@if($trendingProducts->count() > 0)
+<section class="products-section pt-5">
     <div class="section-header-minimal">
-        <h2 class="section-title-minimal">NEW IN</h2>
+        <h2 class="section-title-minimal">TRENDING</h2>
     </div>
-    <div class="products-grid">
-        @foreach($featuredProducts as $product)
-            <div class="product-item">
-                <a href="{{ route('products.show', $product) }}" class="product-link-minimal">
-                    <div class="product-image-container">
-                        @if($product->images->first())
-                            <img src="{{ Storage::url($product->images->first()->image_path) }}"
-                                 alt="{{ $product->name }}"
-                                 class="product-img-main">
-                            @if($product->images->count() > 1)
-                                <img src="{{ Storage::url($product->images->skip(1)->first()->image_path) }}" 
-                                     alt="{{ $product->name }}" 
-                                     class="product-img-hover">
-                            @endif
-                        @else
-                            <div class="product-placeholder">
-                                <span>NO IMAGE</span>
-                            </div>
-                        @endif
-                        @if($product->discount_percentage > 0)
-                            <span class="product-badge">-{{ $product->discount_percentage }}%</span>
-                        @endif
-                    </div>
-                    <div class="product-details">
-                        <h3 class="product-name-minimal">{{ $product->name }}</h3>
-                        <p class="product-price-minimal">
-                            @if($product->discount_price)
-                                <span class="price-discounted">₹{{ number_format($product->discount_price, 0) }}</span>
-                                <span class="price-original">₹{{ number_format($product->price, 0) }}</span>
-                            @else
-                                ₹{{ number_format($product->price, 0) }}
-                            @endif
-                        </p>
-                    </div>
-                </a>
+    <div id="trendingCarousel" class="carousel slide" data-bs-ride="false">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="d-flex justify-content-start">
+                    @foreach($trendingProducts->take(4) as $product)
+                        <div class="product-item me-3">
+                            <a href="{{ route('products.show', $product) }}" class="product-link-minimal">
+                                <div class="product-image-container">
+                                    @if($product->images->first())
+                                        <img src="{{ Storage::url($product->images->first()->image_path) }}" 
+                                             alt="{{ $product->name }}" 
+                                             class="product-img-main">
+                                        @if($product->images->count() > 1)
+                                            <img src="{{ Storage::url($product->images->skip(1)->first()->image_path) }}" 
+                                                 alt="{{ $product->name }}" 
+                                                 class="product-img-hover">
+                                        @endif
+                                    @else
+                                        <div class="product-placeholder">
+                                            <span>NO IMAGE</span>
+                                        </div>
+                                    @endif
+                                </div>
+                                <div class="product-details">
+                                    <h3 class="product-name-minimal">{{ $product->name }}</h3>
+                                    <p class="product-category-minimal">{{ $product->category->name }}</p>
+                                    <p class="product-price-minimal">₹{{ number_format($product->final_price, 0) }}</p>
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
             </div>
-        @endforeach
+            @if($trendingProducts->count() > 4)
+            <div class="carousel-item">
+                <div class="d-flex justify-content-start">
+                    @foreach($trendingProducts->skip(4)->take(4) as $product)
+                        <div class="product-item me-3">
+                            <a href="{{ route('products.show', $product) }}" class="product-link-minimal">
+                                <div class="product-image-container">
+                                    @if($product->images->first())
+                                        <img src="{{ Storage::url($product->images->first()->image_path) }}" 
+                                             alt="{{ $product->name }}" 
+                                             class="product-img-main">
+                                        @if($product->images->count() > 1)
+                                            <img src="{{ Storage::url($product->images->skip(1)->first()->image_path) }}" 
+                                                 alt="{{ $product->name }}" 
+                                                 class="product-img-hover">
+                                        @endif
+                                    @else
+                                        <div class="product-placeholder">
+                                            <span>NO IMAGE</span>
+                                        </div>
+                                    @endif
+                                </div>
+                                <div class="product-details">
+                                    <h3 class="product-name-minimal">{{ $product->name }}</h3>
+                                    <p class="product-category-minimal">{{ $product->category->name }}</p>
+                                    <p class="product-price-minimal">₹{{ number_format($product->final_price, 0) }}</p>
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            @endif
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#trendingCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#trendingCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
 </section>
+@endif
 
-<!-- Editorial Banner -->
+<!-- Editorial / Offer Banner -->
 <section class="editorial-banner">
     <div class="editorial-content">
         <img src="{{ asset('imgs/men2.jpg') }}" alt="Editorial" class="editorial-image">
@@ -104,45 +152,7 @@
     </div>
 </section>
 
-<!-- Trending Products -->
-@if($trendingProducts->count() > 0)
-<section class="products-section">
-    <div class="section-header-minimal">
-        <h2 class="section-title-minimal">TRENDING</h2>
-    </div>
-    <div class="products-grid">
-        @foreach($trendingProducts as $product)
-            <div class="product-item">
-                <a href="{{ route('products.show', $product) }}" class="product-link-minimal">
-                    <div class="product-image-container">
-                        @if($product->images->first())
-                            <img src="{{ Storage::url($product->images->first()->image_path) }}" 
-                                 alt="{{ $product->name }}" 
-                                 class="product-img-main">
-                            @if($product->images->count() > 1)
-                                <img src="{{ Storage::url($product->images->skip(1)->first()->image_path) }}" 
-                                     alt="{{ $product->name }}" 
-                                     class="product-img-hover">
-                            @endif
-                        @else
-                            <div class="product-placeholder">
-                                <span>NO IMAGE</span>
-                            </div>
-                        @endif
-                    </div>
-                    <div class="product-details">
-                        <h3 class="product-name-minimal">{{ $product->name }}</h3>
-                        <p class="product-category-minimal">{{ $product->category->name }}</p>
-                        <p class="product-price-minimal">₹{{ number_format($product->final_price, 0) }}</p>
-                    </div>
-                </a>
-            </div>
-        @endforeach
-    </div>
-</section>
-@endif
-
-<!-- Custom Design CTA -->
+<!-- Custom Tailoring Service Row -->
 <section class="cta-section">
     <div class="cta-container">
         <div class="cta-content">
@@ -155,6 +165,108 @@
                 <img src="/images/custom-design.jpg" alt="Custom Design" class="cta-img">
             </div>
         </div>
+    </div>
+</section>
+
+<!-- New In / New Arrivals (Horizontal Carousel) -->
+<section class="products-section">
+    <div class="section-header-minimal">
+        <h2 class="section-title-minimal">NEW IN</h2>
+        <a href="{{ route('products.index', ['sort' => 'latest']) }}" class="view-all-minimal">VIEW ALL</a>
+    </div>
+    <div id="newInCarousel" class="carousel slide" data-bs-ride="false">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="d-flex justify-content-start">
+                    @foreach($newArrivals->take(4) as $product)
+                        <div class="product-item me-3">
+                            <a href="{{ route('products.show', $product) }}" class="product-link-minimal">
+                                <div class="product-image-container">
+                                    @if($product->images->first())
+                                        <img src="{{ Storage::url($product->images->first()->image_path) }}" 
+                                             alt="{{ $product->name }}" 
+                                             class="product-img-main">
+                                        @if($product->images->count() > 1)
+                                            <img src="{{ Storage::url($product->images->skip(1)->first()->image_path) }}" 
+                                                 alt="{{ $product->name }}" 
+                                                 class="product-img-hover">
+                                        @endif
+                                    @else
+                                        <div class="product-placeholder">
+                                            <span>NO IMAGE</span>
+                                        </div>
+                                    @endif
+                                    @if($product->discount_percentage > 0)
+                                        <span class="product-badge">-{{ $product->discount_percentage }}%</span>
+                                    @endif
+                                </div>
+                                <div class="product-details">
+                                    <h3 class="product-name-minimal">{{ $product->name }}</h3>
+                                    <p class="product-price-minimal">
+                                        @if($product->discount_price)
+                                            <span class="price-discounted">₹{{ number_format($product->discount_price, 0) }}</span>
+                                            <span class="price-original">₹{{ number_format($product->price, 0) }}</span>
+                                        @else
+                                            ₹{{ number_format($product->price, 0) }}
+                                        @endif
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            @if($newArrivals->count() > 4)
+            <div class="carousel-item">
+                <div class="d-flex justify-content-start">
+                    @foreach($newArrivals->skip(4)->take(4) as $product)
+                        <div class="product-item me-3">
+                            <a href="{{ route('products.show', $product) }}" class="product-link-minimal">
+                                <div class="product-image-container">
+                                    @if($product->images->first())
+                                        <img src="{{ Storage::url($product->images->first()->image_path) }}" 
+                                             alt="{{ $product->name }}" 
+                                             class="product-img-main">
+                                        @if($product->images->count() > 1)
+                                            <img src="{{ Storage::url($product->images->skip(1)->first()->image_path) }}" 
+                                                 alt="{{ $product->name }}" 
+                                                 class="product-img-hover">
+                                        @endif
+                                    @else
+                                        <div class="product-placeholder">
+                                            <span>NO IMAGE</span>
+                                        </div>
+                                    @endif
+                                    @if($product->discount_percentage > 0)
+                                        <span class="product-badge">-{{ $product->discount_percentage }}%</span>
+                                    @endif
+                                </div>
+                                <div class="product-details">
+                                    <h3 class="product-name-minimal">{{ $product->name }}</h3>
+                                    <p class="product-price-minimal">
+                                        @if($product->discount_price)
+                                            <span class="price-discounted">₹{{ number_format($product->discount_price, 0) }}</span>
+                                            <span class="price-original">₹{{ number_format($product->price, 0) }}</span>
+                                        @else
+                                            ₹{{ number_format($product->price, 0) }}
+                                        @endif
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            @endif
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#newInCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#newInCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
 </section>
 
@@ -185,53 +297,7 @@
     </div>
 </section>
 
-<!-- New Arrivals -->
-<section class="products-section">
-    <div class="section-header-minimal">
-        <h2 class="section-title-minimal">NEW ARRIVALS</h2>
-        <a href="{{ route('products.index', ['sort' => 'latest']) }}" class="view-all-minimal">VIEW ALL</a>
-    </div>
-    <div class="products-grid">
-        @foreach($newArrivals as $product)
-            <div class="product-item">
-                <a href="{{ route('products.show', $product) }}" class="product-link-minimal">
-                    <div class="product-image-container">
-                        @if($product->images->first())
-                            <img src="{{ Storage::url($product->images->first()->image_path) }}" 
-                                 alt="{{ $product->name }}" 
-                                 class="product-img-main">
-                            @if($product->images->count() > 1)
-                                <img src="{{ Storage::url($product->images->skip(1)->first()->image_path) }}" 
-                                     alt="{{ $product->name }}" 
-                                     class="product-img-hover">
-                            @endif
-                        @else
-                            <div class="product-placeholder">
-                                <span>NO IMAGE</span>
-                            </div>
-                        @endif
-                        @if($product->discount_percentage > 0)
-                            <span class="product-badge sale">SALE</span>
-                        @endif
-                    </div>
-                    <div class="product-details">
-                        <h3 class="product-name-minimal">{{ $product->name }}</h3>
-                        <p class="product-price-minimal">
-                            @if($product->discount_price)
-                                <span class="price-discounted">₹{{ number_format($product->discount_price, 0) }}</span>
-                                <span class="price-original">₹{{ number_format($product->price, 0) }}</span>
-                            @else
-                                ₹{{ number_format($product->price, 0) }}
-                            @endif
-                        </p>
-                    </div>
-                </a>
-            </div>
-        @endforeach
-    </div>
-</section>
-
-<!-- Features Bar -->
+<!-- Feature Bar -->
 <section class="features-bar">
     <div class="features-container">
         <div class="feature-item">

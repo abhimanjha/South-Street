@@ -238,8 +238,8 @@
       <span class="logo-name fw-bold text-dark">South<span class="text-primary">Street</span></span>
     </a>
 
-    <!-- Center: Search Bar -->
-    <form action="{{ route('products.search') }}" method="GET" class="d-flex align-items-center search-bar mx-3 flex-grow-1">
+    <!-- Center: Search Bar (Desktop) -->
+    <form action="{{ route('products.search') }}" method="GET" class="d-none d-sm-flex align-items-center search-bar mx-2 flex-grow-1">
       <input type="text" name="q" class="form-control search-input" placeholder="Search branded fashion or custom designs...">
       <button type="submit" class="btn search-btn">
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -248,8 +248,8 @@
       </button>
     </form>
 
-    <!-- Right: Account, Wishlist, Cart -->
-    <div class="d-flex align-items-center gap-4">
+    <!-- Right: Account, Wishlist, Cart (Desktop) -->
+    <div class="d-none d-sm-flex align-items-center gap-4">
       <!-- Account -->
       <div class="nav-item">
         @auth
@@ -281,10 +281,46 @@
         <span id="cart-count" class="cart-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark">0</span>
       </a>
     </div>
+
+    <!-- Mobile: Search, Wishlist, Cart and Burger Menu -->
+    <div class="d-flex d-sm-none align-items-center gap-3">
+      <!-- Search Form (Mobile) - Same classes as desktop -->
+      <form action="{{ route('products.search') }}" method="GET" class="d-flex align-items-center search-bar">
+        <input type="text" name="q" class="form-control search-input" placeholder="Search...">
+        <button type="submit" class="btn search-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+            <path d="M11 6a5 5 0 1 1-1.001 9.9A5 5 0 0 1 11 6zM6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11z"/>
+          </svg>
+        </button>
+      </form>
+
+      <!-- Wishlist (Mobile) -->
+      <a href="{{ route('wishlist.index') }}" class="position-relative text-dark text-decoration-none">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+          <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748z"/>
+        </svg>
+        @auth
+        <span id="wishlist-count-mobile" class="cart-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display: none;">0</span>
+        @endauth
+      </a>
+
+      <!-- Cart (Mobile) -->
+      <a href="{{ route('cart.index') }}" class="position-relative text-dark text-decoration-none" data-cart-count-url="{{ route('cart.count') }}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
+          <path d="M8 1a2 2 0 0 0-2 2v1H3.5A1.5 1.5 0 0 0 2 5.5v8A1.5 1.5 0 0 0 3.5 15h9A1.5 1.5 0 0 0 14 13.5v-8A1.5 1.5 0 0 0 12.5 4H10V3a2 2 0 0 0-2-2zM5 3a3 3 0 1 1 6 0v1H5V3z"/>
+        </svg>
+        <span id="cart-count-mobile" class="cart-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark">0</span>
+      </a>
+
+      <!-- Burger Menu -->
+      <button class="burger-btn" type="button" data-bs-toggle="modal" data-bs-target="#categoriesModal">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
   </div>
 
-  <!-- Bottom Nav -->
-  <nav class="southstreet-nav py-2 border-top border-bottom bg-white">
+  <!-- Bottom Nav (Desktop Only) -->
+  <nav class="southstreet-nav py-2 border-top border-bottom bg-white d-none d-sm-block">
     <div class="container-fluid d-flex justify-content-center gap-4 flex-wrap">
       <a href="{{ route('products.index') }}" class="nav-link text-dark">Shop All</a>
       <a href="{{ route('tailoring.create') }}" class="nav-link text-dark">Custom Tailoring</a>
@@ -295,6 +331,54 @@
     </div>
   </nav>
 </header>
+
+
+<!-- Categories Modal for Mobile -->
+<div class="modal fade" id="categoriesModal" tabindex="-1" aria-labelledby="categoriesModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="categoriesModalLabel">Categories</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Navigation Links -->
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <a href="{{ route('products.index') }}" class="text-decoration-none text-dark d-flex align-items-center" data-bs-dismiss="modal">
+              <i class="fas fa-th-large me-3"></i> Shop All
+            </a>
+          </li>
+          <li class="list-group-item">
+            <a href="{{ route('tailoring.create') }}" class="text-decoration-none text-dark d-flex align-items-center" data-bs-dismiss="modal">
+              <i class="fas fa-cut me-3"></i> Custom Tailoring
+            </a>
+          </li>
+          <li class="list-group-item">
+            <a href="{{ route('products.category', 'men') }}" class="text-decoration-none text-dark d-flex align-items-center" data-bs-dismiss="modal">
+              <i class="fas fa-male me-3"></i> Men
+            </a>
+          </li>
+          <li class="list-group-item">
+            <a href="{{ route('products.category', 'women') }}" class="text-decoration-none text-dark d-flex align-items-center" data-bs-dismiss="modal">
+              <i class="fas fa-female me-3"></i> Women
+            </a>
+          </li>
+          <li class="list-group-item">
+            <a href="{{ route('products.category', 'kids') }}" class="text-decoration-none text-dark d-flex align-items-center" data-bs-dismiss="modal">
+              <i class="fas fa-child me-3"></i> Kids
+            </a>
+          </li>
+          <li class="list-group-item">
+            <a href="{{ route('contact') }}" class="text-decoration-none text-dark d-flex align-items-center" data-bs-dismiss="modal">
+              <i class="fas fa-headset me-3"></i> Support
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
 
         <!-- Main Content -->
         <main>
@@ -403,8 +487,12 @@ window.updateCartCount = function() {
     .then(res => res.json())
     .then(data => {
       const badge = document.getElementById('cart-count');
+      const mobileBadge = document.getElementById('cart-count-mobile');
       if (badge) {
         badge.textContent = data.count;
+      }
+      if (mobileBadge) {
+        mobileBadge.textContent = data.count;
       }
     })
     .catch(err => console.error('Error updating cart count:', err));
@@ -416,14 +504,18 @@ window.updateWishlistCount = function() {
     .then(res => res.json())
     .then(data => {
       const wishlistBadge = document.getElementById('wishlist-count');
-      if (wishlistBadge) {
-        if (data.count > 0) {
-          wishlistBadge.textContent = data.count;
-          wishlistBadge.style.display = 'inline';
-        } else {
-          wishlistBadge.style.display = 'none';
+      const wishlistMobileBadge = document.getElementById('wishlist-count-mobile');
+      
+      [wishlistBadge, wishlistMobileBadge].forEach(badge => {
+        if (badge) {
+          if (data.count > 0) {
+            badge.textContent = data.count;
+            badge.style.display = 'inline';
+          } else {
+            badge.style.display = 'none';
+          }
         }
-      }
+      });
     })
     .catch(err => console.error('Error updating wishlist count:', err));
 };
