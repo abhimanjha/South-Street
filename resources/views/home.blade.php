@@ -59,7 +59,7 @@
 @if($trendingProducts->count() > 0)
 <section class="products-section pt-5">
     <div class="section-header-minimal">
-        <h2 class="section-title-minimal">TRENDING</h2>
+        <h2>TRENDING</h2>
     </div>
     <div id="trendingCarousel" class="carousel slide" data-bs-ride="false">
         <div class="carousel-inner">

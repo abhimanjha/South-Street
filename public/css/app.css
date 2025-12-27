@@ -673,3 +673,1625 @@ footer a:hover {
         backdrop-filter: blur(10px);
     }
 }
+
+/* ===============================================
+   FLIPKART-STYLE PRODUCTS CSS - OVERRIDE CONFLICTS
+   =============================================== */
+
+/* Products Index Page */
+.flipkart-products-page {
+    background-color: #f1f3f6 !important;
+    min-height: 100vh;
+}
+
+.flipkart-products-page .breadcrumb {
+    background: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    font-size: 0.875rem !important;
+}
+
+.flipkart-products-page .breadcrumb-item a {
+    color: #2874f0 !important;
+    text-decoration: none !important;
+}
+
+.flipkart-products-page .breadcrumb-item.active {
+    color: #878787 !important;
+}
+
+/* Filters Sidebar */
+.flipkart-products-page .filters-sidebar {
+    background: white !important;
+    border-radius: 2px !important;
+    padding: 16px !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,.08) !important;
+    position: sticky !important;
+    top: 20px !important;
+}
+
+.flipkart-products-page .filters-title {
+    font-size: 1rem !important;
+    font-weight: 500 !important;
+    margin-bottom: 16px !important;
+    padding-bottom: 8px !important;
+    border-bottom: 1px solid #f0f0f0 !important;
+}
+
+.flipkart-products-page .filter-section {
+    margin-bottom: 24px !important;
+}
+
+.flipkart-products-page .filter-heading {
+    font-size: 0.875rem !important;
+    font-weight: 500 !important;
+    margin-bottom: 12px !important;
+    text-transform: uppercase !important;
+    color: #212121 !important;
+}
+
+.flipkart-products-page .filter-option {
+    display: flex !important;
+    align-items: center !important;
+    margin-bottom: 8px !important;
+    cursor: pointer !important;
+    font-size: 0.875rem !important;
+    color: #212121 !important;
+}
+
+.flipkart-products-page .filter-option input[type="checkbox"] {
+    margin-right: 8px !important;
+    accent-color: #2874f0 !important;
+}
+
+/* Products Header */
+.flipkart-products-page .products-header {
+    background: white !important;
+    padding: 16px !important;
+    margin-bottom: 16px !important;
+    border-radius: 2px !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,.08) !important;
+}
+
+.flipkart-products-page .products-title {
+    font-size: 1.25rem !important;
+    font-weight: 400 !important;
+    margin: 0 !important;
+    color: #212121 !important;
+}
+
+.flipkart-products-page .products-count {
+    font-size: 0.875rem !important;
+    color: #878787 !important;
+    margin: 0 !important;
+}
+
+.flipkart-products-page .sort-dropdown select {
+    border: 1px solid #e0e0e0 !important;
+    border-radius: 2px !important;
+    padding: 8px 12px !important;
+    font-size: 0.875rem !important;
+    background: white !important;
+}
+
+/* Flipkart Products Grid */
+.flipkart-products-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)) !important;
+    gap: 16px !important;
+}
+
+.flipkart-product-card {
+    background: white !important;
+    border-radius: 2px !important;
+    overflow: hidden !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,.08) !important;
+    transition: all 0.3s ease !important;
+    position: relative !important;
+    transform: none !important; /* Override global card animations */
+}
+
+.flipkart-product-card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,.12) !important;
+    transform: translateY(-2px) !important;
+}
+
+.flipkart-product-card::before {
+    display: none !important; /* Remove global card overlay */
+}
+
+.flipkart-product-card .product-card-link {
+    text-decoration: none !important;
+    color: inherit !important;
+    display: block !important;
+}
+
+.flipkart-product-card .product-image-wrapper {
+    position: relative !important;
+    aspect-ratio: 3/4 !important;
+    overflow: hidden !important;
+}
+
+.flipkart-product-card .product-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    transition: transform 0.3s ease !important;
+}
+
+.flipkart-product-card:hover .product-image {
+    transform: scale(1.05) !important;
+}
+
+.flipkart-product-card .wishlist-btn {
+    position: absolute !important;
+    top: 8px !important;
+    right: 8px !important;
+    background: white !important;
+    border: none !important;
+    border-radius: 50% !important;
+    width: 32px !important;
+    height: 32px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,.1) !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    z-index: 10 !important;
+}
+
+.flipkart-product-card .wishlist-btn:hover {
+    background: #ff6b6b !important;
+    color: white !important;
+}
+
+.flipkart-product-card .discount-badge {
+    position: absolute !important;
+    bottom: 8px !important;
+    left: 8px !important;
+    background: #ff6b6b !important;
+    color: white !important;
+    padding: 4px 8px !important;
+    border-radius: 2px !important;
+    font-size: 0.75rem !important;
+    font-weight: 500 !important;
+    z-index: 10 !important;
+}
+
+.flipkart-product-card .product-info {
+    padding: 12px !important;
+}
+
+.flipkart-product-card .product-brand {
+    font-size: 0.75rem !important;
+    color: #878787 !important;
+    margin-bottom: 4px !important;
+    text-transform: uppercase !important;
+}
+
+.flipkart-product-card .product-name {
+    font-size: 0.875rem !important;
+    font-weight: 400 !important;
+    color: #212121 !important;
+    margin-bottom: 8px !important;
+    line-height: 1.3 !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+}
+
+.flipkart-product-card .product-rating {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    margin-bottom: 8px !important;
+}
+
+.flipkart-product-card .rating-stars {
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    background: #388e3c !important;
+    color: white !important;
+    padding: 2px 6px !important;
+    border-radius: 3px !important;
+    font-size: 0.75rem !important;
+}
+
+.flipkart-product-card .rating-count {
+    font-size: 0.75rem !important;
+    color: #878787 !important;
+}
+
+.flipkart-product-card .product-pricing {
+    margin-bottom: 8px !important;
+}
+
+.flipkart-product-card .current-price {
+    font-size: 1rem !important;
+    font-weight: 500 !important;
+    color: #212121 !important;
+}
+
+.flipkart-product-card .original-price {
+    font-size: 0.875rem !important;
+    color: #878787 !important;
+    text-decoration: line-through !important;
+    margin-left: 8px !important;
+}
+
+.flipkart-product-card .discount-percent {
+    font-size: 0.875rem !important;
+    color: #388e3c !important;
+    font-weight: 500 !important;
+    margin-left: 8px !important;
+}
+
+.flipkart-product-card .delivery-info {
+    font-size: 0.75rem !important;
+    color: #388e3c !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+}
+
+/* Empty State */
+.flipkart-products-page .empty-products-state {
+    text-align: center !important;
+    padding: 60px 20px !important;
+    background: white !important;
+    border-radius: 2px !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,.08) !important;
+}
+
+.flipkart-products-page .empty-icon {
+    font-size: 4rem !important;
+    color: #e0e0e0 !important;
+    margin-bottom: 16px !important;
+}
+
+.flipkart-products-page .empty-products-state h3 {
+    color: #212121 !important;
+    margin-bottom: 8px !important;
+}
+
+.flipkart-products-page .empty-products-state p {
+    color: #878787 !important;
+    margin-bottom: 24px !important;
+}
+
+/* Pagination */
+.flipkart-products-page .pagination-wrapper {
+    margin-top: 32px !important;
+    display: flex !important;
+    justify-content: center !important;
+}
+
+/* Product Details Page */
+.flipkart-product-page {
+    background-color: #f1f3f6 !important;
+    min-height: 100vh !important;
+    padding-bottom: 2rem !important;
+}
+
+.flipkart-product-page .breadcrumb {
+    background: none !important;
+    padding: 0 !important;
+    font-size: 0.875rem !important;
+}
+
+.flipkart-product-page .breadcrumb-item a {
+    color: #2874f0 !important;
+    text-decoration: none !important;
+}
+
+.flipkart-product-page .breadcrumb-item.active {
+    color: #878787 !important;
+}
+
+/* Product Gallery */
+.flipkart-product-page .product-gallery {
+    background: white !important;
+    border-radius: 2px !important;
+    padding: 16px !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,.08) !important;
+    position: sticky !important;
+    top: 20px !important;
+}
+
+.flipkart-product-page .main-image-container {
+    position: relative !important;
+    margin-bottom: 16px !important;
+}
+
+.flipkart-product-page .main-product-image {
+    width: 100% !important;
+    height: 400px !important;
+    object-fit: cover !important;
+    border-radius: 4px !important;
+}
+
+.flipkart-product-page .zoom-overlay {
+    position: absolute !important;
+    top: 12px !important;
+    right: 12px !important;
+    background: rgba(0,0,0,0.6) !important;
+    color: white !important;
+    padding: 8px !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+}
+
+.flipkart-product-page .thumbnail-gallery {
+    display: flex !important;
+    gap: 8px !important;
+    overflow-x: auto !important;
+    padding: 8px 0 !important;
+}
+
+.flipkart-product-page .thumbnail-item {
+    flex-shrink: 0 !important;
+    width: 60px !important;
+    height: 60px !important;
+    border: 2px solid transparent !important;
+    border-radius: 4px !important;
+    overflow: hidden !important;
+    cursor: pointer !important;
+    transition: border-color 0.3s !important;
+}
+
+.flipkart-product-page .thumbnail-item.active {
+    border-color: #2874f0 !important;
+}
+
+.flipkart-product-page .thumbnail-item img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+}
+
+.flipkart-product-page .product-actions {
+    display: flex !important;
+    gap: 12px !important;
+    margin-top: 20px !important;
+}
+
+.flipkart-product-page .action-btn {
+    flex: 1 !important;
+    padding: 12px 16px !important;
+    border: none !important;
+    border-radius: 2px !important;
+    font-weight: 500 !important;
+    font-size: 0.875rem !important;
+    cursor: pointer !important;
+    transition: all 0.3s !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+}
+
+.flipkart-product-page .add-to-cart-btn {
+    background: #ff9f00 !important;
+    color: white !important;
+}
+
+.flipkart-product-page .add-to-cart-btn:hover {
+    background: #e68900 !important;
+}
+
+.flipkart-product-page .buy-now-btn {
+    background: #fb641b !important;
+    color: white !important;
+}
+
+.flipkart-product-page .buy-now-btn:hover {
+    background: #e55a19 !important;
+}
+
+/* Product Details */
+.flipkart-product-page .product-details {
+    background: white !important;
+    border-radius: 2px !important;
+    padding: 20px !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,.08) !important;
+}
+
+.flipkart-product-page .product-header {
+    margin-bottom: 16px !important;
+}
+
+.flipkart-product-page .product-title {
+    font-size: 1.5rem !important;
+    font-weight: 400 !important;
+    color: #212121 !important;
+    margin-bottom: 4px !important;
+    line-height: 1.4 !important;
+}
+
+.flipkart-product-page .product-brand {
+    color: #2874f0 !important;
+    font-size: 0.875rem !important;
+    margin: 0 !important;
+}
+
+.flipkart-product-page .product-rating-section {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    margin-bottom: 20px !important;
+    padding-bottom: 16px !important;
+    border-bottom: 1px solid #f0f0f0 !important;
+}
+
+.flipkart-product-page .rating-badge {
+    background: #388e3c !important;
+    color: white !important;
+    padding: 4px 8px !important;
+    border-radius: 3px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    font-size: 0.875rem !important;
+}
+
+.flipkart-product-page .rating-text {
+    color: #878787 !important;
+    font-size: 0.875rem !important;
+}
+
+.flipkart-product-page .price-section {
+    margin-bottom: 24px !important;
+    padding-bottom: 20px !important;
+    border-bottom: 1px solid #f0f0f0 !important;
+}
+
+.flipkart-product-page .price-row {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    margin-bottom: 12px !important;
+}
+
+.flipkart-product-page .current-price {
+    font-size: 1.75rem !important;
+    font-weight: 500 !important;
+    color: #212121 !important;
+}
+
+.flipkart-product-page .original-price {
+    font-size: 1rem !important;
+    color: #878787 !important;
+    text-decoration: line-through !important;
+}
+
+.flipkart-product-page .discount-badge {
+    background: #388e3c !important;
+    color: white !important;
+    padding: 2px 6px !important;
+    border-radius: 2px !important;
+    font-size: 0.75rem !important;
+    font-weight: 500 !important;
+}
+
+.flipkart-product-page .price-benefits {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 16px !important;
+}
+
+.flipkart-product-page .benefit-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    color: #388e3c !important;
+    font-size: 0.875rem !important;
+}
+
+/* Variants */
+.flipkart-product-page .variants-section {
+    margin-bottom: 24px !important;
+    padding-bottom: 20px !important;
+    border-bottom: 1px solid #f0f0f0 !important;
+}
+
+.flipkart-product-page .variant-group {
+    margin-bottom: 16px !important;
+}
+
+.flipkart-product-page .variant-label {
+    font-size: 0.875rem !important;
+    font-weight: 500 !important;
+    color: #212121 !important;
+    margin-bottom: 8px !important;
+}
+
+.flipkart-product-page .size-options {
+    display: flex !important;
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+}
+
+.flipkart-product-page .size-option {
+    padding: 8px 16px !important;
+    border: 1px solid #e0e0e0 !important;
+    background: white !important;
+    border-radius: 50px !important;
+    font-size: 0.875rem !important;
+    cursor: pointer !important;
+    transition: all 0.3s !important;
+}
+
+.flipkart-product-page .size-option:hover,
+.flipkart-product-page .size-option.active {
+    border-color: #2874f0 !important;
+    color: #2874f0 !important;
+}
+
+.flipkart-product-page .color-options {
+    display: flex !important;
+    gap: 8px !important;
+}
+
+.flipkart-product-page .color-option {
+    width: 32px !important;
+    height: 32px !important;
+    border: 2px solid #e0e0e0 !important;
+    border-radius: 50% !important;
+    cursor: pointer !important;
+    transition: all 0.3s !important;
+}
+
+.flipkart-product-page .color-option:hover,
+.flipkart-product-page .color-option.active {
+    border-color: #2874f0 !important;
+    transform: scale(1.1) !important;
+}
+
+/* Quantity */
+.flipkart-product-page .quantity-section {
+    margin-bottom: 24px !important;
+    padding-bottom: 20px !important;
+    border-bottom: 1px solid #f0f0f0 !important;
+}
+
+.flipkart-product-page .quantity-label {
+    font-size: 0.875rem !important;
+    font-weight: 500 !important;
+    color: #212121 !important;
+    margin-bottom: 8px !important;
+}
+
+.flipkart-product-page .quantity-controls {
+    display: flex !important;
+    align-items: center !important;
+    width: fit-content !important;
+    border: 1px solid #e0e0e0 !important;
+    border-radius: 2px !important;
+}
+
+.flipkart-product-page .qty-btn {
+    width: 40px !important;
+    height: 40px !important;
+    border: none !important;
+    background: white !important;
+    cursor: pointer !important;
+    font-size: 1.2rem !important;
+    color: #2874f0 !important;
+    transition: background 0.3s !important;
+}
+
+.flipkart-product-page .qty-btn:hover {
+    background: #f5f5f5 !important;
+}
+
+.flipkart-product-page #quantity {
+    width: 60px !important;
+    height: 40px !important;
+    border: none !important;
+    text-align: center !important;
+    font-size: 1rem !important;
+    background: white !important;
+}
+
+/* Sections */
+.flipkart-product-page .section-title {
+    font-size: 0.875rem !important;
+    font-weight: 500 !important;
+    color: #212121 !important;
+    margin-bottom: 12px !important;
+    text-transform: uppercase !important;
+}
+
+.flipkart-product-page .highlights-section,
+.flipkart-product-page .delivery-section,
+.flipkart-product-page .seller-section {
+    margin-bottom: 24px !important;
+    padding-bottom: 20px !important;
+    border-bottom: 1px solid #f0f0f0 !important;
+}
+
+.flipkart-product-page .highlights-list {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.flipkart-product-page .highlights-list li {
+    padding: 4px 0 !important;
+    color: #212121 !important;
+    font-size: 0.875rem !important;
+    position: relative !important;
+    padding-left: 16px !important;
+}
+
+.flipkart-product-page .highlights-list li:before {
+    content: '•' !important;
+    color: #2874f0 !important;
+    position: absolute !important;
+    left: 0 !important;
+}
+
+.flipkart-product-page .delivery-info {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+}
+
+.flipkart-product-page .delivery-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+}
+
+.flipkart-product-page .delivery-item i {
+    color: #2874f0 !important;
+    width: 20px !important;
+}
+
+.flipkart-product-page .change-location {
+    color: #2874f0 !important;
+    text-decoration: none !important;
+    margin-left: 8px !important;
+    font-size: 0.875rem !important;
+}
+
+.flipkart-product-page .seller-info {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    margin-bottom: 8px !important;
+}
+
+.flipkart-product-page .seller-name {
+    font-weight: 500 !important;
+    color: #2874f0 !important;
+}
+
+.flipkart-product-page .seller-benefits {
+    display: flex !important;
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+}
+
+.flipkart-product-page .benefit-tag {
+    background: #e8f5e8 !important;
+    color: #388e3c !important;
+    padding: 4px 8px !important;
+    border-radius: 2px !important;
+    font-size: 0.75rem !important;
+}
+
+/* Product Tabs */
+.flipkart-product-page .product-tabs {
+    background: white !important;
+    border-radius: 2px !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,.08) !important;
+    overflow: hidden !important;
+}
+
+.flipkart-product-page .nav-tabs {
+    border-bottom: 1px solid #e0e0e0 !important;
+    padding: 0 20px !important;
+}
+
+.flipkart-product-page .nav-tabs .nav-link {
+    border: none !important;
+    color: #878787 !important;
+    font-weight: 500 !important;
+    padding: 16px 20px !important;
+    border-bottom: 2px solid transparent !important;
+}
+
+.flipkart-product-page .nav-tabs .nav-link.active {
+    color: #2874f0 !important;
+    border-bottom-color: #2874f0 !important;
+    background: none !important;
+}
+
+.flipkart-product-page .tab-content {
+    padding: 20px !important;
+}
+
+.flipkart-product-page .description-content,
+.flipkart-product-page .specifications-content,
+.flipkart-product-page .reviews-content {
+    color: #212121 !important;
+    line-height: 1.6 !important;
+}
+
+.flipkart-product-page .specs-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+}
+
+.flipkart-product-page .specs-table td {
+    padding: 12px 0 !important;
+    border-bottom: 1px solid #f0f0f0 !important;
+}
+
+.flipkart-product-page .specs-table td:first-child {
+    font-weight: 500 !important;
+    width: 200px !important;
+    color: #878787 !important;
+}
+
+.flipkart-product-page .reviews-summary {
+    margin-bottom: 24px !important;
+    padding-bottom: 20px !important;
+    border-bottom: 1px solid #f0f0f0 !important;
+}
+
+.flipkart-product-page .overall-rating {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+}
+
+.flipkart-product-page .rating-number {
+    font-size: 2rem !important;
+    font-weight: 500 !important;
+    color: #212121 !important;
+}
+
+.flipkart-product-page .stars {
+    color: #ffc107 !important;
+}
+
+.flipkart-product-page .rating-count {
+    color: #878787 !important;
+    font-size: 0.875rem !important;
+}
+
+.flipkart-product-page .review-item {
+    margin-bottom: 20px !important;
+    padding-bottom: 16px !important;
+    border-bottom: 1px solid #f0f0f0 !important;
+}
+
+.flipkart-product-page .review-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: flex-start !important;
+    margin-bottom: 8px !important;
+}
+
+.flipkart-product-page .reviewer-name {
+    font-weight: 500 !important;
+    color: #212121 !important;
+}
+
+.flipkart-product-page .review-rating {
+    color: #ffc107 !important;
+    margin-top: 4px !important;
+}
+
+.flipkart-product-page .review-date {
+    color: #878787 !important;
+    font-size: 0.875rem !important;
+}
+
+.flipkart-product-page .review-text {
+    color: #212121 !important;
+    line-height: 1.5 !important;
+    margin: 0 !important;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .flipkart-products-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+    }
+    
+    .flipkart-product-card {
+        border-radius: 4px !important;
+    }
+    
+    .flipkart-product-card .product-info {
+        padding: 8px !important;
+    }
+    
+    .flipkart-products-page .products-header {
+        padding: 12px !important;
+        margin-bottom: 8px !important;
+    }
+
+    .flipkart-product-page .product-actions {
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        background: white !important;
+        padding: 12px !important;
+        box-shadow: 0 -2px 8px rgba(0,0,0,.1) !important;
+        z-index: 1000 !important;
+    }
+    
+    .flipkart-product-page .main-product-image {
+        height: 300px !important;
+    }
+    
+    .flipkart-product-page .product-title {
+        font-size: 1.25rem !important;
+    }
+    
+    .flipkart-product-page .current-price {
+        font-size: 1.5rem !important;
+    }
+    
+    .flipkart-product-page {
+        padding-bottom: 80px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .flipkart-products-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 6px !important;
+    }
+    
+    .flipkart-product-card .product-name {
+        font-size: 0.8rem !important;
+    }
+    
+    .flipkart-product-card .current-price {
+        font-size: 0.9rem !important;
+    }
+}
+/* ===============================================
+   MODERN HOMEPAGE SECTIONS - PREMIUM DESIGN
+   =============================================== */
+
+/* Modern Hero Banner */
+.hero-banner {
+    position: relative !important;
+    height: 85vh !important;
+    min-height: 500px !important;
+    max-height: 800px !important;
+    overflow: hidden !important;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+}
+
+.hero-banner .carousel-inner {
+    height: 100% !important;
+}
+
+.hero-banner .carousel-item {
+    height: 100% !important;
+    position: relative !important;
+}
+
+.hero-banner .carousel-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    filter: brightness(0.6) contrast(1.1) !important;
+}
+
+.hero-banner .carousel-caption {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    text-align: center !important;
+    color: white !important;
+    z-index: 10 !important;
+    max-width: 800px !important;
+    padding: 0 2rem !important;
+}
+
+.hero-banner .hero-title {
+    font-family: 'Inter', sans-serif !important;
+    font-size: clamp(2.5rem, 6vw, 5rem) !important;
+    font-weight: 700 !important;
+    margin-bottom: 1.5rem !important;
+    line-height: 1.1 !important;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+    letter-spacing: -0.02em !important;
+    background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+
+.hero-banner .hero-subtitle {
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem) !important;
+    font-weight: 300 !important;
+    margin-bottom: 2.5rem !important;
+    opacity: 0.9 !important;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important;
+    color: #e2e8f0 !important;
+}
+
+.hero-banner .hero-cta {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 1rem 2.5rem !important;
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%) !important;
+    color: white !important;
+    text-decoration: none !important;
+    border-radius: 50px !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+    letter-spacing: 0.5px !important;
+    text-transform: uppercase !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3) !important;
+    border: 2px solid transparent !important;
+}
+
+.hero-banner .hero-cta:hover {
+    transform: translateY(-3px) scale(1.05) !important;
+    box-shadow: 0 20px 40px rgba(59, 130, 246, 0.4) !important;
+    background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%) !important;
+    color: white !important;
+}
+
+.hero-banner .carousel-indicators {
+    bottom: 2rem !important;
+    margin: 0 !important;
+}
+
+.hero-banner .carousel-indicators button {
+    width: 12px !important;
+    height: 12px !important;
+    border-radius: 50% !important;
+    background: rgba(255, 255, 255, 0.4) !important;
+    border: none !important;
+    margin: 0 6px !important;
+    transition: all 0.3s ease !important;
+}
+
+.hero-banner .carousel-indicators button.active {
+    background: #3b82f6 !important;
+    transform: scale(1.3) !important;
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.6) !important;
+}
+
+/* Modern Trending Section */
+.products-section {
+    padding: 4rem 0 !important;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
+    position: relative !important;
+}
+
+.products-section::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(168, 85, 247, 0.05) 0%, transparent 50%) !important;
+    pointer-events: none !important;
+}
+
+.section-header-minimal {
+    text-align: center !important;
+    margin-bottom: 3rem !important;
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+.section-title-minimal {
+    font-family: 'Inter', sans-serif !important;
+    font-size: clamp(2.2rem, 4vw, 3.2rem) !important;
+    font-weight: 700 !important;
+    color: #0f172a !important; /* deeper slate for premium feel */
+    margin-bottom: 1.5rem !important;
+    letter-spacing: -0.01em !important;
+    position: relative !important;
+    text-transform: uppercase !important; /* clean, modern emphasis */
+}
+
+.section-title-minimal::after {
+    content: '' !important;
+    position: absolute !important;
+    bottom: -12px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 60px !important; /* slimmer for elegance */
+    height: 3px !important;
+    background: linear-gradient(90deg, #0ea5e9, #6366f1) !important; /* refined gradient */
+    border-radius: 50px !important; /* pill-shaped for premium look */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1) !important; /* subtle depth */
+}
+
+.view-all-minimal {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    color: #3b82f6 !important;
+    text-decoration: none !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    transition: all 0.3s ease !important;
+    margin-top: 1rem !important;
+}
+
+.view-all-minimal:hover {
+    color: #1d4ed8 !important;
+    transform: translateX(5px) !important;
+}
+
+.view-all-minimal::after {
+    content: '→' !important;
+    transition: transform 0.3s ease !important;
+}
+
+.view-all-minimal:hover::after {
+    transform: translateX(3px) !important;
+}
+
+/* Modern Product Cards */
+.product-item {
+    flex: 0 0 280px !important;
+    margin-right: 1.5rem !important;
+    position: relative !important;
+}
+
+.product-link-minimal {
+    display: block !important;
+    text-decoration: none !important;
+    color: inherit !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.product-image-container {
+    position: relative !important;
+    aspect-ratio: 3/4 !important;
+    overflow: hidden !important;
+    border-radius: 16px !important;
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%) !important;
+    margin-bottom: 1rem !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.product-link-minimal:hover .product-image-container {
+    transform: translateY(-8px) !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15) !important;
+}
+
+.product-img-main,
+.product-img-hover {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.product-img-hover {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    opacity: 0 !important;
+}
+
+.product-link-minimal:hover .product-img-hover {
+    opacity: 1 !important;
+}
+
+.product-link-minimal:hover .product-img-main {
+    transform: scale(1.1) !important;
+}
+
+.product-placeholder {
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%) !important;
+    color: #64748b !important;
+    font-size: 0.875rem !important;
+    font-weight: 500 !important;
+    letter-spacing: 2px !important;
+}
+
+.product-badge {
+    position: absolute !important;
+    top: 12px !important;
+    left: 12px !important;
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+    color: white !important;
+    padding: 6px 12px !important;
+    border-radius: 20px !important;
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.5px !important;
+    text-transform: uppercase !important;
+    z-index: 10 !important;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3) !important;
+}
+
+.product-details {
+    padding: 0 0.5rem !important;
+}
+
+.product-name-minimal {
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    color: #1e293b !important;
+    margin-bottom: 0.5rem !important;
+    line-height: 1.4 !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    transition: color 0.3s ease !important;
+}
+
+.product-link-minimal:hover .product-name-minimal {
+    color: #3b82f6 !important;
+}
+
+.product-category-minimal {
+    font-size: 0.875rem !important;
+    color: #64748b !important;
+    margin-bottom: 0.75rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    font-weight: 500 !important;
+}
+
+.product-price-minimal {
+    font-size: 1.125rem !important;
+    font-weight: 700 !important;
+    color: #1e293b !important;
+    margin: 0 !important;
+}
+
+.price-discounted {
+    color: #ef4444 !important;
+    margin-right: 0.5rem !important;
+}
+
+.price-original {
+    color: #94a3b8 !important;
+    text-decoration: line-through !important;
+    font-size: 1rem !important;
+    font-weight: 500 !important;
+}
+
+/* Modern Editorial Banner */
+.editorial-banner {
+    margin: 5rem 0 !important;
+    padding: 0 1rem !important;
+}
+
+.editorial-content {
+    max-width: 1400px !important;
+    margin: 0 auto !important;
+    position: relative !important;
+    height: 60vh !important;
+    min-height: 400px !important;
+    overflow: hidden !important;
+    border-radius: 24px !important;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15) !important;
+}
+
+.editorial-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    filter: brightness(0.7) contrast(1.1) !important;
+    transition: transform 0.6s ease !important;
+}
+
+.editorial-content:hover .editorial-image {
+    transform: scale(1.05) !important;
+}
+
+.editorial-text {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    text-align: center !important;
+    color: white !important;
+    z-index: 10 !important;
+}
+
+.editorial-title {
+    font-family: 'Inter', sans-serif !important;
+    font-size: clamp(2.5rem, 5vw, 4rem) !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.02em !important;
+    margin-bottom: 1rem !important;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+    background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+
+.editorial-subtitle {
+    font-size: clamp(1rem, 2vw, 1.25rem) !important;
+    font-weight: 300 !important;
+    letter-spacing: 1px !important;
+    margin-bottom: 2rem !important;
+    color: #e2e8f0 !important;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important;
+}
+
+.editorial-link {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 1rem 2.5rem !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    text-decoration: none !important;
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 1px !important;
+    text-transform: uppercase !important;
+    border-radius: 50px !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+.editorial-link:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-color: rgba(255, 255, 255, 0.6) !important;
+    transform: translateY(-3px) scale(1.05) !important;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2) !important;
+    color: white !important;
+}
+
+/* Modern CTA Section */
+.cta-section {
+    padding: 6rem 1rem !important;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.cta-section::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background-image: 
+        radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.1) 0%, transparent 50%) !important;
+    pointer-events: none !important;
+}
+
+.cta-container {
+    max-width: 1400px !important;
+    margin: 0 auto !important;
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+.cta-content {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 4rem !important;
+    align-items: center !important;
+}
+
+.cta-text {
+    padding: 2rem !important;
+}
+
+.cta-title {
+    font-family: 'Inter', sans-serif !important;
+    font-size: clamp(2rem, 4vw, 3.5rem) !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.02em !important;
+    margin-bottom: 1.5rem !important;
+    color: white !important;
+    line-height: 1.2 !important;
+}
+
+.cta-description {
+    font-size: 1.125rem !important;
+    color: #cbd5e1 !important;
+    margin-bottom: 2.5rem !important;
+    line-height: 1.7 !important;
+    font-weight: 300 !important;
+}
+
+.cta-button {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 1.25rem 3rem !important;
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%) !important;
+    color: white !important;
+    text-decoration: none !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.5px !important;
+    text-transform: uppercase !important;
+    border-radius: 50px !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 0 15px 35px rgba(59, 130, 246, 0.3) !important;
+    border: 2px solid transparent !important;
+}
+
+.cta-button:hover {
+    transform: translateY(-3px) scale(1.05) !important;
+    box-shadow: 0 25px 50px rgba(59, 130, 246, 0.4) !important;
+    background: linear-gradient(135deg, #1d4ed8 0%, #7c3aed 100%) !important;
+    color: white !important;
+}
+
+.cta-image {
+    position: relative !important;
+    overflow: hidden !important;
+    border-radius: 20px !important;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3) !important;
+}
+
+.cta-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    aspect-ratio: 4/5 !important;
+    transition: transform 0.6s ease !important;
+}
+
+.cta-image:hover .cta-img {
+    transform: scale(1.05) !important;
+}
+
+/* Modern Category Section */
+.category-section {
+    padding: 5rem 1rem !important;
+    background: white !important;
+    position: relative !important;
+}
+
+.category-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
+    gap: 2rem !important;
+    max-width: 1400px !important;
+    margin: 0 auto !important;
+}
+
+.category-item {
+    text-align: center !important;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.category-item:hover {
+    transform: translateY(-8px) !important;
+}
+
+.category-link-minimal {
+    display: block !important;
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+.category-image-box {
+    position: relative !important;
+    overflow: hidden !important;
+    aspect-ratio: 1/1 !important;
+    border-radius: 20px !important;
+    margin-bottom: 1.5rem !important;
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.category-link-minimal:hover .category-image-box {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15) !important;
+    transform: scale(1.02) !important;
+}
+
+.category-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    transition: transform 0.6s ease !important;
+}
+
+.category-link-minimal:hover .category-img {
+    transform: scale(1.1) !important;
+}
+
+.category-placeholder {
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%) !important;
+    font-size: 1rem !important;
+    letter-spacing: 2px !important;
+    color: #64748b !important;
+    font-weight: 600 !important;
+}
+
+.category-name-minimal {
+    font-size: 1.125rem !important;
+    font-weight: 600 !important;
+    color: #1e293b !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    transition: color 0.3s ease !important;
+}
+
+.category-link-minimal:hover .category-name-minimal {
+    color: #3b82f6 !important;
+}
+
+/* Modern Features Bar */
+.features-bar {
+    padding: 4rem 1rem !important;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
+    border-top: 1px solid #e2e8f0 !important;
+}
+
+.features-container {
+    max-width: 1400px !important;
+    margin: 0 auto !important;
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
+    gap: 3rem !important;
+}
+
+.feature-item {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 1.5rem !important;
+    padding: 2rem !important;
+    background: white !important;
+    border-radius: 16px !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    border: 1px solid #f1f5f9 !important;
+}
+
+.feature-item:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12) !important;
+    border-color: #3b82f6 !important;
+}
+
+.feature-icon {
+    width: 48px !important;
+    height: 48px !important;
+    color: #3b82f6 !important;
+    flex-shrink: 0 !important;
+    padding: 12px !important;
+    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%) !important;
+    border-radius: 12px !important;
+    transition: all 0.3s ease !important;
+}
+
+.feature-item:hover .feature-icon {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%) !important;
+    color: white !important;
+    transform: scale(1.1) !important;
+}
+
+.feature-text h4 {
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px !important;
+    margin-bottom: 0.5rem !important;
+    text-transform: uppercase !important;
+    color: #1e293b !important;
+    transition: color 0.3s ease !important;
+}
+
+.feature-item:hover .feature-text h4 {
+    color: #3b82f6 !important;
+}
+
+.feature-text p {
+    font-size: 0.95rem !important;
+    color: #64748b !important;
+    margin: 0 !important;
+    line-height: 1.6 !important;
+}
+
+/* Carousel Controls */
+.carousel-control-prev,
+.carousel-control-next {
+    width: 50px !important;
+    height: 50px !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    border-radius: 50% !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    border: 1px solid #e2e8f0 !important;
+    transition: all 0.3s ease !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+    background: white !important;
+    border-color: #3b82f6 !important;
+    transform: translateY(-50%) scale(1.1) !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-size: 20px 20px !important;
+    filter: invert(0.2) !important;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .cta-content {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+        text-align: center !important;
+    }
+    
+    .category-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1.5rem !important;
+    }
+    
+    .features-container {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+    }
+    
+    .feature-item {
+        padding: 1.5rem !important;
+    }
+    
+    .editorial-content {
+        height: 50vh !important;
+        min-height: 300px !important;
+        border-radius: 16px !important;
+    }
+    
+    .hero-banner {
+        height: 70vh !important;
+        min-height: 400px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .category-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .product-item {
+        flex: 0 0 240px !important;
+    }
+}
