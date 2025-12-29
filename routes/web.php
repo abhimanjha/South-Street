@@ -83,12 +83,14 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
     Route::post('/wishlist/add', [WishlistController::class, 'add'])->name('wishlist.add');
+    Route::post('/wishlist/toggle', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
     Route::delete('/wishlist/remove', [WishlistController::class, 'remove'])->name('wishlist.remove');
     Route::get('/wishlist/count', [WishlistController::class, 'count'])->name('wishlist.count');
 });
 
 // Reviews
 Route::middleware(['auth'])->group(function () {
+    Route::post('/reviews/test', [ReviewController::class, 'test'])->name('reviews.test');
     Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
     Route::put('/reviews/{review}', [ReviewController::class, 'update'])->name('reviews.update');
     Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');

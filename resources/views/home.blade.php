@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Home - FashionHub')
+@section('title', 'Home - SouthStreet')
 
 @section('content')
 <!-- Hero Banner Carousel -->
@@ -59,7 +59,7 @@
 @if($trendingProducts->count() > 0)
 <section class="products-section pt-5">
     <div class="section-header-minimal">
-        <h2>TRENDING</h2>
+        <h2 class="section-title-minimal force-underline">TRENDING</h2>
     </div>
     <div id="trendingCarousel" class="carousel slide" data-bs-ride="false">
         <div class="carousel-inner">
@@ -171,7 +171,7 @@
 <!-- New In / New Arrivals (Horizontal Carousel) -->
 <section class="products-section">
     <div class="section-header-minimal">
-        <h2 class="section-title-minimal">NEW IN</h2>
+        <h2 class="section-title-minimal force-underline">NEW IN</h2>
         <a href="{{ route('products.index', ['sort' => 'latest']) }}" class="view-all-minimal">VIEW ALL</a>
     </div>
     <div id="newInCarousel" class="carousel slide" data-bs-ride="false">
@@ -273,7 +273,7 @@
 <!-- Shop by Category -->
 <section class="category-section">
     <div class="section-header-minimal">
-        <h2 class="section-title-minimal">SHOP BY CATEGORY</h2>
+        <h2 class="section-title-minimal force-underline">SHOP BY CATEGORY</h2>
     </div>
     <div class="category-grid">
         @foreach($categories as $category)

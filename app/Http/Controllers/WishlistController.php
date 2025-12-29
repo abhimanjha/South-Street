@@ -72,4 +72,37 @@ class WishlistController extends Controller
 
         return response()->json(['count' => $count]);
     }
+
+    public function toggle(Request $request): JsonResponse
+    {
+        $request->validate([
+            'product_id' => 'required|exists:products,id'
+        ]);
+
+        $existing = Wishlist::where('user_id', auth()->id())
+                           ->where('product_id', $request->product_id)
+                           ->first();
+
+        if ($existing) {
+            $existing->delete();
+            $message = 'Removed from wishlist';
+            $added = false;
+        } else {
+            Wishlist::create([
+                'user_id' => auth()->id(),
+                'product_id' => $request->product_id
+            ]);
+            $message = 'Added to wishlist';
+            $added = true;
+        }
+
+        $count = Wishlist::where('user_id', auth()->id())->count();
+
+        return response()->json([
+            'success' => true,
+            'message' => $message,
+            'added' => $added,
+            'count' => $count
+        ]);
+    }
 }
