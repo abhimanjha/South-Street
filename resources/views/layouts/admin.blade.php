@@ -10,6 +10,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
@@ -33,11 +35,13 @@
             left: 0;
             height: 100vh;
             width: var(--sidebar-width);
-            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
-            color: #fff;
+            background: #ffffff;
+            color: #1f2937;
             transition: transform 0.3s ease;
             z-index: 1000;
             overflow-y: auto;
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.08);
+            border-right: 1px solid #e5e7eb;
         }
         
         .admin-sidebar.collapsed {
@@ -46,18 +50,18 @@
         
         .sidebar-header {
             padding: 1.5rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid #e5e7eb;
         }
         
         .sidebar-brand {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #fff;
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            justify-content: center;
+            padding: 0.5rem;
         }
+
+
         
         .sidebar-menu {
             padding: 1rem 0;
@@ -76,22 +80,18 @@
             display: flex;
             align-items: center;
             padding: 0.75rem 1.5rem;
-            color: rgba(255, 255, 255, 0.8);
+            color: #6b7280;
             text-decoration: none;
-            transition: all 0.2s;
             border-left: 3px solid transparent;
+            border-radius: 0 8px 8px 0;
+            margin: 2px 8px;
         }
-        
-        .menu-item:hover {
-            background: rgba(255, 255, 255, 0.05);
-            color: #fff;
-            border-left-color: #3b82f6;
-        }
-        
+
         .menu-item.active {
-            background: rgba(59, 130, 246, 0.1);
-            color: #fff;
+            background: #dbeafe;
+            color: #1d4ed8;
             border-left-color: #3b82f6;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
         }
         
         .menu-item i {
@@ -114,10 +114,11 @@
             left: var(--sidebar-width);
             right: 0;
             height: var(--header-height);
-            background: #fff;
+            background: #ffffff;
             border-bottom: 1px solid #e5e7eb;
             z-index: 999;
             transition: left 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
         }
         
         .admin-header.expanded {
@@ -146,12 +147,6 @@
             cursor: pointer;
             padding: 0.5rem;
             border-radius: 0.5rem;
-            transition: all 0.2s;
-        }
-        
-        .sidebar-toggle:hover {
-            background: #f3f4f6;
-            color: #1f2937;
         }
         
         .header-search {
@@ -164,7 +159,6 @@
             padding: 0.5rem 1rem 0.5rem 2.5rem;
             border: 1px solid #e5e7eb;
             border-radius: 0.5rem;
-            transition: all 0.2s;
         }
         
         .header-search input:focus {
@@ -196,13 +190,7 @@
             justify-content: center;
             border-radius: 0.5rem;
             color: #6b7280;
-            transition: all 0.2s;
             cursor: pointer;
-        }
-        
-        .header-icon:hover {
-            background: #f3f4f6;
-            color: #1f2937;
         }
         
         .notification-badge {
@@ -223,11 +211,6 @@
             padding: 0.5rem;
             border-radius: 0.5rem;
             cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .user-menu:hover {
-            background: #f3f4f6;
         }
         
         .user-avatar {
@@ -248,7 +231,7 @@
             margin-top: var(--header-height);
             padding: 2rem;
             min-height: calc(100vh - var(--header-height));
-            background: #f9fafb;
+            background: #f8fafc;
             transition: margin-left 0.3s ease;
         }
         
@@ -258,16 +241,11 @@
         
         /* Stats Cards */
         .stat-card {
-            background: #fff;
-            border-radius: 0.75rem;
+            background: #ffffff;
+            border-radius: 1rem;
             padding: 1.5rem;
             border: 1px solid #e5e7eb;
-            transition: all 0.2s;
-        }
-        
-        .stat-card:hover {
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            transform: translateY(-2px);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
         
         .stat-icon {
@@ -315,9 +293,10 @@
         /* Chart Card */
         .chart-card {
             background: #fff;
-            border-radius: 0.75rem;
+            border-radius: 1rem;
             padding: 1.5rem;
             border: 1px solid #e5e7eb;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
         
         .chart-header {
@@ -335,10 +314,11 @@
         
         /* Table Styles */
         .data-table {
-            background: #fff;
-            border-radius: 0.75rem;
+            background: #ffffff;
+            border-radius: 1rem;
             overflow: hidden;
             border: 1px solid #e5e7eb;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
         
         .table-header {
@@ -367,11 +347,6 @@
         
         .table tbody tr {
             border-bottom: 1px solid #f3f4f6;
-            transition: all 0.2s;
-        }
-        
-        .table tbody tr:hover {
-            background: #f9fafb;
         }
         
         /* Badges */
@@ -392,11 +367,43 @@
             border-radius: 0.375rem;
             border: none;
             cursor: pointer;
-            transition: all 0.2s;
         }
         
-        .action-btn:hover {
-            transform: scale(1.1);
+        /* Admin Panel - Override Global Card Hover Effects */
+        body .admin-main .card:hover,
+        body .admin-main .stat-card:hover,
+        body .admin-main .chart-card:hover,
+        body .admin-main .data-table:hover {
+            transform: none !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        body .admin-main .card:hover::before {
+            opacity: 0 !important;
+        }
+        
+        body .admin-main .card:hover .card-img-top,
+        body .admin-main .card:hover .bg-light {
+            transform: none !important;
+        }
+        
+        body .admin-main .card:hover .fw-bold {
+            color: inherit !important;
+            transform: none !important;
+        }
+        
+        /* Remove all hover effects from admin elements */
+        body .admin-sidebar .menu-item:hover,
+        body .admin-header .header-icon:hover,
+        body .admin-header .user-menu:hover,
+        body .admin-header .sidebar-toggle:hover,
+        body .admin-main .action-btn:hover,
+        body .admin-main .table tbody tr:hover {
+            background: inherit !important;
+            color: inherit !important;
+            border-color: inherit !important;
+            transform: none !important;
+            box-shadow: inherit !important;
         }
         
         /* Responsive */
@@ -430,36 +437,28 @@
     <aside class="admin-sidebar" id="sidebar">
         <div class="sidebar-header">
             <a href="{{ route('admin.dashboard') }}" class="sidebar-brand">
-                <i class="bi bi-shop"></i>
-                <span>Admin Panel</span>
+                <img src="{{ asset('imgs/logo.png') }}" alt="Logo" style="height: 40px; width: auto;">
             </a>
         </div>
         
         <nav class="sidebar-menu">
-            <div class="menu-section-title">Main</div>
             <a href="{{ route('admin.dashboard') }}" class="menu-item active">
                 <i class="bi bi-grid-fill"></i>
                 <span>Dashboard</span>
             </a>
-            
-            <div class="menu-section-title">E-Commerce</div>
             <a href="{{ route('admin.products.index') }}" class="menu-item">
                 <i class="bi bi-box-seam"></i>
-                <span>Products</span>
+                <span>Product</span>
                 <span class="badge bg-primary menu-badge">{{ $productCount ?? 0 }}</span>
-            </a>
-            <a href="{{ route('admin.categories.index') }}" class="menu-item">
-                <i class="bi bi-tags"></i>
-                <span>Categories</span>
             </a>
             <a href="{{ route('admin.orders.index') }}" class="menu-item">
                 <i class="bi bi-cart3"></i>
-                <span>Orders</span>
+                <span>Order</span>
                 <span class="badge bg-warning menu-badge">{{ $pendingOrders ?? 0 }}</span>
             </a>
             <a href="{{ route('admin.returns.index') }}" class="menu-item">
                 <i class="bi bi-arrow-return-left"></i>
-                <span>Returns & Refunds</span>
+                <span>Return/Refund</span>
                 @php
                     $pendingReturns = \App\Models\OrderReturn::where('status', 'requested')->count();
                 @endphp
@@ -467,29 +466,9 @@
                     <span class="badge bg-danger menu-badge">{{ $pendingReturns }}</span>
                 @endif
             </a>
-            <a href="{{ route('admin.customers.index') }}" class="menu-item">
-                <i class="bi bi-people"></i>
-                <span>Customers</span>
-            </a>
-            
-            <div class="menu-section-title">Content</div>
-            <a href="{{ route('admin.blog.index') }}" class="menu-item">
-                <i class="bi bi-file-text"></i>
-                <span>Blog Posts</span>
-            </a>
-            <a href="{{ route('admin.pages.index') }}" class="menu-item">
-                <i class="bi bi-file-earmark"></i>
-                <span>Pages</span>
-            </a>
-            <a href="{{ route('admin.media.index') }}" class="menu-item">
-                <i class="bi bi-image"></i>
-                <span>Media Library</span>
-            </a>
-            
-            <div class="menu-section-title">Settings</div>
-            <a href="{{ route('admin.custom-designs.index') }}" class="menu-item">
-                <i class="bi bi-palette"></i>
-                <span>Custom Designs</span>
+            <a href="{{ route('admin.custom-tailoring.index') }}" class="menu-item">
+                <i class="bi bi-scissors"></i>
+                <span>Custom Tailoring</span>
             </a>
             <a href="{{ route('admin.reviews.index') }}" class="menu-item">
                 <i class="bi bi-star"></i>
@@ -501,11 +480,7 @@
             </a>
             <a href="{{ route('admin.notifications.create-discount') }}" class="menu-item">
                 <i class="bi bi-bell"></i>
-                <span>Send Notifications</span>
-            </a>
-            <a href="{{ route('admin.custom-tailoring.index') }}" class="menu-item">
-                <i class="bi bi-scissors"></i>
-                <span>Custom Tailoring</span>
+                <span>Notifications</span>
             </a>
         </nav>
     </aside>
@@ -524,13 +499,6 @@
             </div>
             
             <div class="header-right">
-                <div class="header-icon">
-                    <i class="bi bi-bell"></i>
-                    <span class="notification-badge"></span>
-                </div>
-                <div class="header-icon">
-                    <i class="bi bi-envelope"></i>
-                </div>
                 <div class="dropdown">
                     <div class="user-menu" data-bs-toggle="dropdown">
                         <div class="user-avatar">
@@ -543,9 +511,6 @@
                         <i class="bi bi-chevron-down" style="font-size: 0.75rem; color: #9ca3af;"></i>
                     </div>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="{{ route('admin.custom-designs.index') }}"><i class="bi bi-palette me-2"></i>Custom Designs</a></li>
-                        <li><a class="dropdown-item" href="{{ route('admin.reviews.index') }}"><i class="bi bi-star me-2"></i>Reviews</a></li>
-                        <li><hr class="dropdown-divider"></li>
                         <li>
                             <form action="{{ route('admin.logout') }}" method="POST">
                                 @csrf

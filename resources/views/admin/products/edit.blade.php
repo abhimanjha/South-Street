@@ -332,20 +332,33 @@
                         <a href="{{ route('admin.products.index') }}" class="btn btn-secondary w-100 mt-2">
                             <i class="fas fa-times me-2"></i>Cancel
                         </a>
-                        <hr>
-                        <form method="POST" action="{{ route('admin.products.destroy', $product) }}"
-                              onsubmit="return confirm('Are you sure you want to delete this product? This action cannot be undone.')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger w-100">
-                                <i class="fas fa-trash me-2"></i>Delete Product
-                            </button>
-                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </form>
+
+    <!-- Delete Product Form (Separate) -->
+    <div class="row mt-4">
+        <div class="col-lg-4 offset-lg-8">
+            <div class="card border-danger">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0"><i class="fas fa-exclamation-triangle me-2"></i>Danger Zone</h5>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted mb-3">Once you delete this product, there is no going back. Please be certain.</p>
+                    <form method="POST" action="{{ route('admin.products.destroy', $product) }}"
+                          onsubmit="return confirm('Are you sure you want to delete this product? This action cannot be undone.')">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger w-100">
+                            <i class="fas fa-trash me-2"></i>Delete Product
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
