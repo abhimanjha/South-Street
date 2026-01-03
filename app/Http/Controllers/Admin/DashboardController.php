@@ -16,7 +16,7 @@ class DashboardController extends Controller
     {
         try {
             $totalOrders = Order::count();
-            $totalRevenue = Order::where('payment_status', 'paid')->sum('total_amount');
+            $totalRevenue = Order::where('payment_status', 'completed')->sum('total');
             $totalProducts = Product::count();
             $totalCustomers = User::count();
 
@@ -33,9 +33,9 @@ class DashboardController extends Controller
             $pendingTailoringRequests = CustomTailoringRequest::where('status', 'pending')->count();
 
             // Monthly revenue chart data
-            $monthlyRevenue = Order::where('payment_status', 'paid')
+            $monthlyRevenue = Order::where('payment_status', 'completed')
                 ->where('created_at', '>=', Carbon::now()->subMonths(6))
-                ->selectRaw('MONTH(created_at) as month, SUM(total_amount) as revenue')
+                ->selectRaw('MONTH(created_at) as month, SUM(total) as revenue')
                 ->groupBy('month')
                 ->pluck('revenue', 'month');
 

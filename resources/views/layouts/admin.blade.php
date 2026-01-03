@@ -428,6 +428,20 @@
                 display: none;
             }
         }
+
+        /* Hide Scrollbars */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        html {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        html::-webkit-scrollbar {
+            display: none;
+        }
     </style>
     
     @stack('styles')
@@ -437,7 +451,7 @@
     <aside class="admin-sidebar" id="sidebar">
         <div class="sidebar-header">
             <a href="{{ route('admin.dashboard') }}" class="sidebar-brand">
-                <img src="{{ asset('imgs/logo.png') }}" alt="Logo" style="height: 40px; width: auto;">
+                <img src="{{ asset('imgs/southstreet_logo.jpeg') }}" alt="Logo" style="height: 80px; width: auto;">
             </a>
         </div>
         

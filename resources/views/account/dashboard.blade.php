@@ -113,7 +113,7 @@
                                                     {{ ucfirst($order->status) }}
                                                 </span>
                                             </td>
-                                            <td>₹{{ number_format($order->total_amount, 2) }}</td>
+                                            <td>₹{{ number_format($order->total, 2) }}</td>
                                             <td>
                                                 <a href="{{ route('account.orders.show', $order) }}" class="btn btn-sm btn-outline-primary">View</a>
                                             </td>

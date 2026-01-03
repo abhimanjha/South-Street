@@ -118,14 +118,6 @@
                             </a>
                         </div>
                         <div class="col-md-3">
-                            <a href="{{ route('admin.custom-designs.index') }}" class="btn btn-outline-warning w-100">
-                                <i class="fas fa-palette me-2"></i>Custom Designs
-                                @if($pendingDesigns > 0)
-                                    <span class="badge bg-warning ms-2">{{ $pendingDesigns }}</span>
-                                @endif
-                            </a>
-                        </div>
-                        <div class="col-md-3">
                             <a href="{{ route('admin.custom-tailoring.index') }}" class="btn btn-outline-secondary w-100">
                                 <i class="fas fa-cut me-2"></i>Custom Tailoring
                                 @if($pendingTailoringRequests > 0)
@@ -166,7 +158,7 @@
                                         <tr>
                                             <td><strong>#{{ $order->id }}</strong></td>
                                             <td>{{ $order->user->name ?? 'Guest' }}</td>
-                                            <td>₹{{ number_format($order->total_amount, 2) }}</td>
+                                            <td>₹{{ number_format($order->total, 2) }}</td>
                                             <td>
                                                 @php
                                                     $statusColors = [

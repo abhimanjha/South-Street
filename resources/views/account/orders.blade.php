@@ -34,7 +34,7 @@
                             <td>#{{ $order->id }}</td>
                             <td>{{ $order->created_at->format('M d, Y') }}</td>
                             <td>{{ $order->items->count() }} item(s)</td>
-                            <td>₹{{ number_format($order->total_amount, 2) }}</td>
+                            <td>₹{{ number_format($order->total, 2) }}</td>
                             <td>
                                 <span class="badge bg-{{ $order->status === 'pending' ? 'warning' : ($order->status === 'processing' ? 'info' : ($order->status === 'shipped' ? 'primary' : ($order->status === 'delivered' ? 'success' : 'secondary'))) }}">
                                     {{ ucfirst($order->status) }}
