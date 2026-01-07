@@ -35,10 +35,10 @@ Route::get('/testimonials', [App\Http\Controllers\TestimonialController::class, 
 Route::post('/testimonials', [App\Http\Controllers\TestimonialController::class, 'store'])->name('testimonials.store');
 
 // Tailoring Requests
-Route::get('/custom-tailoring', [App\Http\Controllers\TailoringRequestController::class, 'create'])->name('tailoring.create');
-Route::post('/custom-tailoring', [App\Http\Controllers\TailoringRequestController::class, 'store'])->name('tailoring.store');
+Route::get('/custom-tailoring', [App\Http\Controllers\TailoringRequestController::class, 'create'])->name('custom-tailoring.create');
+Route::post('/custom-tailoring', [App\Http\Controllers\TailoringRequestController::class, 'store'])->name('custom-tailoring.store');
 Route::middleware(['auth'])->group(function () {
-    Route::get('/my-tailoring-requests', [App\Http\Controllers\TailoringRequestController::class, 'myRequests'])->name('tailoring.my-requests');
+    Route::get('/my-tailoring-requests', [App\Http\Controllers\TailoringRequestController::class, 'myRequests'])->name('custom-tailoring.my-requests');
 });
 
 // Products

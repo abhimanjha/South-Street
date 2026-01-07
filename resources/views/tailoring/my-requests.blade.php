@@ -63,7 +63,7 @@
                 </div>
                 <h3 class="text-lg font-medium text-gray-900 mb-2">No tailoring requests yet</h3>
                 <p class="text-gray-500 mb-6">You haven't submitted any tailoring requests yet.</p>
-                <a href="{{ route('tailoring.create') }}" class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700">
+                <a href="{{ route('custom-tailoring.create') }}" class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700">
                     Submit Your First Request
                 </a>
             </div>

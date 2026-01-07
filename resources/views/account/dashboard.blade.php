@@ -2,10 +2,50 @@
 
 @section('content')
 <style>
-/* Disable card hover jump effect on dashboard page */
+/* Disable all card hover effects on dashboard page to prevent jumping */
 .card:hover {
     transform: none !important;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08) !important;
+}
+
+.card:hover .card-img-top,
+.card:hover .bg-light {
+    transform: none !important;
+}
+
+.card:hover::before {
+    opacity: 0 !important;
+}
+
+.card:hover .fw-bold {
+    color: inherit !important;
+    transform: none !important;
+}
+
+/* Disable button hover effects that might cause movement */
+.card .btn:hover,
+.btn:hover {
+    transform: none !important;
+}
+
+/* Ensure stable form elements */
+.card form,
+.card .form-control,
+.card .btn,
+form,
+.form-control,
+.btn {
+    transition: none !important;
+}
+
+/* Override any global hover animations */
+* {
+    animation: none !important;
+}
+
+/* Disable any transform animations on hover */
+*:hover {
+    transform: none !important;
 }
 </style>
 <div class="container">

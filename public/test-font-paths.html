@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Font Path Test</title>
+    <style>
+        @font-face {
+            font-family: "Font Awesome 6 Free";
+            font-style: normal;
+            font-weight: 900;
+            font-display: block;
+            src: url("fontawesome/webfonts/fa-solid-900.woff2") format("woff2"),
+                 url("fontawesome/webfonts/fa-solid-900.ttf") format("truetype");
+        }
+        
+        .fa-test {
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            font-size: 2rem;
+        }
+        
+        .fa-test:before {
+            content: "\f015"; /* home icon */
+        }
+    </style>
+</head>
+<body>
+    <div style="padding: 20px;">
+        <h1>Font Path Test</h1>
+        <p>Testing direct font loading:</p>
+        <span class="fa-test"></span>
+        <p>If you see a home icon above, the fonts are loading correctly.</p>
+        
+        <h2>Font File Links (click to test):</h2>
+        <ul>
+            <li><a href="fontawesome/webfonts/fa-solid-900.woff2" target="_blank">fa-solid-900.woff2</a></li>
+            <li><a href="fontawesome/webfonts/fa-solid-900.ttf" target="_blank">fa-solid-900.ttf</a></li>
+            <li><a href="fontawesome/webfonts/fa-regular-400.woff2" target="_blank">fa-regular-400.woff2</a></li>
+            <li><a href="fontawesome/webfonts/fa-regular-400.ttf" target="_blank">fa-regular-400.ttf</a></li>
+            <li><a href="fontawesome/webfonts/fa-brands-400.woff2" target="_blank">fa-brands-400.woff2</a></li>
+            <li><a href="fontawesome/webfonts/fa-brands-400.ttf" target="_blank">fa-brands-400.ttf</a></li>
+        </ul>
+    </div>
+</body>
+</html>

@@ -159,7 +159,7 @@
             <div class="cta-text">
                 <h2 class="cta-title">CUSTOM DESIGN SERVICE</h2>
                 <p class="cta-description">Create your unique piece with our expert designers</p>
-                <a href="{{ route('tailoring.create') }}" class="cta-button">BOOK CONSULTATION</a>
+                <a href="{{ route('custom-tailoring.create') }}" class="cta-button">BOOK CONSULTATION</a>
             </div>
             <div class="cta-image">
                 <img src="/images/custom-design.jpg" alt="Custom Design" class="cta-img">

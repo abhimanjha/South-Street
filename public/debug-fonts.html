@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Font Debug</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-icon { font-size: 2rem; margin: 10px; }
+        .debug-info { background: #f5f5f5; padding: 15px; margin: 10px 0; border-radius: 5px; }
+    </style>
+    <link rel="stylesheet" href="fontawesome/css/all.min.css">
+</head>
+<body>
+    <h1>Font Awesome Debug Page</h1>
+    
+    <div class="debug-info">
+        <h3>Test Icons:</h3>
+        <i class="fas fa-home test-icon"></i> Home
+        <i class="fas fa-user test-icon"></i> User
+        <i class="fas fa-cog test-icon"></i> Settings
+        <i class="far fa-heart test-icon"></i> Heart (Regular)
+        <i class="fab fa-github test-icon"></i> GitHub (Brand)
+    </div>
+    
+    <div class="debug-info">
+        <h3>Font File Tests:</h3>
+        <p>Click these links to test if font files are accessible:</p>
+        <ul>
+            <li><a href="/fontawesome/webfonts/fa-solid-900.woff2" target="_blank">fa-solid-900.woff2</a></li>
+            <li><a href="/fontawesome/webfonts/fa-solid-900.ttf" target="_blank">fa-solid-900.ttf</a></li>
+            <li><a href="/fontawesome/webfonts/fa-regular-400.woff2" target="_blank">fa-regular-400.woff2</a></li>
+            <li><a href="/fontawesome/webfonts/fa-regular-400.ttf" target="_blank">fa-regular-400.ttf</a></li>
+            <li><a href="/fontawesome/webfonts/fa-brands-400.woff2" target="_blank">fa-brands-400.woff2</a></li>
+            <li><a href="/fontawesome/webfonts/fa-brands-400.ttf" target="_blank">fa-brands-400.ttf</a></li>
+        </ul>
+    </div>
+    
+    <div class="debug-info">
+        <h3>CSS File Test:</h3>
+        <p><a href="/fontawesome/css/all.min.css" target="_blank">Font Awesome CSS</a></p>
+    </div>
+    
+    <script>
+        // Check if fonts are loaded
+        document.fonts.ready.then(function() {
+            console.log('Fonts loaded successfully');
+            document.body.style.backgroundColor = '#e8f5e8';
+        });
+        
+        // Log any font loading errors
+        document.fonts.addEventListener('loadingerror', function(event) {
+            console.error('Font loading error:', event);
+        });
+    </script>
+</body>
+</html>

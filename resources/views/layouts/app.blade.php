@@ -13,10 +13,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">
 
     <!-- Custom CSS -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -28,7 +28,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}" defer></script>
     <script src="{{ asset('js/spa-navigation.js') }}" defer></script>
     @auth
     <script>
@@ -323,7 +323,7 @@
   <nav class="southstreet-nav py-2 border-top border-bottom bg-white d-none d-sm-block">
     <div class="container-fluid d-flex justify-content-center gap-4 flex-wrap">
       <a href="{{ route('products.index') }}" class="nav-link text-dark">Shop All</a>
-      <a href="{{ route('tailoring.create') }}" class="nav-link text-dark">Custom Tailoring</a>
+      <a href="{{ route('custom-tailoring.create') }}" class="nav-link text-dark">Custom Tailoring</a>
       <a href="{{ route('products.category', 'men') }}" class="nav-link text-dark">Men</a>
       <a href="{{ route('products.category', 'women') }}" class="nav-link text-dark">Women</a>
       <a href="{{ route('products.category', 'kids') }}" class="nav-link text-dark">Kids</a>
@@ -350,7 +350,7 @@
             </a>
           </li>
           <li class="list-group-item">
-            <a href="{{ route('tailoring.create') }}" class="text-decoration-none text-dark d-flex align-items-center" data-bs-dismiss="modal">
+            <a href="{{ route('custom-tailoring.create') }}" class="text-decoration-none text-dark d-flex align-items-center" data-bs-dismiss="modal">
               <i class="fas fa-cut me-3"></i> Custom Tailoring
             </a>
           </li>
@@ -419,7 +419,7 @@
             <li><a href="{{ route('products.category', 'men') }}">Men's Wear</a></li>
             <li><a href="{{ route('products.category', 'women') }}">Women's Wear</a></li>
             <li><a href="{{ route('products.category', 'kids') }}">Kids' Collection</a></li>
-            <li><a href="{{ route('tailoring.create') }}">Custom Tailoring</a></li>
+            <li><a href="{{ route('custom-tailoring.create') }}">Custom Tailoring</a></li>
             <li><a href="#">New Arrivals</a></li>
             <li><a href="#">Sale & Offers</a></li>
           </ul>
