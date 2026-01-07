@@ -143,7 +143,7 @@
                     <i class="fas fa-tshirt me-2"></i>Custom Tailoring Request Form
                 </h2>
                 
-                <form action="{{ route('tailoring.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('custom-tailoring.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     
                     <div class="row">
@@ -172,15 +172,17 @@
                         
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="garment_type" class="form-label">Garment Type *</label>
-                                <select class="form-control" id="garment_type" name="garment_type" required>
-                                    <option value="">Select Garment Type</option>
-                                    <option value="shirt">Shirt</option>
-                                    <option value="pants">Pants</option>
-                                    <option value="suit">Suit</option>
-                                    <option value="dress">Dress</option>
-                                    <option value="blazer">Blazer</option>
-                                    <option value="other">Other</option>
+                                <label for="style_type" class="form-label">Style Type *</label>
+                                <select class="form-control" id="style_type" name="style_type" required>
+                                    <option value="">Select Style Type</option>
+                                    <option value="Shirt">Shirt</option>
+                                    <option value="Trousers">Trousers</option>
+                                    <option value="Suit">Suit</option>
+                                    <option value="Blazer">Blazer</option>
+                                    <option value="Dress">Dress</option>
+                                    <option value="Skirt">Skirt</option>
+                                    <option value="Jacket">Jacket</option>
+                                    <option value="Other">Other</option>
                                 </select>
                             </div>
                         </div>
@@ -203,13 +205,13 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="measurements" class="form-label">Measurements</label>
-                        <textarea class="form-control" id="measurements" name="measurements" rows="4" placeholder="Please provide your measurements (chest, waist, length, etc.) or mention if you'd prefer an in-person fitting"></textarea>
+                        <label for="size_details" class="form-label">Size Details *</label>
+                        <textarea class="form-control" id="size_details" name="size_details" rows="4" placeholder="Please provide detailed measurements (chest, waist, length, etc.)" required></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label for="special_requirements" class="form-label">Special Requirements</label>
-                        <textarea class="form-control" id="special_requirements" name="special_requirements" rows="4" placeholder="Any special design requests, style preferences, or additional details"></textarea>
+                        <label for="additional_notes" class="form-label">Additional Notes</label>
+                        <textarea class="form-control" id="additional_notes" name="additional_notes" rows="4" placeholder="Any special requirements or preferences"></textarea>
                     </div>
 
                     <div class="form-group">
@@ -243,9 +245,26 @@
 
                     <div class="text-center">
                         <button type="submit" class="submit-btn">
-                            <i class="fas fa-paper-plane me-2"></i>Submit Custom Request
+                            <i class="fas fa-paper-plane me-2"></i>Submit Request
                         </button>
                     </div>
+
+                    @if(session('success'))
+                        <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                            <i class="fas fa-check-circle me-2"></i>{{ session('success') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    @endif
+
+                    @if($errors->any())
+                        <div class="alert alert-danger mt-3">
+                            <ul class="mb-0">
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                 </form>
             </div>
         </div>
