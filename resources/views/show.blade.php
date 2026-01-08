@@ -17,22 +17,26 @@
     <div class="grid md:grid-cols-2 gap-8">
         <!-- Product Images -->
         <div>
-            <div class="mb-4">
+            <div class="mb-4 relative">
                 @if($product->images->count() > 0)
-                    <img id="main-image" src="{{ Storage::url($product->images->first()->image_path) }}" alt="{{ $product->name }}" class="w-full rounded-lg shadow-lg">
+                    <img id="main-product-image" src="{{ Storage::url($product->images->first()->image_path) }}" alt="{{ $product->name }}" class="w-full rounded-lg shadow-lg cursor-pointer">
                 @else
                     <div class="w-full h-96 bg-gray-200 rounded-lg flex items-center justify-center">
                         <span class="text-gray-400">No Image Available</span>
                     </div>
                 @endif
+                <!-- Zoom Overlay Hint -->
+                <div class="image-zoom-overlay hidden absolute inset-0 bg-black bg-opacity-25 flex items-center justify-center text-white text-2xl rounded-lg cursor-pointer">
+                    <i class="fas fa-search-plus"></i>
+                </div>
             </div>
             @if($product->images->count() > 1)
                 <div class="grid grid-cols-4 gap-2">
                     @foreach($product->images as $image)
                         <img src="{{ Storage::url($image->image_path) }}" 
                              alt="{{ $product->name }}" 
-                             class="w-full h-24 object-cover rounded cursor-pointer border-2 hover:border-blue-600"
-                             onclick="document.getElementById('main-image').src = this.src">
+                             class="thumbnail-item w-full h-24 object-cover rounded cursor-pointer border-2 hover:border-blue-600 transition"
+                             data-image="{{ Storage::url($image->image_path) }}">
                     @endforeach
                 </div>
             @endif
@@ -86,7 +90,7 @@
                             <div class="flex gap-2">
                                 @foreach($sizes as $size)
                                     <button type="button" 
-                                            class="size-btn px-4 py-2 border rounded hover:border-blue-600 hover:bg-blue-50"
+                                            class="size-option px-4 py-2 border rounded hover:border-blue-600 hover:bg-blue-50 transition"
                                             data-size="{{ $size }}">
                                         {{ $size }}
                                     </button>
@@ -108,7 +112,7 @@
                                         $colorCode = $product->variants->where('color', $color)->first()->color_code;
                                     @endphp
                                     <button type="button"
-                                            class="color-btn w-10 h-10 rounded-full border-2 hover:border-blue-600"
+                                            class="color-option w-10 h-10 rounded-full border-2 hover:border-blue-600 transition"
                                             style="background-color: {{ $colorCode }}"
                                             data-color="{{ $color }}"
                                             title="{{ $color }}">
@@ -122,9 +126,9 @@
                     <div class="mb-6">
                         <label class="block font-semibold mb-2">Quantity</label>
                         <div class="flex items-center gap-3">
-                            <button type="button" id="decrease-qty" class="px-4 py-2 border rounded hover:bg-gray-100">-</button>
+                            <button type="button" id="decrease-qty" class="px-4 py-2 border rounded hover:bg-gray-100 transition">-</button>
                             <input type="number" name="quantity" id="quantity" value="1" min="1" class="w-20 text-center border rounded py-2">
-                            <button type="button" id="increase-qty" class="px-4 py-2 border rounded hover:bg-gray-100">+</button>
+                            <button type="button" id="increase-qty" class="px-4 py-2 border rounded hover:bg-gray-100 transition">+</button>
                         </div>
                     </div>
 
@@ -139,8 +143,8 @@
 
                     <!-- Action Buttons -->
                     <div class="flex gap-4 mb-6">
-                        <button type="submit" class="flex-1 bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
-                            Add to Cart
+                        <button type="button" id="add-to-cart-btn" class="flex-1 bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+                            <i class="fas fa-shopping-bag me-2"></i> Add to Cart
                         </button>
                         <button type="button" onclick="buyNow()" class="flex-1 bg-green-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700 transition">
                             Buy Now
@@ -148,16 +152,24 @@
                     </div>
                 </form>
             @else
-                <form action="{{ route('cart.add') }}" method="POST">
+                <form id="add-to-cart-form" action="{{ route('cart.add') }}" method="POST">
                     @csrf
                     <input type="hidden" name="product_id" value="{{ $product->id }}">
                     <div class="mb-6">
                         <label class="block font-semibold mb-2">Quantity</label>
-                        <input type="number" name="quantity" value="1" min="1" class="w-20 text-center border rounded py-2">
+                        <div class="flex items-center gap-3">
+                            <button type="button" id="decrease-qty" class="px-4 py-2 border rounded hover:bg-gray-100 transition">-</button>
+                            <input type="number" name="quantity" id="quantity" value="1" min="1" class="w-20 text-center border rounded py-2">
+                            <button type="button" id="increase-qty" class="px-4 py-2 border rounded hover:bg-gray-100 transition">+</button>
+                        </div>
                     </div>
+                     <!-- Action Buttons -->
                     <div class="flex gap-4 mb-6">
-                        <button type="submit" class="flex-1 bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
-                            Add to Cart
+                        <button type="button" id="add-to-cart-btn" class="flex-1 bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+                            <i class="fas fa-shopping-bag me-2"></i> Add to Cart
+                        </button>
+                         <button type="button" onclick="buyNow()" class="flex-1 bg-green-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700 transition">
+                            Buy Now
                         </button>
                     </div>
                 </form>
@@ -165,11 +177,9 @@
 
             <!-- Wishlist Button -->
             @auth
-                <button onclick="toggleWishlist({{ $product->id }})" id="wishlist-btn" class="flex items-center justify-center w-full border py-3 rounded-lg hover:bg-gray-50 transition">
-                    <svg class="w-6 h-6 {{ $inWishlist ? 'text-red-500 fill-current' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                    </svg>
-                    <span class="ml-2">{{ $inWishlist ? 'Remove from Wishlist' : 'Add to Wishlist' }}</span>
+                <button id="add-to-wishlist-btn" class="flex items-center justify-center w-full border py-3 rounded-lg hover:bg-gray-50 transition {{ $inWishlist ? 'in-wishlist' : '' }}">
+                    <i class="{{ $inWishlist ? 'fas' : 'far' }} fa-heart me-2"></i>
+                    {{ $inWishlist ? 'In Wishlist' : 'Add to Wishlist' }}
                 </button>
             @endauth
 
@@ -281,59 +291,46 @@
 </div>
 
 @push('scripts')
+<script src="{{ asset('js/product-details.js') }}"></script>
 <script>
-// Tab switching
-document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-        document.querySelectorAll('.tab-btn').forEach(b => {
-            b.classList.remove('border-blue-600', 'text-blue-600');
-        });
-        document.querySelectorAll('.tab-content').forEach(content => {
-            content.classList.add('hidden');
-        });
-        this.classList.add('border-blue-600', 'text-blue-600');
-        document.getElementById(this.dataset.tab + '-tab').classList.remove('hidden');
-    });
-});
-
-// Quantity controls
-document.getElementById('increase-qty').addEventListener('click', function() {
-    let qty = document.getElementById('quantity');
-    qty.value = parseInt(qty.value) + 1;
-});
-
-document.getElementById('decrease-qty').addEventListener('click', function() {
-    let qty = document.getElementById('quantity');
-    if (parseInt(qty.value) > 1) {
-        qty.value = parseInt(qty.value) - 1;
-    }
-});
-
-// Wishlist toggle
-function toggleWishlist(productId) {
-    fetch('{{ route("wishlist.add") }}', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-        },
-        body: JSON.stringify({ product_id: productId })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            location.reload();
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof ProductDetails !== 'undefined') {
+            ProductDetails.init({
+                productId: {{ $product->id }},
+                csrfToken: '{{ csrf_token() }}',
+                maxQuantity: {{ $product->stock_quantity ?? 10 }},
+                variants: @json($product->variants),
+                hasSizes: {{ $product->variants->whereNotNull('size')->count() > 0 ? 'true' : 'false' }},
+                hasColors: {{ $product->variants->whereNotNull('color')->count() > 0 ? 'true' : 'false' }} 
+            });
         }
     });
-}
 
-// Buy Now
-function buyNow() {
-    document.getElementById('add-to-cart-form').submit();
-    setTimeout(() => {
-        window.location.href = '{{ route("checkout.index") }}';
-    }, 500);
-}
+    // Tab switching
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.tab-btn').forEach(b => {
+                b.classList.remove('border-blue-600', 'text-blue-600');
+            });
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+            this.classList.add('border-blue-600', 'text-blue-600');
+            document.getElementById(this.dataset.tab + '-tab').classList.remove('hidden');
+        });
+    });
+
+    // Buy Now - Submit Form
+    window.buyNow = function() {
+        const form = document.getElementById('add-to-cart-form');
+         // Check variant selection if needed
+         const variantInput = document.getElementById('selected-variant');
+        if (variantInput && !variantInput.value && {{ $product->variants->count() > 0 ? 'true' : 'false' }}) {
+             alert('Please select a variant option.');
+             return;
+        }
+        form.submit();
+    };
 </script>
 @endpush
 @endsection

@@ -286,7 +286,7 @@
                                             ₹{{ number_format($product->price, 0) }}
                                         @endif
                                     </p>
-                                    <button class="add-to-bag-btn">
+                                    <button class="add-to-bag-btn" data-product-id="{{ $product->id }}" data-variant-id="" data-quantity="1">
                                         <i class="fas fa-shopping-bag"></i> ADD
                                     </button>
                                 </div>
@@ -344,7 +344,7 @@
                                             ₹{{ number_format($product->price, 0) }}
                                         @endif
                                     </p>
-                                    <button class="add-to-bag-btn">
+                                    <button class="add-to-bag-btn" data-product-id="{{ $product->id }}" data-variant-id="" data-quantity="1">
                                         <i class="fas fa-shopping-bag"></i> ADD
                                     </button>
                                 </div>
@@ -435,3 +435,5 @@
     </div>
 </section>
 @endsection
+
+

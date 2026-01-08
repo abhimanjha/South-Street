@@ -307,22 +307,18 @@
     </div>
 </div>
 
-@push('scripts')
-<script src="{{ asset('js/product-details.js') }}"></script>
+
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('Initializing ProductDetails...');
-    console.log('Product ID:', {{ $product->id }});
-    console.log('Max Quantity:', {{ $product->stock_quantity }});
-    console.log('CSRF Token:', '{{ csrf_token() }}');
-    
-    // Initialize product details functionality
-    ProductDetails.init({
-        productId: {{ $product->id }},
-        maxQuantity: {{ $product->stock_quantity }},
-        csrfToken: '{{ csrf_token() }}'
-    });
-});
+    (function() {
+        if (typeof ProductDetails !== 'undefined') {
+            ProductDetails.init({
+                productId: {{ $product->id }},
+                maxQuantity: {{ $product->stock_quantity }},
+                csrfToken: '{{ csrf_token() }}'
+            });
+        } else {
+            console.error('ProductDetails not loaded');
+        }
+    })();
 </script>
-@endpush
 @endsection

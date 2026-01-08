@@ -8,7 +8,7 @@
 }
 
 .modern-track-override::before {
-    content: 'MODERN TRACK ORDER CSS LOADED' !important;
+    
     position: fixed !important;
     top: 10px !important;
     right: 10px !important;

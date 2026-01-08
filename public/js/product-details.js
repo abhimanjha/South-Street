@@ -10,16 +10,18 @@ const ProductDetails = {
         csrfToken: null
     },
 
+
+
     init(options) {
         this.config = { ...this.config, ...options };
-        
+
         // Debug: Check if CSRF token is available
         if (!this.config.csrfToken) {
             console.error('CSRF token not provided');
             this.showNotification('Security token missing. Please refresh the page.', 'error');
             return;
         }
-        
+
         this.initImageGallery();
         this.initQuantityControls();
         this.initVariantSelection();
@@ -40,10 +42,10 @@ const ProductDetails = {
             thumbnail.addEventListener('click', () => {
                 // Remove active class from all thumbnails
                 thumbnails.forEach(t => t.classList.remove('active'));
-                
+
                 // Add active class to clicked thumbnail
                 thumbnail.classList.add('active');
-                
+
                 // Update main image with smooth transition
                 mainImage.style.opacity = '0.5';
                 setTimeout(() => {
@@ -119,6 +121,10 @@ const ProductDetails = {
 
         if (!decreaseBtn || !increaseBtn || !quantityInput) return;
 
+        // Check initialization on the wrapper or primary element to avoid global state issues
+        if (quantityInput.dataset.pdInitialized) return;
+        quantityInput.dataset.pdInitialized = 'true';
+
         decreaseBtn.addEventListener('click', () => {
             const currentValue = parseInt(quantityInput.value);
             if (currentValue > 1) {
@@ -193,8 +199,38 @@ const ProductDetails = {
     },
 
     updateVariantAvailability() {
-        // This would typically check variant availability and update UI
-        // For now, we'll just ensure the add to cart button is enabled
+        // Find matching variant
+        const selected = this.getSelectedVariant();
+        const variantInput = document.getElementById('selected-variant');
+
+        if (this.config.variants && selected.size && selected.color) {
+            const variant = this.config.variants.find(v =>
+                v.size === selected.size && v.color === selected.color
+            );
+
+            if (variant) {
+                if (variantInput) variantInput.value = variant.id;
+                this.selectedVariantId = variant.id;
+            } else {
+                if (variantInput) variantInput.value = '';
+                this.selectedVariantId = null;
+            }
+        } else if (this.config.variants && selected.size && !this.hasColors) {
+            // Only sizes
+            const variant = this.config.variants.find(v => v.size === selected.size);
+            if (variant) {
+                if (variantInput) variantInput.value = variant.id;
+                this.selectedVariantId = variant.id;
+            }
+        } else if (this.config.variants && !this.hasSizes && selected.color) {
+            // Only colors
+            const variant = this.config.variants.find(v => v.color === selected.color);
+            if (variant) {
+                if (variantInput) variantInput.value = variant.id;
+                this.selectedVariantId = variant.id;
+            }
+        }
+
         const addToCartBtn = document.getElementById('add-to-cart-btn');
         if (addToCartBtn) {
             addToCartBtn.disabled = false;
@@ -204,7 +240,7 @@ const ProductDetails = {
     getSelectedVariant() {
         const selectedSize = document.querySelector('.size-option.active')?.dataset.size;
         const selectedColor = document.querySelector('.color-option.active')?.dataset.color;
-        
+
         return {
             size: selectedSize || null,
             color: selectedColor || null
@@ -215,6 +251,9 @@ const ProductDetails = {
     initCartActions() {
         const addToCartBtn = document.getElementById('add-to-cart-btn');
         if (!addToCartBtn) return;
+
+        if (addToCartBtn.dataset.pdInitialized) return;
+        addToCartBtn.dataset.pdInitialized = 'true';
 
         addToCartBtn.addEventListener('click', () => {
             this.addToCart();
@@ -241,8 +280,7 @@ const ProductDetails = {
                 body: JSON.stringify({
                     product_id: this.config.productId,
                     quantity: quantity,
-                    size: variant.size,
-                    color: variant.color
+                    variant_id: this.selectedVariantId || null
                 })
             });
 
@@ -251,7 +289,7 @@ const ProductDetails = {
             if (data.success) {
                 this.showNotification('Product added to cart successfully!', 'success');
                 this.updateCartCount(data.cart_count);
-                
+
                 // Brief success state
                 addToCartBtn.innerHTML = '<i class="fas fa-check"></i> Added!';
                 setTimeout(() => {
@@ -264,7 +302,7 @@ const ProductDetails = {
         } catch (error) {
             console.error('Error adding to cart:', error);
             this.showNotification(error.message || 'Error adding to cart', 'error');
-            
+
             addToCartBtn.innerHTML = originalText;
             addToCartBtn.disabled = false;
         }
@@ -282,7 +320,7 @@ const ProductDetails = {
 
     async toggleWishlist() {
         const wishlistBtn = document.getElementById('add-to-wishlist-btn');
-        
+
         // Check if user is logged in
         if (!document.querySelector('meta[name="user-id"]')) {
             this.showNotification('Please login to add items to wishlist', 'warning');
@@ -309,7 +347,7 @@ const ProductDetails = {
 
             if (data.success) {
                 this.showNotification(data.message, 'success');
-                
+
                 // Update button state
                 if (data.added) {
                     wishlistBtn.innerHTML = '<i class="fas fa-heart"></i> In Wishlist';
@@ -488,11 +526,11 @@ const ProductDetails = {
                 // Try to get error message from response
                 const text = await response.text();
                 let errorMessage = 'Server error occurred';
-                
+
                 try {
                     const errorData = JSON.parse(text);
                     errorMessage = errorData.message || errorMessage;
-                    
+
                     // Handle validation errors
                     if (errorData.errors) {
                         const firstError = Object.values(errorData.errors)[0];
@@ -529,7 +567,7 @@ const ProductDetails = {
                 this.showNotification('Review submitted successfully! It will be visible after approval.', 'success');
                 reviewForm.reset();
                 this.resetStarHighlight();
-                
+
                 // Optionally add the review to the list immediately (if approved)
                 if (data.review && data.review.is_approved) {
                     this.addReviewToList(data.review);
@@ -540,14 +578,14 @@ const ProductDetails = {
         } catch (error) {
             console.error('Error submitting review:', error);
             let errorMessage = error.message || 'Error submitting review';
-            
+
             if (error.message && (error.message.includes("Unexpected token '<'") || error.message.includes('SyntaxError: Unexpected token'))) {
                 errorMessage = 'Session may have expired. Please login again to submit your review.';
                 setTimeout(() => {
                     window.location.href = '/login';
                 }, 2000);
             }
-            
+
             this.showNotification(errorMessage, 'error');
         }
 
@@ -558,7 +596,7 @@ const ProductDetails = {
     addReviewToList(review) {
         const reviewsList = document.getElementById('reviews-list');
         const noReviews = reviewsList.querySelector('.no-reviews');
-        
+
         if (noReviews) {
             noReviews.remove();
         }
@@ -568,7 +606,7 @@ const ProductDetails = {
     },
 
     createReviewElement(review) {
-        const stars = Array.from({length: 5}, (_, i) => 
+        const stars = Array.from({ length: 5 }, (_, i) =>
             `<i class="fas fa-star ${i < review.rating ? 'filled' : ''}"></i>`
         ).join('');
 
@@ -587,11 +625,11 @@ const ProductDetails = {
                         </div>
                     </div>
                     <div class="review-date">
-                        ${new Date(review.created_at).toLocaleDateString('en-US', { 
-                            year: 'numeric', 
-                            month: 'short', 
-                            day: 'numeric' 
-                        })}
+                        ${new Date(review.created_at).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        })}
                     </div>
                 </div>
                 <div class="review-content">
@@ -603,10 +641,10 @@ const ProductDetails = {
 
     // Utility Functions
     updateCartCount(count) {
-        const cartCountElements = document.querySelectorAll('.cart-count, #cart-count');
+        const cartCountElements = document.querySelectorAll('.cart-count, #cart-count, #cart-count-mobile');
         cartCountElements.forEach(element => {
             element.textContent = count;
-            
+
             // Add animation
             element.style.transform = 'scale(1.2)';
             setTimeout(() => {

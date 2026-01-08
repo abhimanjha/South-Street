@@ -12,9 +12,20 @@ class CartController extends Controller
 {
     public function index()
     {
-        $cart = Cart::with('items.product')->firstOrCreate([
-            'user_id' => auth()->id()
-        ]);
+        $userId = auth()->id();
+        $sessionId = session()->getId();
+
+        $query = Cart::with('items.product');
+
+        if ($userId) {
+            $query->where('user_id', $userId);
+        } else {
+            $query->where('session_id', $sessionId)->whereNull('user_id');
+        }
+
+        $cart = $query->firstOrCreate(
+            $userId ? ['user_id' => $userId] : ['session_id' => $sessionId]
+        );
 
         return view('cart.index', compact('cart'));
     }
@@ -27,9 +38,12 @@ class CartController extends Controller
             'variant_id' => 'nullable|exists:product_variants,id'
         ]);
 
-        $cart = Cart::firstOrCreate([
-            'user_id' => auth()->id()
-        ]);
+        $userId = auth()->id();
+        $sessionId = session()->getId();
+
+        $cart = Cart::firstOrCreate(
+            $userId ? ['user_id' => $userId] : ['session_id' => $sessionId]
+        );
 
         $product = Product::findOrFail($request->product_id);
         $price = $product->price;
@@ -60,6 +74,9 @@ class CartController extends Controller
             ]);
         }
 
+        // Refresh cart to get updated count
+        $cart->refresh();
+
         return response()->json([
             'success' => true,
             'message' => 'Product added to cart successfully!',
@@ -85,18 +102,31 @@ class CartController extends Controller
 
     public function remove(CartItem $cartItem)
     {
+        $cart = $cartItem->cart; // Get cart before deleting item
         $cartItem->delete();
+        $cart->refresh(); // Refresh cart to calculate new totals
 
         return response()->json([
             'success' => true,
             'message' => 'Item removed from cart!',
-            'cart_total' => $cartItem->cart->total
+            'cart_total' => $cart->total
         ]);
     }
 
     public function count()
     {
-        $cart = Cart::where('user_id', auth()->id())->first();
+        $userId = auth()->id();
+        $sessionId = session()->getId();
+
+        $cart = Cart::query();
+
+        if ($userId) {
+            $cart->where('user_id', $userId);
+        } else {
+            $cart->where('session_id', $sessionId)->whereNull('user_id');
+        }
+
+        $cart = $cart->first();
         $count = $cart ? $cart->item_count : 0;
 
         return response()->json(['count' => $count]);

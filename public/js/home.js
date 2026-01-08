@@ -1,12 +1,12 @@
 // SouthStreet Home Page JavaScript
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Initialize Bootstrap Carousel with proper settings
     initBootstrapCarousel();
 
     // Product Carousels
     initProductCarousels();
-    
+
     // Add to Cart for product cards
     initCardCartActions();
 
@@ -36,11 +36,11 @@ function initBootstrapCarousel() {
         let startX = 0;
         let endX = 0;
 
-        heroCarousel.addEventListener('touchstart', function(e) {
+        heroCarousel.addEventListener('touchstart', function (e) {
             startX = e.touches[0].clientX;
         });
 
-        heroCarousel.addEventListener('touchend', function(e) {
+        heroCarousel.addEventListener('touchend', function (e) {
             endX = e.changedTouches[0].clientX;
             handleSwipe();
         });
@@ -59,23 +59,6 @@ function initBootstrapCarousel() {
                 }
             }
         }
-    }
-}
-        indicator.addEventListener('click', () => {
-            showSlide(index);
-            stopAutoSlide();
-            startAutoSlide();
-        });
-    });
-
-    // Start auto-sliding
-    startAutoSlide();
-
-    // Pause on hover
-    const heroSection = document.querySelector('.hero-section');
-    if (heroSection) {
-        heroSection.addEventListener('mouseenter', stopAutoSlide);
-        heroSection.addEventListener('mouseleave', startAutoSlide);
     }
 }
 
@@ -152,6 +135,10 @@ function initCardCartActions() {
     if (!buttons.length) return;
 
     buttons.forEach(btn => {
+        // Skip if already initialized to prevent duplicate listeners
+        if (btn.dataset.cartInitialized === 'true') return;
+        btn.dataset.cartInitialized = 'true';
+
         btn.addEventListener('click', async (e) => {
             e.preventDefault();
 
@@ -232,7 +219,7 @@ function initMobileNav() {
 
     // Add click animations
     navItems.forEach(item => {
-        item.addEventListener('click', function(e) {
+        item.addEventListener('click', function (e) {
             // Add ripple effect
             const ripple = document.createElement('span');
             ripple.style.position = 'absolute';
@@ -258,7 +245,7 @@ function initSmoothScrolling() {
     const links = document.querySelectorAll('a[href^="#"]');
 
     links.forEach(link => {
-        link.addEventListener('click', function(e) {
+        link.addEventListener('click', function (e) {
             const targetId = this.getAttribute('href');
             const targetElement = document.querySelector(targetId);
 
@@ -303,23 +290,10 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// Product card hover effects
-document.addEventListener('mouseover', function(e) {
-    if (e.target.closest('.product-card')) {
-        const card = e.target.closest('.product-card');
-        card.style.transform = 'translateY(-8px) scale(1.02)';
-    }
-});
-
-document.addEventListener('mouseout', function(e) {
-    if (e.target.closest('.product-card')) {
-        const card = e.target.closest('.product-card');
-        card.style.transform = 'translateY(0) scale(1)';
-    }
-});
+// Product card hover effects handled by CSS
 
 // Category card click animation
-document.addEventListener('click', function(e) {
+document.addEventListener('click', function (e) {
     if (e.target.closest('.category-card')) {
         const card = e.target.closest('.category-card');
         card.style.transform = 'scale(0.95)';
@@ -331,7 +305,7 @@ document.addEventListener('click', function(e) {
 
 // Scroll-based animations
 let scrollTimeout;
-window.addEventListener('scroll', function() {
+window.addEventListener('scroll', function () {
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(() => {
         const scrolled = window.pageYOffset;
@@ -346,9 +320,15 @@ window.addEventListener('scroll', function() {
 });
 
 // Loading state management
-window.addEventListener('load', function() {
+window.addEventListener('load', function () {
     document.body.classList.add('loaded');
 });
 
 // Add loading class to body initially
 document.body.classList.add('loading');
+
+// Reinitialize cart actions after SPA navigation
+window.addEventListener('spa-navigated', function () {
+    // Reinitialize add to cart buttons for product cards
+    initCardCartActions();
+});
