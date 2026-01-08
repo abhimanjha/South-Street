@@ -6,6 +6,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Product Carousels
     initProductCarousels();
+    
+    // Add to Cart for product cards
+    initCardCartActions();
 
     // Mobile Navigation
     initMobileNav();
@@ -139,6 +142,78 @@ function initProductCarousels() {
             const walk = (x - startX) * 2;
             container.scrollLeft = scrollLeft - walk;
         });
+    });
+}
+
+// Add to Cart actions for product cards
+function initCardCartActions() {
+    const csrf = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+    const buttons = document.querySelectorAll('.add-to-bag-btn');
+    if (!buttons.length) return;
+
+    buttons.forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+            e.preventDefault();
+
+            const productId = btn.getAttribute('data-product-id');
+            const variantId = btn.getAttribute('data-variant-id') || null;
+            const quantity = parseInt(btn.getAttribute('data-quantity') || '1', 10);
+
+            if (!productId || !csrf) {
+                console.error('Missing productId or CSRF token');
+                return;
+            }
+
+            btn.disabled = true;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ADDING';
+
+            try {
+                const res = await fetch('/cart/add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrf
+                    },
+                    body: JSON.stringify({
+                        product_id: productId,
+                        quantity,
+                        variant_id: variantId || null
+                    })
+                });
+
+                const data = await res.json();
+                if (data && data.success) {
+                    updateCartCountUI(data.cart_count);
+                    btn.innerHTML = '<i class="fas fa-check"></i> ADDED';
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.disabled = false;
+                    }, 1200);
+                } else {
+                    throw new Error(data?.message || 'Failed to add to cart');
+                }
+            } catch (err) {
+                console.error(err);
+                btn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ERROR';
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }, 1200);
+            }
+        });
+    });
+}
+
+function updateCartCountUI(count) {
+    const desktop = document.getElementById('cart-count');
+    const mobile = document.getElementById('cart-count-mobile');
+    [desktop, mobile].forEach(el => {
+        if (el) {
+            el.textContent = count;
+            el.style.transform = 'scale(1.2)';
+            setTimeout(() => { el.style.transform = 'scale(1)'; }, 200);
+        }
     });
 }
 

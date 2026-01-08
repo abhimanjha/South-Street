@@ -15,9 +15,9 @@
                             <div class="product-item">
                                 <a href="{{ route('products.show', $product->slug) }}" class="product-link-minimal">
                                     <div class="product-image-container">
-                                        <img src="{{ $product->images->first() ? asset($product->images->first()->image_path) : asset('imgs/placeholder.jpg') }}" class="product-img-main" alt="{{ $product->name }}">
+                                        <img src="{{ $product->images->first() ? asset('storage/' . $product->images->first()->image_path) : asset('imgs/placeholder.jpg') }}" class="product-img-main" alt="{{ $product->name }}">
                                         @if($product->images->count() > 1)
-                                        <img src="{{ asset($product->images->skip(1)->first()->image_path) }}" class="product-img-hover" alt="{{ $product->name }}">
+                                        <img src="{{ asset('storage/' . $product->images->skip(1)->first()->image_path) }}" class="product-img-hover" alt="{{ $product->name }}">
                                         @endif
                                         @if($product->is_featured)
                                         <div class="product-badge">Featured</div>

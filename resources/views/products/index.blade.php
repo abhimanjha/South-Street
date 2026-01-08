@@ -27,6 +27,13 @@
             <div class="products-grid">
                 @foreach($products as $product)
                     <div class="product-card">
+                        @if($product->is_featured || (isset($product->is_trending) && $product->is_trending))
+                            <div class="bestseller-badge">Bestseller</div>
+                        @elseif($product->discount_price)
+                            <div class="bestseller-badge" style="background: #d32f2f;">-{{ $product->discount_percentage }}%</div>
+                        @endif
+                        <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+
                         <a href="{{ route('products.show', $product->slug) }}" class="product-link">
                             <div class="product-image-container">
                                 @php
@@ -50,51 +57,36 @@
                                      onerror="console.log('Hover image failed to load:', this.src); this.style.display='none';">
                                 @endif
                                 
-                                <!-- Badges -->
-                                <div class="product-badges">
-                                    <div>
-                                        @if($product->is_featured)
-                                        <span class="product-badge badge-featured">Featured</span>
-                                        @endif
-                                        @if($product->created_at->diffInDays() < 30)
-                                        <span class="product-badge badge-new">New</span>
-                                        @endif
+                                @if($product->variants->count() > 0)
+                                    <div class="color-count-badge">
+                                         <span class="color-swatch-mini"></span>
+                                         <span>{{ $product->variants->unique('color')->count() }}</span>
                                     </div>
-                                    @if($product->discount_price)
-                                    <span class="product-badge badge-discount">{{ $product->discount_percentage }}% OFF</span>
-                                    @endif
-                                </div>
+                                @endif
                             </div>
+                        </a>
                             
-                            <div class="product-details">
-                                <div class="product-category">{{ $product->category->name ?? 'Fashion' }}</div>
+                        <div class="product-details">
+                            <div class="product-code">#{{ $product->sku ?? 'U'.str_pad($product->id, 3, '0', STR_PAD_LEFT) }}</div>
+                            <a href="{{ route('products.show', $product->slug) }}" style="text-decoration: none; color: inherit;">
                                 <h3 class="product-name">{{ $product->name }}</h3>
-                                
-                                <div class="product-rating">
-                                    <div class="stars">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                    </div>
-                                    <span class="rating-text">(4.5) 128 reviews</span>
-                                </div>
-                                
+                            </a>
+                            
+                            <div class="product-footer">
                                 <div class="product-price">
                                     @if($product->discount_price)
                                         <span class="price-current price-discount">₹{{ number_format($product->discount_price, 2) }}</span>
-                                        <span class="price-original">₹{{ number_format($product->price, 2) }}</span>
+                                        <span class="price-original" style="text-decoration: line-through; color: #999; font-size: 0.8em;">₹{{ number_format($product->price, 2) }}</span>
                                     @else
                                         <span class="price-current">₹{{ number_format($product->price, 2) }}</span>
                                     @endif
                                 </div>
                                 
-                                <button class="add-to-cart-btn">
-                                    <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+                                <button class="add-to-bag-btn" data-product-id="{{ $product->id }}" data-variant-id="" data-quantity="1">
+                                    <i class="fas fa-shopping-bag me-2"></i>ADD
                                 </button>
                             </div>
-                        </a>
+                        </div>
                     </div>
                 @endforeach
             </div>

@@ -1753,7 +1753,7 @@ footer a:hover {
 
 /* Modern Product Cards */
 .product-item {
-    flex: 0 0 280px !important;
+    flex: 0 0 320px !important;
     margin-right: 1.5rem !important;
     position: relative !important;
 }
@@ -1886,6 +1886,14 @@ footer a:hover {
 .editorial-banner {
     margin: 5rem 0 !important;
     padding: 0 1rem !important;
+}
+
+/* Overrides: remove image zoom on product card hover */
+.product-link-minimal:hover .product-img-main {
+    transform: none !important;
+}
+.product-link-minimal:hover .product-img-hover {
+    opacity: 0 !important;
 }
 
 .editorial-content {

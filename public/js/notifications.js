@@ -1,4 +1,4 @@
-// Flipkart-Style Notification System
+// Modern Notification System
 class NotificationManager {
     constructor() {
         this.container = null;
@@ -10,14 +10,6 @@ class NotificationManager {
         // Create notification container
         this.container = document.createElement('div');
         this.container.id = 'notification-container';
-        this.container.style.cssText = `
-            position: fixed;
-            top: 80px;
-            right: -400px;
-            width: 350px;
-            z-index: 9999;
-            pointer-events: none;
-        `;
         document.body.appendChild(this.container);
     }
 
@@ -58,46 +50,26 @@ class NotificationManager {
 
     show(notification) {
         const notifElement = document.createElement('div');
-        notifElement.className = 'flipkart-notification';
-        notifElement.style.cssText = `
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            padding: 16px;
-            margin-bottom: 12px;
-            position: relative;
-            right: -400px;
-            pointer-events: auto;
-            border-left: 4px solid #2874f0;
-            animation: slideInRight 0.5s ease-out forwards;
-        `;
+        notifElement.className = 'notification-card';
 
         const icon = this.getIcon(notification.type);
         const color = this.getColor(notification.type);
 
         notifElement.innerHTML = `
-            <div style="display: flex; align-items: start; gap: 12px;">
-                <div style="flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; background: ${color}; display: flex; align-items: center; justify-content: center; color: white;">
+            <div class="notification-content">
+                <div class="notification-icon" style="background:${color}">
                     <i class="fas ${icon}"></i>
                 </div>
-                <div style="flex: 1; min-width: 0;">
-                    <h6 style="margin: 0 0 4px 0; font-size: 14px; font-weight: 600; color: #212121;">
-                        ${notification.title || 'Notification'}
-                    </h6>
-                    <p style="margin: 0; font-size: 13px; color: #878787; line-height: 1.4;">
-                        ${notification.message}
-                    </p>
+                <div class="notification-body">
+                    <h6 class="notification-title">${notification.title || 'Notification'}</h6>
+                    <p class="notification-message">${notification.message || ''}</p>
                     ${notification.discount_code ? `
-                        <div style="margin-top: 8px; padding: 6px 10px; background: #fff4e5; border-radius: 4px; display: inline-block;">
-                            <span style="font-size: 12px; color: #ff9f00; font-weight: 600;">
-                                Code: ${notification.discount_code} - ${notification.discount_percentage}% OFF
-                            </span>
+                        <div class="notification-code">
+                            Code: ${notification.discount_code} - ${notification.discount_percentage}% OFF
                         </div>
                     ` : ''}
                 </div>
-                <button onclick="this.closest('.flipkart-notification').remove()" style="background: none; border: none; color: #878787; cursor: pointer; padding: 0; font-size: 18px; line-height: 1;">
-                    ×
-                </button>
+                <button class="notification-close" onclick="this.closest('.notification-card').remove()">×</button>
             </div>
         `;
 
@@ -105,7 +77,7 @@ class NotificationManager {
 
         // Auto remove after 10 seconds with fade-out animation
         setTimeout(() => {
-            notifElement.style.animation = 'slideOutLeft 0.5s ease-in forwards';
+            notifElement.classList.add('hide');
             setTimeout(() => {
                 if (notifElement.parentNode) {
                     notifElement.remove();
@@ -159,64 +131,108 @@ class NotificationManager {
     }
 }
 
-// Add CSS animations
+// Add styles
 const style = document.createElement('style');
 style.textContent = `
-    @keyframes slideInRight {
-        from {
-            right: -400px;
-            opacity: 0;
-        }
-        to {
-            right: 0;
-            opacity: 1;
-        }
+    #notification-container {
+        position: fixed;
+        top: 80px;
+        right: 20px;
+        width: 360px;
+        z-index: 9999;
+        pointer-events: none;
     }
 
-    @keyframes slideOutLeft {
-        from {
-            right: 0;
-            opacity: 1;
-        }
-        to {
-            right: -400px;
-            opacity: 0;
-        }
+    .notification-card {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        margin-bottom: 12px;
+        pointer-events: auto;
+        overflow: hidden;
+        animation: notifSlideIn 0.4s ease-out forwards;
     }
 
-    .flipkart-notification:hover {
-        box-shadow: 0 6px 16px rgba(0,0,0,0.2);
-        transform: translateY(-2px);
-        transition: all 0.2s ease;
+    .notification-card.hide {
+        animation: notifSlideOut 0.3s ease-in forwards;
+    }
+
+    .notification-content {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 14px 16px;
+    }
+
+    .notification-icon {
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        box-shadow: inset 0 -8px 16px rgba(0,0,0,0.08);
+    }
+
+    .notification-title {
+        margin: 0 0 4px 0;
+        font-size: 14px;
+        font-weight: 600;
+        color: #111827;
+    }
+
+    .notification-message {
+        margin: 0;
+        font-size: 13px;
+        color: #6b7280;
+        line-height: 1.5;
+    }
+
+    .notification-code {
+        margin-top: 8px;
+        display: inline-block;
+        padding: 6px 10px;
+        border-radius: 8px;
+        background: #fef3c7;
+        color: #b45309;
+        font-size: 12px;
+        font-weight: 600;
+        border: 1px solid #fde68a;
+    }
+
+    .notification-close {
+        background: transparent;
+        border: none;
+        color: #9ca3af;
+        cursor: pointer;
+        font-size: 18px;
+        line-height: 1;
+        padding: 0;
+        margin-left: 8px;
+    }
+
+    .notification-close:hover {
+        color: #4b5563;
+    }
+
+    @keyframes notifSlideIn {
+        from { transform: translateX(24px); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes notifSlideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(-24px); opacity: 0; }
     }
 
     @media (max-width: 768px) {
         #notification-container {
-            width: calc(100% - 20px);
-            right: -100%;
-            left: 10px;
-        }
-
-        @keyframes slideInRight {
-            from {
-                right: -100%;
-                opacity: 0;
-            }
-            to {
-                right: 0;
-                opacity: 1;
-            }
-        }
-
-        @keyframes slideOutLeft {
-            from {
-                right: 0;
-                opacity: 1;
-            }
-            to {
-                right: -100%;
-                opacity: 0;
-            }
+            width: calc(100% - 24px);
+            right: 12px;
+            left: 12px;
         }
     }
 `;

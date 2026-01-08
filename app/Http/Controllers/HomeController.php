@@ -12,18 +12,18 @@ class HomeController extends Controller
     public function index()
     {
         $featuredProducts = Product::where('is_featured', true)
-            ->with('category', 'images')
+            ->with('category', 'images', 'variants')
             ->latest()
             ->take(8)
             ->get();
 
         $trendingProducts = Product::where('is_trending', true)
-            ->with('category', 'images')
+            ->with('category', 'images', 'variants')
             ->latest()
             ->take(8)
             ->get();
 
-        $newArrivals = Product::with('category', 'images')
+        $newArrivals = Product::with('category', 'images', 'variants')
             ->latest()
             ->take(8)
             ->get();

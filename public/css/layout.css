@@ -3,6 +3,28 @@
 /* Cloak for Alpine.js */
 [x-cloak] { display: none !important; }
 
+html, body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+}
+
+*::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+}
+
+* {
+    scrollbar-width: none;
+}
+
 /* Notification Styles */
 #notification-container {
     position: fixed;

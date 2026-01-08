@@ -67,6 +67,10 @@
                 <div class="d-flex justify-content-start">
                     @foreach($trendingProducts->take(4) as $product)
                         <div class="product-item me-3">
+                            @if($product->is_featured || $product->is_trending)
+                                <div class="bestseller-badge">Bestseller</div>
+                            @endif
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
                             <a href="{{ route('products.show', $product) }}" class="product-link-minimal">
                                 <div class="product-image-container">
                                     @if($product->images->first())
@@ -83,13 +87,33 @@
                                             <span>NO IMAGE</span>
                                         </div>
                                     @endif
-                                </div>
-                                <div class="product-details">
-                                    <h3 class="product-name-minimal">{{ $product->name }}</h3>
-                                    <p class="product-category-minimal">{{ $product->category->name }}</p>
-                                    <p class="product-price-minimal">₹{{ number_format($product->final_price, 0) }}</p>
+                                    @if($product->variants->count() > 0)
+                                        <div class="color-count-badge">
+                                             <span class="color-swatch-mini"></span>
+                                             <span>{{ $product->variants->unique('color')->count() }}</span>
+                                        </div>
+                                    @endif
                                 </div>
                             </a>
+                            <div class="product-details">
+                                <div class="product-code">#{{ $product->sku ?? 'U'.str_pad($product->id, 3, '0', STR_PAD_LEFT) }}</div>
+                                <a href="{{ route('products.show', $product) }}" style="text-decoration: none; color: inherit;">
+                                    <h3 class="product-name-minimal">{{ $product->name }}</h3>
+                                </a>
+                                <div class="product-footer">
+                                    <p class="product-price-minimal">
+                                        @if($product->discount_price)
+                                            <span class="price-discounted">₹{{ number_format($product->discount_price, 0) }}</span>
+                                            <span class="price-original" style="text-decoration: line-through; color: #999; font-size: 0.8em;">₹{{ number_format($product->price, 0) }}</span>
+                                        @else
+                                            ₹{{ number_format($product->price, 0) }}
+                                        @endif
+                                    </p>
+                                    <button class="add-to-bag-btn" data-product-id="{{ $product->id }}" data-variant-id="" data-quantity="1">
+                                        <i class="fas fa-shopping-bag"></i> ADD
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     @endforeach
                 </div>
@@ -99,6 +123,10 @@
                 <div class="d-flex justify-content-start">
                     @foreach($trendingProducts->skip(4)->take(4) as $product)
                         <div class="product-item me-3">
+                            @if($product->is_featured || $product->is_trending)
+                                <div class="bestseller-badge">Bestseller</div>
+                            @endif
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
                             <a href="{{ route('products.show', $product) }}" class="product-link-minimal">
                                 <div class="product-image-container">
                                     @if($product->images->first())
@@ -115,13 +143,33 @@
                                             <span>NO IMAGE</span>
                                         </div>
                                     @endif
-                                </div>
-                                <div class="product-details">
-                                    <h3 class="product-name-minimal">{{ $product->name }}</h3>
-                                    <p class="product-category-minimal">{{ $product->category->name }}</p>
-                                    <p class="product-price-minimal">₹{{ number_format($product->final_price, 0) }}</p>
+                                    @if($product->variants->count() > 0)
+                                        <div class="color-count-badge">
+                                             <span class="color-swatch-mini"></span>
+                                             <span>{{ $product->variants->unique('color')->count() }}</span>
+                                        </div>
+                                    @endif
                                 </div>
                             </a>
+                            <div class="product-details">
+                                <div class="product-code">#{{ $product->sku ?? 'U'.str_pad($product->id, 3, '0', STR_PAD_LEFT) }}</div>
+                                <a href="{{ route('products.show', $product) }}" style="text-decoration: none; color: inherit;">
+                                    <h3 class="product-name-minimal">{{ $product->name }}</h3>
+                                </a>
+                                <div class="product-footer">
+                                    <p class="product-price-minimal">
+                                        @if($product->discount_price)
+                                            <span class="price-discounted">₹{{ number_format($product->discount_price, 0) }}</span>
+                                            <span class="price-original" style="text-decoration: line-through; color: #999; font-size: 0.8em;">₹{{ number_format($product->price, 0) }}</span>
+                                        @else
+                                            ₹{{ number_format($product->price, 0) }}
+                                        @endif
+                                    </p>
+                                    <button class="add-to-bag-btn" data-product-id="{{ $product->id }}" data-variant-id="" data-quantity="1">
+                                        <i class="fas fa-shopping-bag"></i> ADD
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     @endforeach
                 </div>
@@ -139,6 +187,20 @@
     </div>
 </section>
 @endif
+
+<!-- Best Seller Section -->
+<section class="best-seller-section">
+    <div class="best-seller-container">
+        <div class="best-seller-content">
+            <h2 class="best-seller-title">Best Seller</h2>
+            <p class="best-seller-subtitle">Discover the Finest Fabrics in Our Top Selling Collection.</p>
+            <a href="{{ route('products.index', ['sort' => 'best_selling']) }}" class="best-seller-btn">Shop now</a>
+        </div>
+        <div class="best-seller-image-wrapper">
+            <img src="{{ asset('imgs/women1.jpg') }}" alt="Best Seller Collection" class="best-seller-img">
+        </div>
+    </div>
+</section>
 
 <!-- Editorial / Offer Banner -->
 <section class="editorial-banner">
@@ -180,6 +242,12 @@
                 <div class="d-flex justify-content-start">
                     @foreach($newArrivals->take(4) as $product)
                         <div class="product-item me-3">
+                            @if($product->is_featured || $product->is_trending)
+                                <div class="bestseller-badge">Bestseller</div>
+                            @elseif($product->discount_percentage > 0)
+                                <div class="bestseller-badge" style="background: #d32f2f;">-{{ $product->discount_percentage }}%</div>
+                            @endif
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
                             <a href="{{ route('products.show', $product) }}" class="product-link-minimal">
                                 <div class="product-image-container">
                                     @if($product->images->first())
@@ -196,22 +264,33 @@
                                             <span>NO IMAGE</span>
                                         </div>
                                     @endif
-                                    @if($product->discount_percentage > 0)
-                                        <span class="product-badge">-{{ $product->discount_percentage }}%</span>
+                                    @if($product->variants->count() > 0)
+                                        <div class="color-count-badge">
+                                             <span class="color-swatch-mini"></span>
+                                             <span>{{ $product->variants->unique('color')->count() }}</span>
+                                        </div>
                                     @endif
                                 </div>
-                                <div class="product-details">
+                            </a>
+                            <div class="product-details">
+                                <div class="product-code">#{{ $product->sku ?? 'U'.str_pad($product->id, 3, '0', STR_PAD_LEFT) }}</div>
+                                <a href="{{ route('products.show', $product) }}" style="text-decoration: none; color: inherit;">
                                     <h3 class="product-name-minimal">{{ $product->name }}</h3>
+                                </a>
+                                <div class="product-footer">
                                     <p class="product-price-minimal">
                                         @if($product->discount_price)
                                             <span class="price-discounted">₹{{ number_format($product->discount_price, 0) }}</span>
-                                            <span class="price-original">₹{{ number_format($product->price, 0) }}</span>
+                                            <span class="price-original" style="text-decoration: line-through; color: #999; font-size: 0.8em;">₹{{ number_format($product->price, 0) }}</span>
                                         @else
                                             ₹{{ number_format($product->price, 0) }}
                                         @endif
                                     </p>
+                                    <button class="add-to-bag-btn">
+                                        <i class="fas fa-shopping-bag"></i> ADD
+                                    </button>
                                 </div>
-                            </a>
+                            </div>
                         </div>
                     @endforeach
                 </div>
@@ -221,6 +300,12 @@
                 <div class="d-flex justify-content-start">
                     @foreach($newArrivals->skip(4)->take(4) as $product)
                         <div class="product-item me-3">
+                            @if($product->is_featured || $product->is_trending)
+                                <div class="bestseller-badge">Bestseller</div>
+                            @elseif($product->discount_percentage > 0)
+                                <div class="bestseller-badge" style="background: #d32f2f;">-{{ $product->discount_percentage }}%</div>
+                            @endif
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
                             <a href="{{ route('products.show', $product) }}" class="product-link-minimal">
                                 <div class="product-image-container">
                                     @if($product->images->first())
@@ -237,22 +322,33 @@
                                             <span>NO IMAGE</span>
                                         </div>
                                     @endif
-                                    @if($product->discount_percentage > 0)
-                                        <span class="product-badge">-{{ $product->discount_percentage }}%</span>
+                                    @if($product->variants->count() > 0)
+                                        <div class="color-count-badge">
+                                             <span class="color-swatch-mini"></span>
+                                             <span>{{ $product->variants->unique('color')->count() }}</span>
+                                        </div>
                                     @endif
                                 </div>
-                                <div class="product-details">
+                            </a>
+                            <div class="product-details">
+                                <div class="product-code">#{{ $product->sku ?? 'U'.str_pad($product->id, 3, '0', STR_PAD_LEFT) }}</div>
+                                <a href="{{ route('products.show', $product) }}" style="text-decoration: none; color: inherit;">
                                     <h3 class="product-name-minimal">{{ $product->name }}</h3>
+                                </a>
+                                <div class="product-footer">
                                     <p class="product-price-minimal">
                                         @if($product->discount_price)
                                             <span class="price-discounted">₹{{ number_format($product->discount_price, 0) }}</span>
-                                            <span class="price-original">₹{{ number_format($product->price, 0) }}</span>
+                                            <span class="price-original" style="text-decoration: line-through; color: #999; font-size: 0.8em;">₹{{ number_format($product->price, 0) }}</span>
                                         @else
                                             ₹{{ number_format($product->price, 0) }}
                                         @endif
                                     </p>
+                                    <button class="add-to-bag-btn">
+                                        <i class="fas fa-shopping-bag"></i> ADD
+                                    </button>
                                 </div>
-                            </a>
+                            </div>
                         </div>
                     @endforeach
                 </div>

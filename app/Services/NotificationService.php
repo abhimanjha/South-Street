@@ -34,6 +34,14 @@ class NotificationService
                 ->first();
 
             if ($activeCoupon && $activeCoupon->discount_percentage) {
+                $alreadySent = $user->notifications()
+                    ->where('data->discount_code', $activeCoupon->code)
+                    ->exists();
+
+                if ($alreadySent) {
+                    return;
+                }
+
                 $user->notify(new SystemNotification([
                     'type' => 'discount',
                     'title' => '🎉 Special Offer Available!',
@@ -59,6 +67,14 @@ class NotificationService
             ->count();
 
         if ($newProductsCount > 0) {
+            $alreadySent = $user->notifications()
+                ->where('data->title', '✨ New Arrivals!')
+                ->exists();
+
+            if ($alreadySent) {
+                return;
+            }
+
             $user->notify(new SystemNotification([
                 'type' => 'info',
                 'title' => '✨ New Arrivals!',

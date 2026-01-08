@@ -10,7 +10,7 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Product::with(['images', 'category'])->active();
+        $query = Product::with(['images', 'category', 'variants'])->active();
 
         // Apply filters
         $filter = $request->get('filter');
@@ -66,7 +66,7 @@ class ProductController extends Controller
     {
         $category = Category::where('slug', $slug)->firstOrFail();
         $products = Product::where('category_id', $category->id)
-            ->with(['images', 'category'])
+            ->with(['images', 'category', 'variants'])
             ->active()
             ->paginate(12);
 
