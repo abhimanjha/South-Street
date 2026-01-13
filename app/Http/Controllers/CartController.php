@@ -74,8 +74,9 @@ class CartController extends Controller
             ]);
         }
 
-        // Refresh cart to get updated count
+        // Refresh cart and load items to get updated count
         $cart->refresh();
+        $cart->load('items');
 
         return response()->json([
             'success' => true,

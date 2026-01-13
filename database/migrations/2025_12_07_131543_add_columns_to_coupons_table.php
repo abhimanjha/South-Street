@@ -12,18 +12,42 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('coupons', function (Blueprint $table) {
-            $table->string('code')->unique()->after('id');
-            $table->string('discount_type')->default('percentage')->after('code');
-            $table->decimal('discount_value', 10, 2)->default(0)->after('discount_type');
-            $table->decimal('discount_percentage', 5, 2)->nullable()->after('discount_value');
-            $table->decimal('min_purchase_amount', 10, 2)->nullable()->after('discount_percentage');
-            $table->decimal('max_discount_amount', 10, 2)->nullable()->after('min_purchase_amount');
-            $table->integer('usage_limit')->nullable()->after('max_discount_amount');
-            $table->integer('used_count')->default(0)->after('usage_limit');
-            $table->timestamp('valid_from')->nullable()->after('used_count');
-            $table->timestamp('valid_until')->nullable()->after('valid_from');
-            $table->boolean('is_active')->default(true)->after('valid_until');
-            $table->text('description')->nullable()->after('is_active');
+            if (!Schema::hasColumn('coupons', 'code')) {
+                $table->string('code')->unique()->after('id');
+            }
+            if (!Schema::hasColumn('coupons', 'discount_type')) {
+                $table->string('discount_type')->default('percentage')->after('code');
+            }
+            if (!Schema::hasColumn('coupons', 'discount_value')) {
+                $table->decimal('discount_value', 10, 2)->default(0)->after('discount_type');
+            }
+            if (!Schema::hasColumn('coupons', 'discount_percentage')) {
+                $table->decimal('discount_percentage', 5, 2)->nullable()->after('discount_value');
+            }
+            if (!Schema::hasColumn('coupons', 'min_purchase_amount')) {
+                $table->decimal('min_purchase_amount', 10, 2)->nullable()->after('discount_percentage');
+            }
+            if (!Schema::hasColumn('coupons', 'max_discount_amount')) {
+                $table->decimal('max_discount_amount', 10, 2)->nullable()->after('min_purchase_amount');
+            }
+            if (!Schema::hasColumn('coupons', 'usage_limit')) {
+                $table->integer('usage_limit')->nullable()->after('max_discount_amount');
+            }
+            if (!Schema::hasColumn('coupons', 'used_count')) {
+                $table->integer('used_count')->default(0)->after('usage_limit');
+            }
+            if (!Schema::hasColumn('coupons', 'valid_from')) {
+                $table->timestamp('valid_from')->nullable()->after('used_count');
+            }
+            if (!Schema::hasColumn('coupons', 'valid_until')) {
+                $table->timestamp('valid_until')->nullable()->after('valid_from');
+            }
+            if (!Schema::hasColumn('coupons', 'is_active')) {
+                $table->boolean('is_active')->default(true)->after('valid_until');
+            }
+            if (!Schema::hasColumn('coupons', 'description')) {
+                $table->text('description')->nullable()->after('is_active');
+            }
         });
     }
 

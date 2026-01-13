@@ -138,7 +138,6 @@
       <a href="{{ route('custom-tailoring.create') }}" class="nav-link text-dark">Custom Tailoring</a>
       <a href="{{ route('products.category', 'men') }}" class="nav-link text-dark">Men</a>
       <a href="{{ route('products.category', 'women') }}" class="nav-link text-dark">Women</a>
-      <a href="{{ route('products.category', 'kids') }}" class="nav-link text-dark">Kids</a>
       <a href="{{ route('contact') }}" class="nav-link text-dark">Support</a>
     </div>
   </nav>
@@ -174,11 +173,6 @@
           <li class="list-group-item">
             <a href="{{ route('products.category', 'women') }}" class="text-decoration-none text-dark d-flex align-items-center" data-bs-dismiss="modal">
               <i class="fas fa-female me-3"></i> Women
-            </a>
-          </li>
-          <li class="list-group-item">
-            <a href="{{ route('products.category', 'kids') }}" class="text-decoration-none text-dark d-flex align-items-center" data-bs-dismiss="modal">
-              <i class="fas fa-child me-3"></i> Kids
             </a>
           </li>
           <li class="list-group-item">
@@ -230,7 +224,6 @@
           <ul>
             <li><a href="{{ route('products.category', 'men') }}">Men's Wear</a></li>
             <li><a href="{{ route('products.category', 'women') }}">Women's Wear</a></li>
-            <li><a href="{{ route('products.category', 'kids') }}">Kids' Collection</a></li>
             <li><a href="{{ route('custom-tailoring.create') }}">Custom Tailoring</a></li>
             <li><a href="#">New Arrivals</a></li>
             <li><a href="#">Sale & Offers</a></li>

@@ -26,7 +26,12 @@ class ProductController extends Controller
 
     public function create()
     {
-        $categories = Category::where('is_active', true)->get();
+        // Only show Men and Women categories (parent categories only)
+        $categories = Category::where('is_active', true)
+            ->whereIn('slug', ['men', 'women'])
+            ->whereNull('parent_id')
+            ->orderBy('order')
+            ->get();
         return view('admin.products.create', compact('categories'));
     }
 
@@ -110,7 +115,12 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        $categories = Category::where('is_active', true)->get();
+        // Only show Men and Women categories (parent categories only)
+        $categories = Category::where('is_active', true)
+            ->whereIn('slug', ['men', 'women'])
+            ->whereNull('parent_id')
+            ->orderBy('order')
+            ->get();
         $product->load(['images', 'variants']);
         return view('admin.products.edit', compact('product', 'categories'));
     }

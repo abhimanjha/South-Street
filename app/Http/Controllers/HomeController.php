@@ -28,7 +28,10 @@ class HomeController extends Controller
             ->take(8)
             ->get();
 
-        $categories = Category::all();
+        $categories = Category::whereNull('parent_id')
+            ->where('is_active', true)
+            ->orderBy('order')
+            ->get();
 
         $blogPosts = BlogPost::latest()
             ->take(3)

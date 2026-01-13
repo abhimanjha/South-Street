@@ -300,7 +300,7 @@ body {
     gap: 1rem;
     overflow-x: auto;
     scroll-behavior: smooth;
-    padding: 0 1rem;
+    padding: 0 1rem 0 0;
     scrollbar-width: none;
     -ms-overflow-style: none;
 }

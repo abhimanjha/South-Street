@@ -64,7 +64,7 @@
     <div id="trendingCarousel" class="carousel slide" data-bs-ride="false">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <div class="d-flex justify-content-start">
+                <div class="d-flex justify-content-start ps-0">
                     @foreach($trendingProducts->take(4) as $product)
                         <div class="product-item me-3">
                             @if($product->is_featured || $product->is_trending)
@@ -120,7 +120,7 @@
             </div>
             @if($trendingProducts->count() > 4)
             <div class="carousel-item">
-                <div class="d-flex justify-content-start">
+                <div class="d-flex justify-content-start ps-0">
                     @foreach($trendingProducts->skip(4)->take(4) as $product)
                         <div class="product-item me-3">
                             @if($product->is_featured || $product->is_trending)
@@ -239,7 +239,7 @@
     <div id="newInCarousel" class="carousel slide" data-bs-ride="false">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <div class="d-flex justify-content-start">
+                <div class="d-flex justify-content-start ps-0">
                     @foreach($newArrivals->take(4) as $product)
                         <div class="product-item me-3">
                             @if($product->is_featured || $product->is_trending)
@@ -297,7 +297,7 @@
             </div>
             @if($newArrivals->count() > 4)
             <div class="carousel-item">
-                <div class="d-flex justify-content-start">
+                <div class="d-flex justify-content-start ps-0">
                     @foreach($newArrivals->skip(4)->take(4) as $product)
                         <div class="product-item me-3">
                             @if($product->is_featured || $product->is_trending)
