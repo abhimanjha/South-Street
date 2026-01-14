@@ -307,18 +307,23 @@
     </div>
 </div>
 
-
+@push('scripts')
+<script src="{{ asset('js/product-details.js') }}"></script>
 <script>
-    (function() {
+    document.addEventListener('DOMContentLoaded', function() {
         if (typeof ProductDetails !== 'undefined') {
             ProductDetails.init({
                 productId: {{ $product->id }},
-                maxQuantity: {{ $product->stock_quantity }},
-                csrfToken: '{{ csrf_token() }}'
+                maxQuantity: {{ max($product->stock_quantity ?? 10, 1) }},
+                csrfToken: '{{ csrf_token() }}',
+                variants: @json($product->variants ?? []),
+                hasSizes: {{ ($product->variants ?? collect())->whereNotNull('size')->count() > 0 ? 'true' : 'false' }},
+                hasColors: {{ ($product->variants ?? collect())->whereNotNull('color')->count() > 0 ? 'true' : 'false' }}
             });
         } else {
-            console.error('ProductDetails not loaded');
+            console.error('ProductDetails not loaded. Make sure product-details.js is included.');
         }
-    })();
+    });
 </script>
+@endpush
 @endsection

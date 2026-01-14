@@ -32,57 +32,80 @@ class CartController extends Controller
 
     public function add(Request $request)
     {
-        $request->validate([
-            'product_id' => 'required|exists:products,id',
-            'quantity' => 'required|integer|min:1',
-            'variant_id' => 'nullable|exists:product_variants,id'
-        ]);
-
-        $userId = auth()->id();
-        $sessionId = session()->getId();
-
-        $cart = Cart::firstOrCreate(
-            $userId ? ['user_id' => $userId] : ['session_id' => $sessionId]
-        );
-
-        $product = Product::findOrFail($request->product_id);
-        $price = $product->price;
-
-        // Check if variant exists and adjust price
-        if ($request->variant_id) {
-            $variant = ProductVariant::findOrFail($request->variant_id);
-            $price += $variant->price_adjustment;
-        }
-
-        // Check if item already exists in cart
-        $existingItem = CartItem::where('cart_id', $cart->id)
-            ->where('product_id', $request->product_id)
-            ->where('product_variant_id', $request->variant_id)
-            ->first();
-
-        if ($existingItem) {
-            $existingItem->update([
-                'quantity' => $existingItem->quantity + $request->quantity
+        try {
+            $request->validate([
+                'product_id' => 'required|exists:products,id',
+                'quantity' => 'required|integer|min:1',
+                'variant_id' => 'nullable|exists:product_variants,id'
             ]);
-        } else {
-            CartItem::create([
-                'cart_id' => $cart->id,
-                'product_id' => $request->product_id,
-                'product_variant_id' => $request->variant_id,
-                'quantity' => $request->quantity,
-                'price' => $price
+
+            $userId = auth()->id();
+            $sessionId = session()->getId();
+
+            $cart = Cart::firstOrCreate(
+                $userId ? ['user_id' => $userId] : ['session_id' => $sessionId]
+            );
+
+            $product = Product::findOrFail($request->product_id);
+            $price = $product->price;
+
+            // Check if variant exists and adjust price
+            if ($request->variant_id) {
+                $variant = ProductVariant::findOrFail($request->variant_id);
+                $price += $variant->price_adjustment ?? 0;
+            }
+
+            // Check if item already exists in cart
+            $existingItemQuery = CartItem::where('cart_id', $cart->id)
+                ->where('product_id', $request->product_id);
+            
+            if ($request->variant_id) {
+                $existingItemQuery->where('product_variant_id', $request->variant_id);
+            } else {
+                $existingItemQuery->whereNull('product_variant_id');
+            }
+            
+            $existingItem = $existingItemQuery->first();
+
+            if ($existingItem) {
+                $existingItem->update([
+                    'quantity' => $existingItem->quantity + $request->quantity
+                ]);
+            } else {
+                CartItem::create([
+                    'cart_id' => $cart->id,
+                    'product_id' => $request->product_id,
+                    'product_variant_id' => $request->variant_id,
+                    'quantity' => $request->quantity,
+                    'price' => $price
+                ]);
+            }
+
+            // Refresh cart and load items to get updated count
+            $cart->refresh();
+            $cart->load('items');
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Product added to cart successfully!',
+                'cart_count' => $cart->item_count
             ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation failed',
+                'errors' => $e->errors()
+            ], 422);
+        } catch (\Exception $e) {
+            \Log::error('Cart add error: ' . $e->getMessage(), [
+                'trace' => $e->getTraceAsString()
+            ]);
+            
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to add product to cart. Please try again.'
+            ], 500);
         }
-
-        // Refresh cart and load items to get updated count
-        $cart->refresh();
-        $cart->load('items');
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Product added to cart successfully!',
-            'cart_count' => $cart->item_count
-        ]);
     }
 
     public function update(Request $request, CartItem $cartItem)
@@ -116,20 +139,25 @@ class CartController extends Controller
 
     public function count()
     {
-        $userId = auth()->id();
-        $sessionId = session()->getId();
+        try {
+            $userId = auth()->id();
+            $sessionId = session()->getId();
 
-        $cart = Cart::query();
+            $cartQuery = Cart::query();
 
-        if ($userId) {
-            $cart->where('user_id', $userId);
-        } else {
-            $cart->where('session_id', $sessionId)->whereNull('user_id');
+            if ($userId) {
+                $cartQuery->where('user_id', $userId);
+            } else {
+                $cartQuery->where('session_id', $sessionId)->whereNull('user_id');
+            }
+
+            $cart = $cartQuery->with('items')->first();
+            $count = $cart ? $cart->item_count : 0;
+
+            return response()->json(['count' => $count]);
+        } catch (\Exception $e) {
+            \Log::error('Cart count error: ' . $e->getMessage());
+            return response()->json(['count' => 0], 500);
         }
-
-        $cart = $cart->first();
-        $count = $cart ? $cart->item_count : 0;
-
-        return response()->json(['count' => $count]);
     }
 }
