@@ -34,7 +34,6 @@
     <script src="{{ asset('js/notifications.js') }}" defer></script>
     @endauth
     <script src="{{ asset('js/home.js') }}" defer></script>
-    <script src="{{ asset('js/product-details.js') }}" defer></script>
 
 
     @stack('styles')

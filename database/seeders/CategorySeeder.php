@@ -13,30 +13,30 @@ class CategorySeeder extends Seeder
         $men = Category::updateOrCreate(
             ['slug' => 'men'],
             [
-                'name' => 'Men',
-                'description' => 'Men clothing and accessories',
-                'is_active' => true,
-                'order' => 1
+            'name' => 'Men',
+            'description' => 'Men clothing and accessories',
+            'is_active' => true,
+            'order' => 1
             ]
         );
 
         $women = Category::updateOrCreate(
             ['slug' => 'women'],
             [
-                'name' => 'Women',
-                'description' => 'Women clothing and accessories',
-                'is_active' => true,
-                'order' => 2
+            'name' => 'Women',
+            'description' => 'Women clothing and accessories',
+            'is_active' => true,
+            'order' => 2
             ]
         );
 
         $kids = Category::updateOrCreate(
             ['slug' => 'kids'],
             [
-                'name' => 'Kids',
-                'description' => 'Kids clothing and accessories',
-                'is_active' => true,
-                'order' => 3
+            'name' => 'Kids',
+            'description' => 'Kids clothing and accessories',
+            'is_active' => true,
+            'order' => 3
             ]
         );
 
@@ -44,30 +44,30 @@ class CategorySeeder extends Seeder
         Category::updateOrCreate(
             ['slug' => 'men-shirts'],
             [
-                'name' => 'Shirts',
-                'parent_id' => $men->id,
-                'is_active' => true,
-                'order' => 1
+            'name' => 'Shirts',
+            'parent_id' => $men->id,
+            'is_active' => true,
+            'order' => 1
             ]
         );
 
         Category::updateOrCreate(
             ['slug' => 'men-pants'],
             [
-                'name' => 'Pants',
-                'parent_id' => $men->id,
-                'is_active' => true,
-                'order' => 2
+            'name' => 'Pants',
+            'parent_id' => $men->id,
+            'is_active' => true,
+            'order' => 2
             ]
         );
 
         Category::updateOrCreate(
             ['slug' => 'men-tshirts'],
             [
-                'name' => 'T-Shirts',
-                'parent_id' => $men->id,
-                'is_active' => true,
-                'order' => 3
+            'name' => 'T-Shirts',
+            'parent_id' => $men->id,
+            'is_active' => true,
+            'order' => 3
             ]
         );
 
@@ -75,30 +75,30 @@ class CategorySeeder extends Seeder
         Category::updateOrCreate(
             ['slug' => 'women-dresses'],
             [
-                'name' => 'Dresses',
-                'parent_id' => $women->id,
-                'is_active' => true,
-                'order' => 1
+            'name' => 'Dresses',
+            'parent_id' => $women->id,
+            'is_active' => true,
+            'order' => 1
             ]
         );
 
         Category::updateOrCreate(
             ['slug' => 'women-tops'],
             [
-                'name' => 'Tops',
-                'parent_id' => $women->id,
-                'is_active' => true,
-                'order' => 2
+            'name' => 'Tops',
+            'parent_id' => $women->id,
+            'is_active' => true,
+            'order' => 2
             ]
         );
 
         Category::updateOrCreate(
             ['slug' => 'women-skirts'],
             [
-                'name' => 'Skirts',
-                'parent_id' => $women->id,
-                'is_active' => true,
-                'order' => 3
+            'name' => 'Skirts',
+            'parent_id' => $women->id,
+            'is_active' => true,
+            'order' => 3
             ]
         );
 
@@ -106,20 +106,20 @@ class CategorySeeder extends Seeder
         Category::updateOrCreate(
             ['slug' => 'kids-boys'],
             [
-                'name' => 'Boys',
-                'parent_id' => $kids->id,
-                'is_active' => true,
-                'order' => 1
+            'name' => 'Boys',
+            'parent_id' => $kids->id,
+            'is_active' => true,
+            'order' => 1
             ]
         );
 
         Category::updateOrCreate(
             ['slug' => 'kids-girls'],
             [
-                'name' => 'Girls',
-                'parent_id' => $kids->id,
-                'is_active' => true,
-                'order' => 2
+            'name' => 'Girls',
+            'parent_id' => $kids->id,
+            'is_active' => true,
+            'order' => 2
             ]
         );
     }

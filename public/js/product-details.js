@@ -22,6 +22,18 @@ const ProductDetails = {
             return;
         }
 
+        // Ensure DOM is ready before initializing
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                this.initializeComponents();
+            });
+        } else {
+            // DOM is already ready
+            this.initializeComponents();
+        }
+    },
+
+    initializeComponents() {
         this.initImageGallery();
         this.initQuantityControls();
         this.initVariantSelection();

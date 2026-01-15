@@ -308,22 +308,68 @@
 </div>
 
 @push('scripts')
-<script src="{{ asset('js/product-details.js') }}"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    // Load script and initialize
+    (function() {
+        let retryCount = 0;
+        const maxRetries = 10;
+        
+        function initializeProductDetails() {
         if (typeof ProductDetails !== 'undefined') {
+                try {
+                    // Check if elements exist
+                    const quantityInput = document.getElementById('quantity');
+                    const addToCartBtn = document.getElementById('add-to-cart-btn');
+                    
+                    if (!quantityInput || !addToCartBtn) {
+                        console.warn('Product details elements not found, retrying...');
+                        if (retryCount < maxRetries) {
+                            retryCount++;
+                            setTimeout(initializeProductDetails, 100);
+                        }
+                        return;
+                    }
+                    
             ProductDetails.init({
                 productId: {{ $product->id }},
-                maxQuantity: {{ max($product->stock_quantity ?? 10, 1) }},
-                csrfToken: '{{ csrf_token() }}',
-                variants: @json($product->variants ?? []),
-                hasSizes: {{ ($product->variants ?? collect())->whereNotNull('size')->count() > 0 ? 'true' : 'false' }},
-                hasColors: {{ ($product->variants ?? collect())->whereNotNull('color')->count() > 0 ? 'true' : 'false' }}
-            });
+                        maxQuantity: {{ max($product->stock_quantity ?? 10, 1) }},
+                        csrfToken: '{{ csrf_token() }}',
+                        variants: @json($product->variants ?? []),
+                        hasSizes: {{ ($product->variants ?? collect())->whereNotNull('size')->count() > 0 ? 'true' : 'false' }},
+                        hasColors: {{ ($product->variants ?? collect())->whereNotNull('color')->count() > 0 ? 'true' : 'false' }}
+                    });
+                    console.log('ProductDetails initialized successfully');
+                } catch (error) {
+                    console.error('Error initializing ProductDetails:', error);
+                }
+            } else {
+                // Retry after a short delay if script not loaded yet
+                if (retryCount < maxRetries) {
+                    retryCount++;
+                    setTimeout(initializeProductDetails, 100);
         } else {
-            console.error('ProductDetails not loaded. Make sure product-details.js is included.');
+                    console.error('ProductDetails script failed to load after multiple retries');
+                }
+            }
         }
-    });
+
+        // Load the script first
+        const script = document.createElement('script');
+        script.src = '{{ asset('js/product-details.js') }}';
+        script.onload = function() {
+            // Script loaded, now initialize
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initializeProductDetails);
+            } else {
+                // DOM is already ready
+                setTimeout(initializeProductDetails, 10);
+            }
+        };
+        script.onerror = function() {
+            console.error('Failed to load product-details.js');
+        };
+        document.head.appendChild(script);
+    })();
 </script>
 @endpush
 @endsection

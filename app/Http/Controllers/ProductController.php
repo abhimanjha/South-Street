@@ -62,13 +62,35 @@ class ProductController extends Controller
         return view('products.show', compact('product'));
     }
 
-    public function category($slug)
+    public function category(Request $request, $slug)
     {
         $category = Category::where('slug', $slug)->firstOrFail();
-        $products = Product::where('category_id', $category->id)
+        
+        $query = Product::where('category_id', $category->id)
             ->with(['images', 'category', 'variants'])
-            ->active()
-            ->paginate(12);
+            ->active();
+
+        // Apply filters
+        $filter = $request->get('filter');
+        switch ($filter) {
+            case 'new':
+                $query->newArrivals();
+                break;
+            case 'featured':
+                $query->featured();
+                break;
+            case 'discount':
+                $query->whereNotNull('discount_price');
+                break;
+            case 'trending':
+                $query->trending();
+                break;
+            default:
+                // All products in category
+                break;
+        }
+
+        $products = $query->paginate(12);
 
         return view('products.index', compact('products', 'category'));
     }
