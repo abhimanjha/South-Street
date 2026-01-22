@@ -574,16 +574,6 @@ footer {
     position: relative;
 }
 
-footer::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 4px;
-    background: linear-gradient(90deg, transparent, var(--primary-color), var(--accent-color), transparent);
-    animation: slideLineLuxe 5s ease-in-out infinite;
-}
 
 @keyframes slideLineLuxe {
     0% { left: -100%; }
@@ -594,16 +584,7 @@ footer a {
     transition: all 0.4s ease;
 }
 
-footer a::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background: var(--primary-color);
-    transition: width 0.4s ease;
-}
+
 
 footer a:hover::after {
     width: 100%;
@@ -1675,7 +1656,7 @@ footer a:hover {
 /* Modern Trending Section */
 .products-section {
     padding: 4rem 0 !important;
-    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
+    background-color: #ffffff !important;
     position: relative !important;
 }
 
@@ -1686,9 +1667,6 @@ footer a:hover {
     left: 0 !important;
     right: 0 !important;
     bottom: 0 !important;
-    background-image: 
-        radial-gradient(circle at 25% 25%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
-        radial-gradient(circle at 75% 75%, rgba(168, 85, 247, 0.05) 0%, transparent 50%) !important;
     pointer-events: none !important;
 }
 
@@ -1980,7 +1958,7 @@ footer a:hover {
 /* Modern CTA Section */
 .cta-section {
     padding: 6rem 1rem !important;
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
+    background-color: #ffffff !important;
     position: relative !important;
     overflow: hidden !important;
 }
@@ -1992,9 +1970,7 @@ footer a:hover {
     left: 0 !important;
     right: 0 !important;
     bottom: 0 !important;
-    background-image: 
-        radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.1) 0%, transparent 50%) !important;
+    
     pointer-events: none !important;
 }
 
@@ -2022,13 +1998,13 @@ footer a:hover {
     font-weight: 700 !important;
     letter-spacing: -0.02em !important;
     margin-bottom: 1.5rem !important;
-    color: white !important;
+    color: #1A1A1A !important;
     line-height: 1.2 !important;
 }
 
 .cta-description {
     font-size: 1.125rem !important;
-    color: #cbd5e1 !important;
+    color: #1A1A1A !important;
     margin-bottom: 2.5rem !important;
     line-height: 1.7 !important;
     font-weight: 300 !important;

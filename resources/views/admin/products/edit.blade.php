@@ -174,7 +174,7 @@
                             @foreach($product->images->sortBy('order') as $image)
                             <div class="col-md-3 mb-3">
                                 <div class="card">
-                                    <img src="{{ asset('storage/' . $image->image_path) }}"
+                                    <img src="{{ Storage::url($image->image_path) }}"
                                          class="card-img-top" alt="Product Image" style="height: 150px; object-fit: cover;">
                                     <div class="card-body p-2">
                                         <div class="d-flex justify-content-between align-items-center">

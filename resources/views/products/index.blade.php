@@ -46,7 +46,7 @@
                                 <div class="product-image-container">
                                 @php
                                     $imagePath = $product->images->first() ? $product->images->first()->image_path : 'imgs/men1.jpg';
-                                    $imageUrl = str_starts_with($imagePath, 'imgs/') ? asset($imagePath) : asset('storage/' . $imagePath);
+                                    $imageUrl = str_starts_with($imagePath, 'imgs/') ? asset($imagePath) : Storage::url($imagePath);
                                 @endphp
                                 <img src="{{ $imageUrl }}"
                                      class="product-img-main"
@@ -56,9 +56,9 @@
                                 @if($product->images->count() > 1)
                                 @php
                                     $hoverImagePath = $product->images->skip(1)->first()->image_path;
-                                    $hoverImageUrl = str_starts_with($hoverImagePath, 'imgs/') ? asset($hoverImagePath) : asset('storage/' . $hoverImagePath);
+                                    $hoverImageUrl = str_starts_with($hoverImagePath, 'imgs/') ? asset($hoverImagePath) : Storage::url($hoverImagePath);
                                 @endphp
-                                <img src="{{ $hoverImageUrl }}" 
+                                <img src="{{ $hoverImageUrl }}"
                                      class="product-img-hover"
                                      alt="{{ $product->name }}"
                                      onload="console.log('Hover image loaded successfully:', this.src);"

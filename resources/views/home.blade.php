@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+<meta name="csrf-token" content="{{ csrf_token() }}">
 @section('title', 'Home - SouthStreet')
 
 @section('content')
@@ -109,7 +109,7 @@
                                             ₹{{ number_format($product->price, 0) }}
                                         @endif
                                     </p>
-                                    <button class="add-to-bag-btn" data-product-id="{{ $product->id }}" data-variant-id="" data-quantity="1">
+                                    <button class="add-to-bag-btn" data-product-id="{{ $product->id }}" {{ $product->variants->count() > 0 ? 'data-variant-id=""' : '' }} data-quantity="1">
                                         <i class="fas fa-shopping-bag"></i> ADD
                                     </button>
                                 </div>
@@ -203,16 +203,18 @@
 </section>
 
 <!-- Editorial / Offer Banner -->
-<section class="editorial-banner">
-    <div class="editorial-content">
-        <img src="{{ asset('imgs/men2.jpg') }}" alt="Editorial" class="editorial-image">
-        <div class="editorial-text">
-            <h2 class="editorial-title">STYLE ESSENTIALS</h2>
-            <p class="editorial-subtitle">Timeless pieces for every wardrobe</p>
-            <a href="{{ route('products.index') }}" class="editorial-link">DISCOVER</a>
-        </div>
-    </div>
+<section class="new-arrivals-section">
+  <h2 class="section-title">NEW ARRIVALS</h2>
+
+  <div class="banner-wrapper">
+    <img
+      src="{{ asset('imgs/new_arr.jpg') }}"
+      alt="New Arrivals Banner"
+      class="banner-image"
+    />
+  </div>
 </section>
+
 
 <!-- Custom Tailoring Service Row -->
 <section class="cta-section">
@@ -220,11 +222,12 @@
         <div class="cta-content">
             <div class="cta-text">
                 <h2 class="cta-title">CUSTOM DESIGN SERVICE</h2>
-                <p class="cta-description">Create your unique piece with our expert designers</p>
+                <p class="cta-description">Create your unique piece with our expert designers
+Step into a world of personalized fashion where every detail is thoughtfully crafted just for you. Our expert designers work closely with you to understand your vision, preferences, and occasion. From selecting premium fabrics to refining the smallest design elements, we ensure each piece is tailored to perfection—resulting in an outfit that reflects your individuality, confidence, and timeless style.</p>
                 <a href="{{ route('custom-tailoring.create') }}" class="cta-button">BOOK CONSULTATION</a>
             </div>
             <div class="cta-image">
-                <img src="/images/custom-design.jpg" alt="Custom Design" class="cta-img">
+                <img src="/imgs/cr1.jpg" alt="Custom Design" class="cta-img">
             </div>
         </div>
     </div>
@@ -286,7 +289,7 @@
                                             ₹{{ number_format($product->price, 0) }}
                                         @endif
                                     </p>
-                                    <button class="add-to-bag-btn" data-product-id="{{ $product->id }}" data-variant-id="" data-quantity="1">
+                                    <button class="add-to-bag-btn" data-product-id="{{ $product->id }}" {{ $product->variants->count() > 0 ? 'data-variant-id=""' : '' }} data-quantity="1">
                                         <i class="fas fa-shopping-bag"></i> ADD
                                     </button>
                                 </div>
@@ -344,7 +347,7 @@
                                             ₹{{ number_format($product->price, 0) }}
                                         @endif
                                     </p>
-                                    <button class="add-to-bag-btn" data-product-id="{{ $product->id }}" data-variant-id="" data-quantity="1">
+                                    <button class="add-to-bag-btn" data-product-id="{{ $product->id }}" {{ $product->variants->count() > 0 ? 'data-variant-id=""' : '' }} data-quantity="1">
                                         <i class="fas fa-shopping-bag"></i> ADD
                                     </button>
                                 </div>
@@ -367,69 +370,102 @@
 </section>
 
 <!-- Shop by Category -->
-<section class="category-section">
-    <div class="section-header-minimal">
-        <h2 class="section-title-minimal force-underline">SHOP BY CATEGORY</h2>
-    </div>
-    <div class="category-grid">
-        @foreach($categories as $category)
-            <div class="category-item">
-                <a href="{{ route('products.category', $category->slug) }}" class="category-link-minimal">
-                    <div class="category-image-box">
-                        @if($category->image)
-                            <img src="{{ Storage::url($category->image) }}"
-                                 alt="{{ $category->name }}"
-                                 class="category-img">
-                        @else
-                            <div class="category-placeholder">
-                                <span>{{ strtoupper($category->name) }}</span>
-                            </div>
-                        @endif
+<section class="modern-category-section">
+    <div class="container-fluid custom-container">
+        <div class="modern-section-header">
+            <h2 class="modern-title">Shop by Category</h2>
+            <p class="modern-subtitle">Curated essentials for your everyday wardrobe — clean fits, premium fabrics.</p>
+        </div>
+
+@php
+    use Illuminate\Support\Str;
+@endphp
+
+<div class="row g-3 g-md-4">
+@foreach($categories as $category)
+    <div class="col-6 col-md-4 col-lg-3">
+        <a href="{{ route('products.category', $category->slug) }}"
+           class="text-decoration-none shadow-sm rounded-3 overflow-hidden d-block modern-category-card">
+
+            <div class="position-relative overflow-hidden" style="aspect-ratio: 3/4;">
+
+                {{-- Men category custom image --}}
+                @if(Str::contains(strtolower($category->name), 'men'))
+                    <img src="{{ asset('imgs/men3.jpg') }}"
+                         alt="{{ $category->name }}"
+                         class="w-100 h-100 object-fit-cover modern-img">
+
+                {{-- Category image from DB --}}
+                @elseif($category->image)
+                    <img src="{{ Storage::url($category->image) }}"
+                         alt="{{ $category->name }}"
+                         class="w-100 h-100 object-fit-cover modern-img">
+
+                {{-- Fallback --}}
+                @else
+                    <div class="w-100 h-100 bg-light d-flex align-items-center justify-content-center">
+                        <span class="text-muted fw-bold">{{ strtoupper($category->name) }}</span>
                     </div>
-                    <h3 class="category-name-minimal">{{ $category->name }}</h3>
-                </a>
+                @endif
+
+                <div class="modern-overlay d-flex flex-column justify-content-end p-3 p-md-4 position-absolute top-0 start-0 w-100 h-100">
+                    <h3 class="text-white h5 mb-1 fw-bold">{{ strtoupper($category->name) }}</h3>
+                    <div class="modern-cat-cta text-white-50 small text-uppercase fw-semibold">
+                        Explore Collection <i class="bi bi-arrow-right"></i>
+                    </div>
+                </div>
+
             </div>
-        @endforeach
+        </a>
+    </div>
+@endforeach
+</div>
+
+
+        <div class="modern-bottom-action">
+            <a href="{{ route('products.index') }}" class="modern-btn-outline">View All Products</a>
+        </div>
     </div>
 </section>
 
-<!-- Feature Bar -->
-<section class="features-bar">
-    <div class="features-container">
-        <div class="feature-item">
-            <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
-            </svg>
-            <div class="feature-text">
-                <h4>FREE SHIPPING</h4>
-                <p>On orders above ₹500</p>
+<section class="modern-features-bar">
+    <div class="container-fluid custom-container">
+        <div class="modern-features-grid">
+            <div class="modern-feature-item">
+                <div class="modern-icon-circle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
+                </div>
+                <div class="modern-feature-info">
+                    <h4>Free Shipping</h4>
+                    <p>On orders above ₹500</p>
+                </div>
             </div>
-        </div>
-        <div class="feature-item">
-            <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-            </svg>
-            <div class="feature-text">
-                <h4>EASY RETURNS</h4>
-                <p>7-day return policy</p>
+            <div class="modern-feature-item">
+                <div class="modern-icon-circle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                </div>
+                <div class="modern-feature-info">
+                    <h4>Easy Returns</h4>
+                    <p>7-day return policy</p>
+                </div>
             </div>
-        </div>
-        <div class="feature-item">
-            <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-            <div class="feature-text">
-                <h4>QUALITY ASSURED</h4>
-                <p>Premium materials only</p>
+            <div class="modern-feature-item">
+                <div class="modern-icon-circle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <div class="modern-feature-info">
+                    <h4>Quality Assured</h4>
+                    <p>Premium materials only</p>
+                </div>
             </div>
-        </div>
-        <div class="feature-item">
-            <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path>
-            </svg>
-            <div class="feature-text">
-                <h4>24/7 SUPPORT</h4>
-                <p>Always here to help</p>
+            <div class="modern-feature-item">
+                <div class="modern-icon-circle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                </div>
+                <div class="modern-feature-info">
+                    <h4>24/7 Support</h4>
+                    <p>Always here to help</p>
+                </div>
             </div>
         </div>
     </div>

@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Garmeva')</title>
-    <meta name="description" content="@yield('meta_description', 'Premium fashion and custom design services')">
+    <title>@yield('title', 'SouthStreet')</title>
+    <meta name="description" content="@yield('meta_description', 'street fashion and custom design services')">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">

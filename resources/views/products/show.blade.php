@@ -26,9 +26,9 @@
             <div class="col-lg-6">
                 <div class="product-gallery">
                     <div class="main-image-wrapper">
-                        <img id="main-product-image" 
-                             src="{{ $product->primaryImage ? asset('storage/' . $product->primaryImage->image_path) : 'data:image/svg+xml;base64,' . base64_encode('<svg width="400" height="500" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#f3f4f6"/><text x="50%" y="50%" font-family="Arial, sans-serif" font-size="16" fill="#9ca3af" text-anchor="middle" dy=".3em">No Image Available</text></svg>') }}" 
-                             alt="{{ $product->name }}" 
+                        <img id="main-product-image"
+                             src="{{ $product->primaryImage ? Storage::url($product->primaryImage->image_path) : 'data:image/svg+xml;base64,' . base64_encode('<svg width="400" height="500" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#f3f4f6"/><text x="50%" y="50%" font-family="Arial, sans-serif" font-size="16" fill="#9ca3af" text-anchor="middle" dy=".3em">No Image Available</text></svg>') }}"
+                             alt="{{ $product->name }}"
                              class="main-product-image">
                         <div class="image-zoom-overlay">
                             <i class="fas fa-search-plus"></i>
@@ -38,10 +38,10 @@
                     @if($product->images->count() > 1)
                     <div class="thumbnail-gallery">
                         @foreach($product->images as $index => $image)
-                        <div class="thumbnail-item {{ $index === 0 ? 'active' : '' }}" 
-                             data-image="{{ asset('storage/' . $image->image_path) }}">
-                            <img src="{{ asset('storage/' . $image->image_path) }}" 
-                                 alt="{{ $product->name }}" 
+                        <div class="thumbnail-item {{ $index === 0 ? 'active' : '' }}"
+                             data-image="{{ Storage::url($image->image_path) }}">
+                            <img src="{{ Storage::url($image->image_path) }}"
+                                 alt="{{ $product->name }}"
                                  class="thumbnail-image">
                         </div>
                         @endforeach
